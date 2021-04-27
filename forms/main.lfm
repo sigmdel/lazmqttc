@@ -1,0 +1,300 @@
+object MainForm: TMainForm
+  Left = 332
+  Height = 545
+  Top = 250
+  Width = 633
+  Caption = 'Lazarus MQTT Client'
+  ClientHeight = 545
+  ClientWidth = 633
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  object MiddlePanel: TPanel
+    Left = 6
+    Height = 136
+    Top = 51
+    Width = 621
+    Align = alTop
+    Anchors = []
+    BorderSpacing.Left = 6
+    BorderSpacing.Right = 6
+    BevelOuter = bvLowered
+    ClientHeight = 136
+    ClientWidth = 621
+    TabOrder = 0
+    object Label3: TLabel
+      AnchorSideLeft.Control = MiddlePanel
+      AnchorSideTop.Control = PublishTopicEdit
+      AnchorSideTop.Side = asrCenter
+      Left = 7
+      Height = 14
+      Top = 16
+      Width = 56
+      BorderSpacing.Left = 6
+      Caption = 'PubTopic'
+      ParentColor = False
+    end
+    object PublishTopicEdit: TEdit
+      AnchorSideLeft.Control = MessageMemo
+      AnchorSideTop.Control = MiddlePanel
+      AnchorSideRight.Control = MessageMemo
+      AnchorSideRight.Side = asrBottom
+      Left = 88
+      Height = 32
+      Top = 7
+      Width = 520
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Top = 6
+      BorderSpacing.Right = 6
+      TabOrder = 0
+    end
+    object MessageMemo: TMemo
+      AnchorSideLeft.Control = PublishButton
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = PublishTopicEdit
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = MiddlePanel
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = MiddlePanel
+      AnchorSideBottom.Side = asrBottom
+      Left = 88
+      Height = 84
+      Top = 45
+      Width = 526
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      BorderSpacing.Left = 6
+      BorderSpacing.Top = 6
+      BorderSpacing.Right = 6
+      BorderSpacing.Bottom = 6
+      ScrollBars = ssAutoVertical
+      TabOrder = 1
+    end
+    object Label4: TLabel
+      AnchorSideLeft.Control = Label3
+      AnchorSideTop.Control = MessageMemo
+      Left = 7
+      Height = 14
+      Top = 45
+      Width = 53
+      Caption = 'Message'
+      ParentColor = False
+    end
+    object PublishButton: TButton
+      AnchorSideLeft.Control = MiddlePanel
+      AnchorSideTop.Control = PublishTopicEdit
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = MessageMemo
+      AnchorSideBottom.Side = asrBottom
+      Left = 7
+      Height = 25
+      Top = 104
+      Width = 75
+      Anchors = [akLeft, akBottom]
+      BorderSpacing.Left = 6
+      BorderSpacing.Top = 6
+      BorderSpacing.Right = 6
+      Caption = 'Publish'
+      OnClick = PublishButtonClick
+      TabOrder = 2
+    end
+  end
+  object BottomPanel: TPanel
+    Left = 6
+    Height = 311
+    Top = 197
+    Width = 621
+    Align = alClient
+    Anchors = [akLeft]
+    BorderSpacing.Left = 6
+    BorderSpacing.Right = 6
+    BevelOuter = bvLowered
+    ClientHeight = 311
+    ClientWidth = 621
+    TabOrder = 1
+    object SubscribedMemo: TMemo
+      AnchorSideTop.Control = SubListBox
+      AnchorSideTop.Side = asrBottom
+      Left = 7
+      Height = 236
+      Top = 68
+      Width = 607
+      Align = alBottom
+      Anchors = [akTop]
+      BorderSpacing.Top = 6
+      BorderSpacing.Around = 6
+      Font.Height = -15
+      Font.Name = 'Ubuntu Mono'
+      ParentFont = False
+      ScrollBars = ssAutoVertical
+      TabOrder = 0
+    end
+    object Label2: TLabel
+      AnchorSideLeft.Control = BottomPanel
+      AnchorSideTop.Control = BottomPanel
+      Left = 7
+      Height = 14
+      Top = 7
+      Width = 61
+      BorderSpacing.Left = 6
+      BorderSpacing.Top = 6
+      Caption = 'SubTopics'
+      ParentColor = False
+    end
+    object SubListBox: TCheckListBox
+      AnchorSideLeft.Control = Label2
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = BottomPanel
+      AnchorSideRight.Control = BottomPanel
+      AnchorSideRight.Side = asrBottom
+      Left = 74
+      Height = 49
+      Top = 7
+      Width = 540
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Left = 6
+      BorderSpacing.Top = 6
+      BorderSpacing.Right = 6
+      Items.Strings = (
+        '#'
+        'domoticz/in'
+        'domoticz/out'
+        'cmdn/#'
+        'stat/#'
+        'tele/#'
+      )
+      ItemHeight = 22
+      OnClickCheck = SubListBoxClickCheck
+      TabOrder = 1
+      Data = {
+        06000000000000000000
+      }
+    end
+  end
+  object Splitter1: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 10
+    Top = 187
+    Width = 633
+    Align = alTop
+    ResizeAnchor = akTop
+  end
+  object TopPanel: TPanel
+    Left = 6
+    Height = 39
+    Top = 6
+    Width = 621
+    Align = alTop
+    Alignment = taRightJustify
+    Anchors = []
+    AutoSize = True
+    BorderSpacing.Around = 6
+    BevelOuter = bvLowered
+    ClientHeight = 39
+    ClientWidth = 621
+    TabOrder = 2
+    object Label1: TLabel
+      AnchorSideLeft.Control = EditBrokerButton
+      AnchorSideLeft.Side = asrCenter
+      AnchorSideTop.Control = ConnectButton
+      AnchorSideTop.Side = asrCenter
+      Left = 30
+      Height = 14
+      Top = 12
+      Width = 44
+      BorderSpacing.Left = 6
+      Caption = 'Broker:'
+      Layout = tlCenter
+      ParentColor = False
+    end
+    object EditBrokerButton: TButton
+      AnchorSideLeft.Control = TopPanel
+      AnchorSideTop.Control = TopPanel
+      AnchorSideRight.Control = ConnectButton
+      Left = 7
+      Height = 25
+      Top = 7
+      Width = 90
+      BorderSpacing.Left = 6
+      BorderSpacing.Top = 6
+      BorderSpacing.Bottom = 6
+      Caption = 'Edit'
+      OnClick = EditBrokerButtonClick
+      TabOrder = 0
+    end
+    object statusLabel: TLabel
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = EditBrokerButton
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = ConnectButton
+      Left = 471
+      Height = 14
+      Top = 12
+      Width = 47
+      Anchors = [akTop, akRight]
+      BorderSpacing.Left = 6
+      BorderSpacing.Right = 6
+      Caption = '<none>'
+      ParentColor = False
+    end
+    object ConnectButton: TButton
+      AnchorSideTop.Control = EditBrokerButton
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = TopPanel
+      AnchorSideRight.Side = asrBottom
+      Left = 524
+      Height = 25
+      Top = 7
+      Width = 90
+      Anchors = [akTop, akRight]
+      BorderSpacing.Right = 6
+      BorderSpacing.Bottom = 6
+      Caption = 'Disconnect'
+      OnClick = ConnectButtonClick
+      TabOrder = 1
+    end
+    object HostLabel: TLabel
+      AnchorSideLeft.Control = EditBrokerButton
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = ConnectButton
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = statusLabel
+      Left = 103
+      Height = 14
+      Top = 12
+      Width = 362
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Left = 6
+      BorderSpacing.Right = 6
+      Caption = '<host name>'
+      ParentColor = False
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 37
+    Top = 508
+    Width = 633
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 37
+    ClientWidth = 633
+    TabOrder = 4
+    object QuitButton: TButton
+      AnchorSideTop.Control = Panel1
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = Panel1
+      AnchorSideRight.Side = asrBottom
+      Left = 552
+      Height = 25
+      Top = 6
+      Width = 75
+      Anchors = [akTop, akRight]
+      BorderSpacing.Top = 4
+      BorderSpacing.Right = 6
+      Caption = 'Quit'
+      OnClick = QuitButtonClick
+      TabOrder = 0
+    end
+  end
+end

@@ -1,0 +1,36 @@
+# .hgignore for project source
+#
+
+syntax: glob
+
+lib/
+publish/
+#tests/
+
+# Backup, unit and binary output folders
+backup
+*.code-workspace
+*.orig
+*.bak
+*.~*
+*~
+
+# Archives
+*.zip
+*.gz
+*.tar*
+
+# Unneeded Lazarus files
+*.lps
+
+# any executable
+lazmqttc
+lazmqttc.dbg
+tests/brokerunittest
+tests/brokerunittest.dbg
+tests/brokerunittest.ico
+tests/brokerunittest.res
+tests/brokerunittest.fpcunit.ini
+tests/brokerunittest.lps
+
+
