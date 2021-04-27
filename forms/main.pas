@@ -49,10 +49,12 @@ type
   { TMainForm }
 
   TMainForm = class(TForm)
-    SubListBox: TCheckListBox;
+    Label2: TLabel;
+    PairSplitter1: TPairSplitter;
+    PairSplitterSide1: TPairSplitterSide;
+    PairSplitterSide2: TPairSplitterSide;
     EditBrokerButton: TButton;
     ConnectButton: TButton;
-    Label2: TLabel;
     PublishButton: TButton;
     QuitButton: TButton;
     HostLabel: TLabel;
@@ -62,14 +64,15 @@ type
     Label1: TLabel;
     Label3: TLabel;
     Label4: TLabel;
-    SubscribedMemo: TMemo;
+    SubListBox: TCheckListBox;
     MessageMemo: TMemo;
     MiddlePanel: TPanel;
-    BottomPanel: TPanel;
     Splitter1: TSplitter;
+    SubscribedMemo: TMemo;
     TopPanel: TPanel;
     procedure ConnectButtonClick(Sender: TObject);
     procedure EditBrokerButtonClick(Sender: TObject);
+    procedure Panel1Click(Sender: TObject);
     procedure PublishButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -257,6 +260,11 @@ begin
     freeandnil(MqttClient);
     RefreshGUI;
   end;
+end;
+
+procedure TMainForm.Panel1Click(Sender: TObject);
+begin
+
 end;
 
 procedure TMainForm.PublishButtonClick(Sender: TObject);

@@ -11,7 +11,6 @@ object BrokerEditForm: TBrokerEditForm
   OnDestroy = FormDestroy
   OnShow = FormShow
   Position = poMainFormCenter
-  LCLVersion = '2.0.12.0'
   object HostEdit: TEdit
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
@@ -25,6 +24,21 @@ object BrokerEditForm: TBrokerEditForm
     OnChange = HostEditChange
     TabOrder = 0
     Text = 'HostEdit'
+  end
+  object PortEdit: TSpinEdit
+    AnchorSideLeft.Control = HostEdit
+    AnchorSideTop.Control = HostEdit
+    AnchorSideTop.Side = asrBottom
+    Left = 84
+    Height = 32
+    Top = 44
+    Width = 120
+    BorderSpacing.Top = 6
+    MaxValue = 65365
+    MinValue = 1024
+    OnChange = PortEditChange
+    TabOrder = 1
+    Value = 1883
   end
   object UserEdit: TEdit
     AnchorSideLeft.Control = HostEdit
@@ -40,8 +54,50 @@ object BrokerEditForm: TBrokerEditForm
     BorderSpacing.Top = 6
     BorderSpacing.Right = 6
     OnChange = UserEditChange
-    TabOrder = 1
+    TabOrder = 2
     Text = 'UserEdit'
+  end
+  object PasswordEdit: TEditButton
+    AnchorSideLeft.Control = HostEdit
+    AnchorSideTop.Control = UserEdit
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 84
+    Height = 32
+    Top = 120
+    Width = 431
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Top = 6
+    BorderSpacing.Right = 6
+    ButtonWidth = 23
+    EchoMode = emPassword
+    Images = ImageList1
+    ImageIndex = 6
+    ImageWidth = 16
+    MaxLength = 0
+    NumGlyphs = 1
+    OnButtonClick = PasswordEditButtonClick
+    OnChange = PasswordEditChange
+    PasswordChar = '*'
+    TabOrder = 3
+    Text = 'PasswordEdit'
+  end
+  object PubTopicEdit: TEdit
+    AnchorSideLeft.Control = HostEdit
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 84
+    Height = 32
+    Top = 158
+    Width = 431
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Top = 6
+    BorderSpacing.Right = 6
+    OnChange = PubTopicEditChange
+    TabOrder = 4
+    Text = 'PubTopicEdit'
   end
   object Label2: TLabel
     AnchorSideLeft.Control = Owner
@@ -87,21 +143,6 @@ object BrokerEditForm: TBrokerEditForm
     Caption = 'Password:'
     ParentColor = False
   end
-  object PortEdit: TSpinEdit
-    AnchorSideLeft.Control = HostEdit
-    AnchorSideTop.Control = HostEdit
-    AnchorSideTop.Side = asrBottom
-    Left = 84
-    Height = 32
-    Top = 44
-    Width = 120
-    BorderSpacing.Top = 6
-    MaxValue = 65365
-    MinValue = 1024
-    OnChange = PortEditChange
-    TabOrder = 2
-    Value = 1883
-  end
   object Label7: TLabel
     AnchorSideLeft.Control = Label2
     AnchorSideTop.Control = Panel1
@@ -112,36 +153,6 @@ object BrokerEditForm: TBrokerEditForm
     BorderSpacing.Top = 3
     Caption = 'SubTopics:'
     ParentColor = False
-  end
-  object AcceptButton: TButton
-    AnchorSideRight.Control = Owner
-    AnchorSideRight.Side = asrBottom
-    AnchorSideBottom.Control = Owner
-    AnchorSideBottom.Side = asrBottom
-    Left = 430
-    Height = 25
-    Top = 413
-    Width = 85
-    Anchors = [akRight, akBottom]
-    BorderSpacing.Right = 6
-    BorderSpacing.Bottom = 6
-    Caption = '&Accept'
-    OnClick = AcceptButtonClick
-    TabOrder = 3
-  end
-  object CancelButton: TButton
-    AnchorSideTop.Control = AcceptButton
-    AnchorSideTop.Side = asrCenter
-    AnchorSideRight.Control = AcceptButton
-    Left = 339
-    Height = 25
-    Top = 413
-    Width = 85
-    Anchors = [akTop, akRight]
-    BorderSpacing.Right = 6
-    Caption = '&Cancel'
-    OnClick = CancelButtonClick
-    TabOrder = 4
   end
   object Panel1: TPanel
     AnchorSideTop.Control = PubTopicEdit
@@ -161,19 +172,7 @@ object BrokerEditForm: TBrokerEditForm
     Caption = 'Panel1'
     ClientHeight = 211
     ClientWidth = 431
-    TabOrder = 5
-    object SubTopicsListBox: TCheckListBox
-      Left = 0
-      Height = 187
-      Top = 24
-      Width = 431
-      Align = alClient
-      Anchors = []
-      ItemHeight = 0
-      OnClickCheck = SubTopicsListBoxClickCheck
-      TabOrder = 1
-      TopIndex = -1
-    end
+    TabOrder = 6
     object ToolBar: TToolBar
       Left = 0
       Height = 24
@@ -186,6 +185,7 @@ object BrokerEditForm: TBrokerEditForm
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
+      TabStop = True
       object tbAdd: TToolButton
         Left = 70
         Top = 2
@@ -229,11 +229,24 @@ object BrokerEditForm: TBrokerEditForm
       end
       object ToolButton1: TToolButton
         Left = 116
-        Height = 8
+        Height = 22
         Top = 2
         Caption = 'ToolButton1'
         Style = tbsSeparator
       end
+    end
+    object SubTopicsListBox: TCheckListBox
+      Left = 0
+      Height = 187
+      Top = 24
+      Width = 431
+      Align = alClient
+      Anchors = []
+      ItemHeight = 0
+      OnClickCheck = SubTopicsListBoxClickCheck
+      TabOrder = 1
+      TabStop = False
+      TopIndex = -1
     end
   end
   object SaveButton: TButton
@@ -249,7 +262,7 @@ object BrokerEditForm: TBrokerEditForm
     BorderSpacing.Bottom = 6
     Caption = 'Save...'
     OnClick = SaveButtonClick
-    TabOrder = 6
+    TabOrder = 5
   end
   object LoadButton: TButton
     AnchorSideLeft.Control = SaveButton
@@ -276,47 +289,35 @@ object BrokerEditForm: TBrokerEditForm
     Caption = 'PubTopic:'
     ParentColor = False
   end
-  object PubTopicEdit: TEdit
-    AnchorSideLeft.Control = HostEdit
-    AnchorSideTop.Side = asrBottom
+  object AcceptButton: TButton
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    Left = 84
-    Height = 32
-    Top = 158
-    Width = 431
-    Anchors = [akTop, akLeft, akRight]
-    BorderSpacing.Top = 6
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 430
+    Height = 25
+    Top = 413
+    Width = 85
+    Anchors = [akRight, akBottom]
     BorderSpacing.Right = 6
-    OnChange = PubTopicEditChange
-    TabOrder = 8
-    Text = 'PubTopicEdit'
-  end
-  object PasswordEdit: TEditButton
-    AnchorSideLeft.Control = HostEdit
-    AnchorSideTop.Control = UserEdit
-    AnchorSideTop.Side = asrBottom
-    AnchorSideRight.Control = Owner
-    AnchorSideRight.Side = asrBottom
-    Left = 84
-    Height = 32
-    Top = 120
-    Width = 431
-    Anchors = [akTop, akLeft, akRight]
-    BorderSpacing.Top = 6
-    BorderSpacing.Right = 6
-    ButtonWidth = 23
-    EchoMode = emPassword
-    Images = ImageList1
-    ImageIndex = 6
-    ImageWidth = 16
-    MaxLength = 0
-    NumGlyphs = 1
-    OnButtonClick = PasswordEditButtonClick
-    OnChange = PasswordEditChange
-    PasswordChar = '*'
+    BorderSpacing.Bottom = 6
+    Caption = '&Accept'
+    OnClick = AcceptButtonClick
     TabOrder = 9
-    Text = 'PasswordEdit'
+  end
+  object CancelButton: TButton
+    AnchorSideTop.Control = AcceptButton
+    AnchorSideTop.Side = asrCenter
+    AnchorSideRight.Control = AcceptButton
+    Left = 339
+    Height = 25
+    Top = 413
+    Width = 85
+    Anchors = [akTop, akRight]
+    BorderSpacing.Right = 6
+    Caption = '&Cancel'
+    OnClick = CancelButtonClick
+    TabOrder = 8
   end
   object ActionList1: TActionList
     Images = ImageList1
