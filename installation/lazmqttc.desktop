@@ -1,0 +1,14 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=0.0.2
+Encoding=UTF-8
+Type=Application
+Icon=/home/michel/.local/bin/lazmqttc.png
+Exec=/home/michel/.local/bin/lazmqttc
+Name=Lazarus MQTT Client
+Categories=Development;
+Terminal=false
+Comment=Subscribe to and publish MQTT messages
+Comment[fr_CA]=Souscrire et publier des messages MQTT
+
