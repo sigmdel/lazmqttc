@@ -13,6 +13,6 @@ by Károly Balogh (chainq)
 
 For Pascal examples provided by chainq (`test.pas` and `testclass.pas`) please go to the original source.
 
-## Note
+### Note
 
-Unsusbscribe methods have been added to the `TMQTTConnection` class in `mqttclass.pas`  (2021-04-25)
+Unsusbscribe methods have been added to the `TMQTTConnection` class in `mqttclass.pas` as described by JacoFourie in [Issues #5: No Unsubscribe in the class](https://github.com/chainq/mosquitto-p/issues/5).
