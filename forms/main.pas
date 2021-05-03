@@ -27,8 +27,8 @@ unit main;
       ctypes, // needed by mosquitto
       ...
 
-  The  UseCThreads was defined by adding -dUseCThreads
-  Personalised Options of Compiler Options in Project Options
+  The  UseCThreads was defined by adding a -dUseCThreads
+  Custom Option in Project / Project Options / Compiter Options.
 
 *)
 

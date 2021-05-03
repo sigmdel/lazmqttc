@@ -12,11 +12,10 @@
       <XPManifest>
         <DpiAware Value="True"/>
       </XPManifest>
-      <Icon Value="0"/>
     </General>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
-      <RevisionNr Value="2"/>
+      <MinorVersionNr Value="1"/>
       <StringTable CompanyName="sigmdel.ca" LegalCopyright="Michel Deslierres" ProductName="lazmqttc"/>
     </VersionInfo>
     <BuildModes Count="3">
@@ -28,7 +27,7 @@
             <Filename Value="lazmqttc"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir)"/>
+            <IncludeFiles Value="$(ProjOutDir);units"/>
             <OtherUnitFiles Value="units;forms;mosquitto-p"/>
             <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -71,7 +70,7 @@
             <Filename Value="lazmqttc"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir)"/>
+            <IncludeFiles Value="$(ProjOutDir);units"/>
             <OtherUnitFiles Value="units;forms;mosquitto-p"/>
             <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -100,7 +99,7 @@
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
-      <DestinationDirectory Value="/home/michel/Documents/Lazarus_projects/mqtt/mqtt_viewer/publish"/>
+      <DestinationDirectory Value="/home/michel/Documents/Lazarus_projects/lazmqttc/publish"/>
       <UseFileFilters Value="True"/>
     </PublishOptions>
     <RunParams>
@@ -151,7 +150,7 @@
       <Filename Value="lazmqttc"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir)"/>
+      <IncludeFiles Value="$(ProjOutDir);units"/>
       <OtherUnitFiles Value="units;forms;editor;mosquitto-p"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
@@ -162,6 +161,9 @@
         </Win32>
       </Options>
     </Linking>
+    <Other>
+      <CustomOptions Value="-dUseCThreads"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

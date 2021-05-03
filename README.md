@@ -1,11 +1,10 @@
 # lazmqttc: Lazarus MQTT Client
 
-A basic MQTT client written in Free Pascal/Lazarus. It uses the libmosquitto library to communicate with the MQTT broker.
+A basic MQTT client written in Free Pascal/Lazarus that can publish messages to a broker while being subscribed to one or more topics with the same broker. It uses the libmosquitto library to communicate with the MQTT broker.
 
 ![screenshot](images/test_mosquitto.jpg)
 
-The screen capture shows the message sent to the public `test.moquitto.org` broker 
-and it's reply. 
+The screen capture shows the message sent to the public `test.moquitto.org` broker and it's reply. In this example, the client is subscribed to the same topic used to send the message, which in many cases would not be done.
 
 ## Requirements
 
@@ -13,7 +12,7 @@ The libmosquito library is needed. In Debian systems this means installing two p
 -  libmosquitto1    
 -  libmosquitto-dev 
 
-The first, `libmosquitto1` will probably already be installed if the mosquitto-clients package is available on the system. In Debian based systemsI these packages can be installed with a package manager such as [Synaptic](http://www.nongnu.org/synaptic/) or from the command line.
+The first, `libmosquitto1` will probably already be installed if the mosquitto-clients package is available on the system. In Debian-based systems these packages can be installed with a package manager such as [Synaptic](http://www.nongnu.org/synaptic/) or from the command line.
 
     $ sudo apt install libmosquitto1 libmosquitto-dev
 
@@ -23,6 +22,10 @@ Two Free Pascal units are required
 - mqttclass.pas - Object Pascal wrapper class to ease the integration of libmosquitto into Object Oriented 
 
 These files, found in the [mosquitto-p](mosquitto-p/) directory, are copied from the [GitHub repository](https://github.com/chainq/mosquitto-p) with the same name by Károly Balogh (chainq).
+
+## Compiling
+
+In principle creating this tool should be straightforward: clone this repository, start the Lazarus IDE, load the project, add an application icon if desired and compile the program. The application icon, called `lazmqttc.png`, is available in the `images`. The file `lazmqtt.lzp` is the LazPaint source for the image file. 
 
 ## Testing Environment
 
