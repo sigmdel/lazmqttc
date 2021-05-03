@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry,
-  brokerunit;
+  brokerunit, fpJson;
 
 {$i ../units/brokerunit.inc}
 
@@ -25,9 +25,23 @@ type
     procedure TestDeleteSubTopic;
     procedure TestAssignBroker;
     procedure TestAssignToStringList;
+    procedure TestSaveToJSON;
+    procedure TestLoadFromJSON;
+    procedure TestLoadSaveFile;
   end;
 
 implementation
+
+const
+  sHostKey = 'Host';
+  sPortKey = 'Port';
+  sUserKey = 'User';
+  sPasswordKey = 'Password';
+  sPubTopicKey = 'PubTopic';
+  sSubTopicsKey = 'SubTopics';
+  sTopicKey = 'topic';
+  sUseKey = 'use';
+
 
 procedure TTestBroker.SetUp;
 begin
@@ -162,7 +176,96 @@ begin
   end;
 end;
 
+procedure TTestBroker.TestSaveToJSON;
+var
+  jo: TJSONObject;
+  E, F: TJSONEnum;
+  i: integer;
+begin
+  jo := TJSONObject.create;
+  try
+    FBroker.SaveToJSON(jo);
+    for E in jo do begin
+      case E.key of
+        sHostKey : AssertEquals(sHostKey, FBroker.Host, E.Value.AsString);
+        sPortKey : AssertEquals(sPortKey, FBroker.Port, E.Value.AsInteger);
+        sUserKey : AssertEquals(sUserKey, FBroker.User, E.Value.AsString);
+        sPasswordKey : AssertEquals(sPasswordKey, FBroker.Password, E.Value.AsString);
+        sPubTopicKey : AssertEquals(sPubTopicKey, FBroker.PubTopic, E.Value.AsString);
+        sSubTopicsKey : begin
+           for i := 0 to E.Value.Count-1 do begin
+             for F in E.Value.Items[i] do begin
+               case F.key of
+                 '': ; // do nothing
+                 sTopicKey : AssertEquals(Format('Subtopic[%d]', [i]), FBroker.SubTopics[i], F.Value.AsString);
+                 sUseKey: AssertEquals(Format('Subscribed[%d]', [i]), FBroker.Subscribed[i], F.Value.AsBoolean);
+                 //use := F.Value.AsInteger = 1;
+                 else
+                   Fail('Unknown key "%s" in SubTopic[%d]', [F.key, i])
+               end;
+             end;
+           end; // for i
+        end; // SubTopics begin *)
+      else
+        Fail('Unknown key "%s" in JSON', [F.key])
+      end; // case E
+    end; // For E
+  finally
+    freeandnil(jo);
+  end;
+end;
 
+procedure  TTestBroker.TestLoadFromJSON;
+var
+  jo: TJSONObject;
+  LBroker: TBroker;
+begin
+  jo := TJSONObject.create;
+  LBroker := TBroker.create;
+  try
+    FBroker.SaveToJSON(jo);
+    LBroker.Clear;
+    LBroker.LoadFromJSON(jo);
+    AssertEquals('Host', DEFAULT_MQTT_HOST, LBroker.host);
+    AssertEquals('Port', DEFAULT_MQTT_PORT, LBroker.port);
+    AssertEquals('User', '', LBroker.user);
+    AssertEquals('Password', '', LBroker.password);
+    AssertEquals('PubTopic', '', LBroker.PubTopic);
+    AssertEquals('first SubTopic', DEFAULT_FIRST_SUBSCRIBE_TOPIC, LBroker.SubTopics[0]);
+    AssertEquals('first topic Subscribed', DEFAULT_SUBSCRIBED_FIRST_TOPIC, LBroker.Subscribed[0]);
+    AssertEquals('(subscribe) Count', 1, LBroker.count);
+    AssertEquals('susbscribedCount', 1, LBroker.SubscribedCount);
+  finally
+    freeandnil(jo);
+    freeandnil(LBroker);
+  end;
+end;
+
+procedure TTestBroker.TestLoadSaveFile;
+var
+  aFilename: string;
+begin
+  aFilename := GetTempFilename();
+  if (aFilename = '') then
+    aFilename := Format('%~stempxx', [extractfilepath(Paramstr(0))]);
+  aFilename := aFilename + '.json';
+  FBroker.SaveToFile(aFilename);
+  try
+    FBroker.Clear;
+    FBroker.LoadFromFile(aFilename);
+    AssertEquals('default Host', DEFAULT_MQTT_HOST, FBroker.host);
+    AssertEquals('default Port', DEFAULT_MQTT_PORT, FBroker.port);
+    AssertEquals('default User', '', FBroker.user);
+    AssertEquals('default Password', '', FBroker.password);
+    AssertEquals('default PubTopic', '', FBroker.PubTopic);
+    AssertEquals('default first SubTopic', DEFAULT_FIRST_SUBSCRIBE_TOPIC, FBroker.SubTopics[0]);
+    AssertEquals('default first topic Subscribed', DEFAULT_SUBSCRIBED_FIRST_TOPIC, FBroker.Subscribed[0]);
+    AssertEquals('(subscribe) Count', 1, FBroker.count);
+    AssertEquals('susbscribedCount', 1, FBroker.SubscribedCount);
+  finally
+    DeleteFile(aFilename);
+  end;
+end;
 
 initialization
   RegisterTest(TTestBroker);
