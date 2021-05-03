@@ -1,12 +1,12 @@
 #!/usr/bin/env xdg-open
 
 [Desktop Entry]
-Version=0.0.2
+Version=0.1.0
 Encoding=UTF-8
 Type=Application
 Icon=/home/michel/.local/bin/lazmqttc.png
 Exec=/home/michel/.local/bin/lazmqttc
-Name=Lazarus MQTT Client
+Name=MQTT Client
 Categories=Development;
 Terminal=false
 Comment=Subscribe to and publish MQTT messages
