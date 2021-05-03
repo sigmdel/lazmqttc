@@ -34,7 +34,9 @@ type
     procedure SetSubTopics(index: integer; AValue: string);
     procedure SetUser(AValue: string);
   public
+      { Create a TBroker object and initializes it. See Init }
     constructor create;
+
     destructor destroy; override;
 
       { Add an MQTT subscribe topic. The subscribed parameter is a flag
@@ -49,26 +51,74 @@ type
         If the target is a TStrings then all subscribe topics and
         and subscription flags are assigned to the target}
     procedure AssignTo(Target: TObject);
+
+      { Clears all fields of the oject except for the Port which is
+        set to the default MQTT TCP port. See Init. }
     procedure Clear;
+
+      { Number of sub topics }
     property Count: integer read GetCount;
+
+      { Deletes a sub topic selected by its index in SubTopics }
     procedure DeleteSubTopic(index: integer);
+
+      { Deletes a sub topic selected by its name }
     procedure DeleteSubTopic(const aTopic: string);
+
+      { Exchanges the position of wo sub topics in SubTopics }
     procedure ExchangeSubTopics(Index1, Index2: Integer);
+
+      { Defines reasonable values for the fields assuming the broker is
+        on the same machine as the client. Edit the file brokerinint.inc
+        to change these default values.}
     procedure Init;
+
+      { Loads the broker definition from a JSON formated file }
     procedure LoadFromFile(const aFilename: string);
+
+      { Loads the broker definition from a JSON object }
     procedure LoadFromJSON(aJSON: TJSONObject);
+
+      { Saves the broker definition in a JSON formated file }
     procedure SaveToFile(const aFileName: string);
+
+      { Saves the broker definition to a JSON object }
     procedure SaveToJSON(aJSON: TJSONObject);
+
+      { Removes all subsribed topics }
     procedure SubTopicsClear;
+
+      { Host name or IP address of the broker. Can use local domain
+        host names in Linux systems}
     property Host: string read FHost write SetHost;
+
+      { Set true when a change is made to a property }
     property Modified: boolean read FModified write FModified;
+
+      { Broker password. Used in conjunction with the User
+        property to connect to a secured MQTT broker }
     property Password: string read FPassword write SetPassword;
+
+      { MQTT TCP Port used by the broker}
     property Port: integer read FPort write SetPort;
+
+      { An initial topic to be used when publishing a message }
     property PubTopic: string read FPubTopic write SetPubTopic;
+
+      { Number of active subtopics (number of topics that are marked
+        for subscription in the Subscribed index }
     property SubscribedCount: integer read GetSubscribedCount;
+
+      { Boolean indicating if the client will subscribe to the topic when
+        a connection to the broker is established }
     property Subscribed[index: integer]: boolean read GetSubscribed write SetSubscribed;
+
+      { List of subscribe topics that can be used }
     property SubTopics[index: integer]: string read GetSubTopics write SetSubTopics; default;
-    property User: string read FUser write SetUser;
+
+      { Broker user account. Used in conjunction with the Password
+        property to connect to a secured MQTT broker }
+     property User: string read FUser write SetUser;
   end;
 
 var
@@ -187,36 +237,23 @@ begin
   AddSubTopic(DEFAULT_FIRST_SUBSCRIBE_TOPIC, DEFAULT_SUBSCRIBED_FIRST_TOPIC);
 end;
 
+
 procedure TBroker.LoadFromFile(const aFilename: string);
 Var
   stream : TFileStream;
-  P : TJSONParser;
-  D : TJSONData;
+  jd : TJSONData;
 begin
   if aFilename = '' then exit;
-  Clear;
+  jd := nil;
   stream := TFileStream.Create(AFileName,fmOpenRead or fmShareDenyWrite);
   try
-  {$IF FPC_FULLVERSION>=30002}
-    P:=TJSONParser.Create(stream, []);
-    try
-      P.Options:=P.Options+[joStrict];
-  {$ELSE}
-    P:=TJSONParser.Create(stream);
-    try
-  {$ENDIF}
-      D:=P.Parse;
-    finally
-      P.Free;
-    end;
+    jd := getJSON(stream);
+    LoadFromJSON(jd as TJSONObject);
   finally
-    stream.Free;
+    jd.free;
+    stream.free;
   end;
-  LoadFromJSON(D as TJSONObject);
-  D.free;
 end;
-
-
 
 procedure TBroker.LoadFromJSON(aJSON: TJSONObject);
 var
