@@ -26,6 +26,7 @@ backup
 # any executable
 lazmqttc
 lazmqttc.dbg
+lazmqttc.res
 tests/brokerunittest
 tests/brokerunittest.dbg
 tests/brokerunittest.ico
