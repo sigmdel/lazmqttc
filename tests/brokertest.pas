@@ -45,6 +45,7 @@ const
   sReconnectDelayKey = 'ReconnectDelay';
   sReconnectBackoffKey = 'ReconnectBackoff';
   sPubTopicKey = 'PubTopic';
+  sPubPayloadKey = 'PubPayload';
   sPubQoSKey = 'PubQoS';
   sPubRetainKey = 'PubRetain';
   sSubTopicsKey = 'SubTopics';
@@ -199,6 +200,7 @@ begin
         sUserKey : AssertEquals(sUserKey, FBroker.User, E.Value.AsString);
         sPasswordKey : AssertEquals(sPasswordKey, FBroker.Password, E.Value.AsString);
         sPubTopicKey : AssertEquals(sPubTopicKey, FBroker.PubTopic, E.Value.AsString);
+        sPubPayloadKey : AssertEquals(sPubPayloadKey, FBroker.PubPayload, E.Value.AsString);
         sPubQoSKey : AssertEquals(sPubQoSKey, FBroker.PubQoS, E.Value.AsInteger);
         sPubRetainKey : AssertEquals(sPubRetainKey, FBroker.PubRetain, E.Value.AsBoolean);
         sSSLKey : AssertEquals(sSSLKey, FBroker.SSL, E.Value.AsBoolean);
@@ -252,6 +254,8 @@ begin
     AssertEquals('ReconnectBackoff', DEFAULT_RECONNECTBACKOFF, LBroker.ReconnectBackoff);
 
     AssertEquals('PubTopic', DEFAULT_PUBLISH_TOPIC, LBroker.PubTopic);
+    AssertEquals('PubPayload', DEFAULT_PUBLISH_PAYLOAD, LBroker.PubPayload);
+
     AssertEquals('PubQoS', DEFAULT_PUBQOS, LBroker.PubQoS);
     AssertEquals('PubRetain', DEFAULT_PUBRETAIN, LBroker.PubRetain);
 
