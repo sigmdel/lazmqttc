@@ -1,24 +1,25 @@
 object MainForm: TMainForm
   Left = 332
-  Height = 436
+  Height = 364
   Top = 250
-  Width = 633
-  Caption = 'Lazarus MQTT Client'
-  ClientHeight = 436
-  ClientWidth = 633
+  Width = 575
+  Caption = 'MQTT Client'
+  ClientHeight = 364
+  ClientWidth = 575
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnShow = FormShow
   object MiddlePanel: TPanel
     AnchorSideRight.Control = TopPanel
     Left = 0
-    Height = 136
+    Height = 118
     Top = 37
-    Width = 633
+    Width = 575
     Align = alTop
     Anchors = []
     BevelOuter = bvNone
-    ClientHeight = 136
-    ClientWidth = 633
+    ClientHeight = 118
+    ClientWidth = 575
     TabOrder = 1
     object Label3: TLabel
       AnchorSideLeft.Control = MiddlePanel
@@ -27,74 +28,142 @@ object MainForm: TMainForm
       Left = 6
       Height = 14
       Top = 15
-      Width = 56
+      Width = 32
       BorderSpacing.Left = 6
-      Caption = 'PubTopic'
+      Caption = 'Topic'
       ParentColor = False
     end
     object PublishTopicEdit: TEdit
-      AnchorSideLeft.Control = MessageMemo
+      AnchorSideLeft.Control = PayloadMemo
       AnchorSideTop.Control = MiddlePanel
       AnchorSideRight.Control = MiddlePanel
       AnchorSideRight.Side = asrBottom
-      Left = 87
+      Left = 61
       Height = 32
       Top = 6
-      Width = 540
+      Width = 508
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Top = 6
       BorderSpacing.Right = 6
+      OnEditingDone = PublishTopicEditEditingDone
       TabOrder = 0
     end
-    object MessageMemo: TMemo
-      AnchorSideLeft.Control = PublishButton
+    object PayloadMemo: TMemo
+      AnchorSideLeft.Control = Label4
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = PublishTopicEdit
       AnchorSideTop.Side = asrBottom
       AnchorSideRight.Control = MiddlePanel
       AnchorSideRight.Side = asrBottom
-      AnchorSideBottom.Control = MiddlePanel
-      AnchorSideBottom.Side = asrBottom
-      Left = 87
-      Height = 89
+      AnchorSideBottom.Control = QoSComboBox
+      Left = 61
+      Height = 37
       Top = 44
-      Width = 540
+      Width = 508
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Left = 6
       BorderSpacing.Top = 6
       BorderSpacing.Right = 6
-      BorderSpacing.Bottom = 3
+      BorderSpacing.Bottom = 6
+      OnEditingDone = PayloadMemoEditingDone
       ScrollBars = ssAutoVertical
       TabOrder = 1
     end
     object Label4: TLabel
       AnchorSideLeft.Control = Label3
-      AnchorSideTop.Control = MessageMemo
+      AnchorSideTop.Control = PayloadMemo
       Left = 6
-      Height = 14
+      Height = 22
       Top = 44
-      Width = 53
-      Caption = 'Message'
+      Width = 49
+      AutoSize = False
+      Caption = 'Payload'
       ParentColor = False
     end
     object PublishButton: TButton
-      AnchorSideLeft.Control = MiddlePanel
-      AnchorSideTop.Control = PublishTopicEdit
+      AnchorSideLeft.Control = QoSComboBox
+      AnchorSideTop.Control = QoSComboBox
       AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = MiddlePanel
       AnchorSideRight.Side = asrBottom
-      AnchorSideBottom.Control = MessageMemo
+      AnchorSideBottom.Control = MiddlePanel
       AnchorSideBottom.Side = asrBottom
-      Left = 6
+      Left = 494
       Height = 25
-      Top = 108
+      Top = 89
       Width = 75
-      Anchors = [akLeft, akBottom]
+      Anchors = [akTop, akRight]
       BorderSpacing.Left = 6
       BorderSpacing.Top = 6
       BorderSpacing.Right = 6
       Caption = 'Publish'
       OnClick = PublishButtonClick
+      TabOrder = 4
+    end
+    object Label5: TLabel
+      AnchorSideLeft.Control = Label3
+      AnchorSideTop.Control = QoSComboBox
+      AnchorSideTop.Side = asrCenter
+      Left = 6
+      Height = 14
+      Top = 94
+      Width = 194
+      Caption = 'Message quality of service (QoS)'
+      Layout = tlCenter
+      ParentColor = False
+    end
+    object QoSComboBox: TComboBox
+      AnchorSideLeft.Control = Label5
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Side = asrCenter
+      AnchorSideBottom.Control = MiddlePanel
+      AnchorSideBottom.Side = asrBottom
+      Left = 206
+      Height = 28
+      Top = 87
+      Width = 149
+      Anchors = [akLeft, akBottom]
+      BorderSpacing.Left = 6
+      BorderSpacing.Bottom = 3
+      ItemHeight = 0
+      ItemIndex = 0
+      Items.Strings = (
+        '0 - at most once'
+        '1 - at least once'
+        '2 - exactly once'
+      )
+      OnChange = QoSComboBoxChange
+      Style = csDropDownList
       TabOrder = 2
+      Text = '0 - at most once'
+    end
+    object Label6: TLabel
+      AnchorSideLeft.Control = QoSComboBox
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = QoSComboBox
+      AnchorSideTop.Side = asrCenter
+      Left = 373
+      Height = 14
+      Top = 94
+      Width = 38
+      BorderSpacing.Left = 18
+      Caption = 'Retain'
+      Layout = tlCenter
+      ParentColor = False
+    end
+    object RetainCheckBox: TCheckBox
+      AnchorSideLeft.Control = Label6
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = QoSComboBox
+      AnchorSideTop.Side = asrCenter
+      Left = 418
+      Height = 23
+      Top = 90
+      Width = 63
+      BorderSpacing.Left = 7
+      Caption = '(false)'
+      OnChange = RetainCheckBoxChange
+      TabOrder = 3
     end
   end
   object Splitter1: TSplitter
@@ -102,8 +171,8 @@ object MainForm: TMainForm
     Cursor = crVSplit
     Left = 0
     Height = 10
-    Top = 173
-    Width = 633
+    Top = 155
+    Width = 575
     Align = alTop
     ResizeAnchor = akTop
   end
@@ -111,14 +180,14 @@ object MainForm: TMainForm
     Left = 0
     Height = 37
     Top = 0
-    Width = 633
+    Width = 575
     Align = alTop
     Alignment = taRightJustify
     Anchors = []
     AutoSize = True
     BevelOuter = bvNone
     ClientHeight = 37
-    ClientWidth = 633
+    ClientWidth = 575
     TabOrder = 0
     object Label1: TLabel
       AnchorSideLeft.Control = EditBrokerButton
@@ -154,7 +223,7 @@ object MainForm: TMainForm
       AnchorSideTop.Control = EditBrokerButton
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = ConnectButton
-      Left = 484
+      Left = 426
       Height = 14
       Top = 11
       Width = 47
@@ -169,7 +238,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = TopPanel
       AnchorSideRight.Side = asrBottom
-      Left = 537
+      Left = 479
       Height = 25
       Top = 6
       Width = 90
@@ -189,7 +258,7 @@ object MainForm: TMainForm
       Left = 87
       Height = 14
       Top = 11
-      Width = 391
+      Width = 333
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Left = 6
       BorderSpacing.Right = 6
@@ -200,20 +269,19 @@ object MainForm: TMainForm
   object Panel1: TPanel
     Left = 0
     Height = 37
-    Top = 399
-    Width = 633
+    Top = 327
+    Width = 575
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 37
-    ClientWidth = 633
-    TabOrder = 4
-    OnClick = Panel1Click
+    ClientWidth = 575
+    TabOrder = 3
     object QuitButton: TButton
       AnchorSideTop.Control = Panel1
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = Panel1
       AnchorSideRight.Side = asrBottom
-      Left = 552
+      Left = 494
       Height = 25
       Top = 6
       Width = 75
@@ -224,15 +292,63 @@ object MainForm: TMainForm
       OnClick = QuitButtonClick
       TabOrder = 0
     end
+    object CheckBox1: TCheckBox
+      AnchorSideLeft.Control = Panel1
+      AnchorSideTop.Control = Panel1
+      AnchorSideTop.Side = asrCenter
+      Left = 6
+      Height = 23
+      Top = 7
+      Width = 98
+      BorderSpacing.Left = 6
+      Caption = 'Show topics'
+      Checked = True
+      OnChange = CheckBox1Change
+      State = cbChecked
+      TabOrder = 1
+    end
+    object Label2: TLabel
+      AnchorSideLeft.Control = CheckBox1
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = CheckBox1
+      AnchorSideTop.Side = asrCenter
+      Left = 128
+      Height = 14
+      Top = 11
+      Width = 41
+      BorderSpacing.Left = 24
+      Caption = 'Label2'
+      ParentColor = False
+    end
+    object SourceLabel: TLabel
+      AnchorSideTop.Control = QuitButton
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = QuitButton
+      Cursor = crHandPoint
+      Left = 408
+      Height = 22
+      Top = 7
+      Width = 62
+      Alignment = taRightJustify
+      Anchors = [akTop, akRight]
+      AutoSize = False
+      BorderSpacing.Right = 24
+      Caption = 'Source'
+      Font.Style = [fsUnderline]
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
+      OnClick = SourceLabelClick
+    end
   end
   object PairSplitter1: TPairSplitter
-    AnchorSideRight.Control = TopPanel
     Cursor = crVSplit
     Left = 0
-    Height = 216
-    Top = 183
-    Width = 633
+    Height = 162
+    Top = 165
+    Width = 575
     Align = alClient
+    Color = clBtnFace
     Position = 80
     SplitterType = pstVertical
     object PairSplitterSide1: TPairSplitterSide
@@ -240,75 +356,44 @@ object MainForm: TMainForm
       Left = 0
       Height = 80
       Top = 0
-      Width = 633
-      ClientWidth = 633
-      ClientHeight = 80
-      object Label2: TLabel
-        AnchorSideTop.Control = SubListBox
-        Left = 7
-        Height = 14
-        Top = 3
-        Width = 61
-        BorderSpacing.Left = 6
-        Caption = 'SubTopics'
-        ParentColor = False
-      end
-      object SubListBox: TCheckListBox
-        AnchorSideLeft.Control = Label2
-        AnchorSideLeft.Side = asrBottom
-        AnchorSideTop.Control = PairSplitterSide1
-        AnchorSideRight.Control = PairSplitterSide1
-        AnchorSideRight.Side = asrBottom
-        AnchorSideBottom.Control = PairSplitterSide1
-        AnchorSideBottom.Side = asrBottom
-        Left = 74
-        Height = 71
-        Top = 3
-        Width = 553
-        Anchors = [akTop, akLeft, akRight, akBottom]
-        BorderSpacing.Left = 6
-        BorderSpacing.Top = 3
-        BorderSpacing.Right = 6
-        BorderSpacing.Bottom = 6
-        Items.Strings = (
-          '#'
-          'domoticz/in'
-          'domoticz/out'
-          'cmdn/#'
-          'stat/#'
-          'tele/#'
-        )
-        ItemHeight = 22
-        OnClickCheck = SubListBoxClickCheck
-        TabOrder = 0
-        Data = {
-          06000000000000000000
-        }
-      end
+      Width = 575
+      OnResize = PairSplitter1Resize
     end
     object PairSplitterSide2: TPairSplitterSide
       Cursor = crArrow
       Left = 0
-      Height = 131
+      Height = 77
       Top = 85
-      Width = 633
-      ClientWidth = 633
-      ClientHeight = 131
+      Width = 575
+      ClientWidth = 575
+      ClientHeight = 77
       object SubscribedMemo: TMemo
         Left = 6
-        Height = 126
-        Top = 5
-        Width = 621
+        Height = 55
+        Top = 22
+        Width = 563
         Align = alClient
         Anchors = []
         BorderSpacing.Left = 6
-        BorderSpacing.Top = 5
+        BorderSpacing.Top = 6
         BorderSpacing.Right = 6
         Font.Height = -15
         Font.Name = 'Ubuntu Mono'
         ParentFont = False
         ScrollBars = ssAutoVertical
         TabOrder = 0
+      end
+      object DividerBevel1: TDividerBevel
+        Left = 6
+        Height = 16
+        Top = 0
+        Width = 563
+        Caption = 'Received Messages'
+        Align = alTop
+        BorderSpacing.Left = 6
+        BorderSpacing.Right = 6
+        Font.Style = [fsBold]
+        ParentFont = False
       end
     end
   end

@@ -5,138 +5,179 @@ unit brokeredit;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Spin,
-  CheckLst, ComCtrls, ExtCtrls, ActnList, EditBtn, BrokerUnit;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
+  Spin, EditBtn, ActnList, ComCtrls, Grids, brokerunit, topicgrids;
 
 type
 
   { TBrokerEditForm }
 
   TBrokerEditForm = class(TForm)
+    AcceptButton: TButton;
     actAdd: TAction;
+    actClear: TAction;
     actDel: TAction;
     actEdit: TAction;
-    actClear: TAction;
     ActionList1: TActionList;
-    actMoveDown: TAction;
-    actMoveUp: TAction;
-    AcceptButton: TButton;
-    Label6: TLabel;
-    PasswordEdit: TEditButton;
-    SaveButton: TButton;
-    LoadButton: TButton;
     CancelButton: TButton;
-    ImageList1: TImageList;
-    OpenDialog: TOpenDialog;
-    Panel1: TPanel;
-    Label7: TLabel;
-    PortEdit: TSpinEdit;
+    Label14: TLabel;
+    PayloadMemo: TMemo;
+    ReconnectBackoffCheckBox: TCheckBox;
+    SSLCheckBox: TCheckBox;
+    PubTopicEdit: TEdit;
+    PubRetainCheckBox: TCheckBox;
     HostEdit: TEdit;
-    SaveDialog: TSaveDialog;
-    SubTopicsListBox: TCheckListBox;
-    tbAdd: TToolButton;
-    tbDelete: TToolButton;
-    tbDown: TToolButton;
-    tbEdit: TToolButton;
-    tbUp: TToolButton;
-    ToolBar: TToolBar;
-    tbClear: TToolButton;
-    ToolButton1: TToolButton;
-    UserEdit: TEdit;
+    ImageList1: TImageList;
+    Label1: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
-    PubTopicEdit: TEdit;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    ListBox1: TListBox;
+    LoadButton: TButton;
+    SSLCertMemo: TMemo;
+    Notebook: TNotebook;
+    BrokerPage: TPage;
+    EncryptionPage: TPage;
+    OpenDialog: TOpenDialog;
+    PasswordEdit: TEditButton;
+    PortEdit: TSpinEdit;
+    KeepAlivesEdit: TSpinEdit;
+    ReconnectDelayEdit: TSpinEdit;
+    QoSComboBox: TComboBox;
+    SaveDialog: TSaveDialog;
+    SubscribePage: TPage;
+    PublishPage: TPage;
+    SecurityPage: TPage;
+    Panel1: TPanel;
+    SaveButton: TButton;
+    tbAdd: TToolButton;
+    tbClear: TToolButton;
+    tbDelete: TToolButton;
+    tbEdit: TToolButton;
+    ToolBar: TToolBar;
+    ToolButton1: TToolButton;
+    UserEdit: TEdit;
     procedure AcceptButtonClick(Sender: TObject);
     procedure actAddExecute(Sender: TObject);
     procedure actClearExecute(Sender: TObject);
     procedure actDelExecute(Sender: TObject);
     procedure actEditExecute(Sender: TObject);
-    procedure actMoveDownExecute(Sender: TObject);
-    procedure actMoveUpExecute(Sender: TObject);
+    procedure CancelButtonClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
+    procedure HostEditEditingDone(Sender: TObject);
+    procedure KeepAlivesEditEditingDone(Sender: TObject);
+    procedure PasswordEditButtonClick(Sender: TObject);
+    procedure PasswordEditEditingDone(Sender: TObject);
+    procedure ReconnectBackoffCheckBoxChange(Sender: TObject);
+    procedure ReconnectDelayEditEditingDone(Sender: TObject);
+    procedure PortEditEditingDone(Sender: TObject);
+    procedure PubRetainCheckBoxChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure HostEditChange(Sender: TObject);
-    procedure PasswordEditChange(Sender: TObject);
-    procedure PortEditChange(Sender: TObject);
-    procedure PubTopicEditChange(Sender: TObject);
-    procedure SaveButtonClick(Sender: TObject);
+    procedure ListBox1Click(Sender: TObject);
     procedure LoadButtonClick(Sender: TObject);
-    procedure CancelButtonClick(Sender: TObject);
-    procedure FormShow(Sender: TObject);
-    procedure PasswordEditButtonClick(Sender: TObject);
-    procedure SubTopicsListBoxClickCheck(Sender: TObject);
-    procedure UserEditChange(Sender: TObject);
+    procedure PubTopicEditEditingDone(Sender: TObject);
+    procedure QoSComboBoxChange(Sender: TObject);
+    procedure SaveButtonClick(Sender: TObject);
+    procedure SSLCertMemoEditingDone(Sender: TObject);
+    procedure SSLCheckBoxEditingDone(Sender: TObject);
+    procedure UserEditEditingDone(Sender: TObject);
   private
     FBroker: TBroker;
     FSource: TBroker;
     FCheckModified: boolean;
     procedure Change;
-    procedure ClearFields;
     procedure UpdateView;
   public
+    TopicsGrid: TSubTopicsGrid;
+    //procedure TopicGridSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
+    procedure TopicGridGetCellHint(Sender: TObject; ACol, ARow: Integer; var HintText: String);
     class function EditBroker(aBroker: TBroker): boolean;
   end;
+
 
 implementation
 
 {$R *.lfm}
 
+uses
+  editsubtopic;
+
 resourcestring
-  csbBrokerEditor = 'MQTT Broker Editor';
-  cbsLoseChanges = 'Close without saving changes';
-  cbsCheckListBoxEditor = 'Subscribe Topics Editor';
-  cbsUp = 'Move the topic up';
-  cbsDown = 'Move the topic down';
+  csbBrokerEditor = 'MQTT Broker Editor';  //*
+  cbsLoseChanges = 'Close without saving changes'; //*
+  cbsSubscribeTopics = 'Subscribe Topics'; //*
+  cbsDeleteQuery = 'Delete <%s>';  //*
   cbsEdit = 'Edit the topic';
   cbsAdd = 'Add new topic';
   cbsDelete = 'Delete the topic';
-  cbsDeleteQuery = 'Delete <%s>';
   cbsClear = 'Delete all topics';
 
 const
-  CONFIGFILENAME = 'mqttviewer.json';
+  CONFIGFILENAME = 'default.json';
+  falsetruestr: array[boolean] of string = ('false', 'true');
 
 var
   configfile: string; // see initialization
 
 { TBrokerEditForm }
 
+class function TBrokerEditForm.EditBroker(aBroker: TBroker): boolean;
+begin
+  with TBrokerEditForm.Create(application) do begin
+    FBroker.Assign(aBroker);
+    FSource := aBroker;
+    UpdateView;
+    ListBox1.ItemIndex := 0;
+    result := ShowModal = mrOk;
+  end;
+end;
 
 procedure TBrokerEditForm.AcceptButtonClick(Sender: TObject);
 begin
   FCheckModified := false;
-  FSource.assign(FBroker);
-  FBroker.SaveToFile('/home/michel/broker2.json');
-  if FBroker.Modified then
-    ModalResult := mrOk
-  else begin
+  if FBroker.isEqual(FSource) then begin
     ModalResult := mrNone;
     close;
+  end
+  else begin
+    FSource.assign(FBroker);
+    FBroker.SaveToFile('/home/michel/broker2.json');  // debugging
+    ModalResult := mrOk;
   end;
 end;
 
 procedure TBrokerEditForm.actAddExecute(Sender: TObject);
-var
-  strItem: string;
 begin
-  strItem:='';
-  if InputQuery(cbsCheckListBoxEditor, cbsAdd, strItem) and (strItem <> '') then begin
-    SubTopicsListBox.Items.Add(strItem);
-    SubTopicsListBox.Checked[SubTopicsListBox.Count-1] := true;
-    FBroker.AddSubTopic(strItem, true);
-    Change;
+  TopicsGrid.HideEditor;
+  with TEditSubTopicForm.Create(self) do try
+    TopicEdit.Text := '';
+    QoSComboBox.ItemIndex := 0;
+    UseCheckBox.Checked := True;
+    if (ShowModal = mrOk) and (trim(TopicEdit.Text) <> '') then begin
+      FBroker.AddSubTopic(Trim(TopicEdit.Text), QoSComboBox.ItemIndex, UseCheckBox.Checked);
+      TopicsGrid.UpdateGridSize;
+      Change;
+    end;
+  finally
+    free;
   end;
 end;
 
 procedure TBrokerEditForm.actClearExecute(Sender: TObject);
 begin
-  if (SubTopicsListBox.Items.Count > 0)
-  and (MessageDlg(cbsCheckListBoxEditor, cbsClear,  mtConfirmation, mbYesNo, 0) = mrYes) then begin
-    SubTopicsListBox.Items.clear;
-    FBroker.SubTopicsClear;
+  if FBroker.SubTopicsCount > 0 then begin
+    TopicsGrid.HideEditor;
+    FBroker.ClearSubTopics;
+    TopicsGrid.UpdateGridSize;
     Change;
   end;
 end;
@@ -145,81 +186,49 @@ procedure TBrokerEditForm.actDelExecute(Sender: TObject);
 var
   OldIndex : integer;
 begin
-  if SubTopicsListBox.ItemIndex = -1 then exit;
-  if MessageDlg(cbsCheckListBoxEditor, Format(cbsDeleteQuery, [SubTopicsListBox.Items[SubTopicsListBox.ItemIndex]]),
-  mtConfirmation, mbYesNo, 0) = mrYes then begin
-    //  save old index
-    OldIndex := SubTopicsListBox.ItemIndex;
-    FBroker.DeleteSubTopic(OldIndex);
-    SubTopicsListBox.Items.Delete(SubTopicsListBox.ItemIndex);
-    if (SubTopicsListBox.Count-1<OldIndex) then
-      SubTopicsListBox.ItemIndex := SubTopicsListBox.Count-1
-    else
-      SubTopicsListBox.ItemIndex := OldIndex;
-    Change;
+  with TopicsGrid do begin
+    OldIndex := row;
+    if (row > 0) and (row <= FBroker.SubTopicsCount) then begin
+      if MessageDlg(cbsSubscribeTopics, Format(cbsDeleteQuery, [FBroker.SubTopics[pred(row)].Topic]),
+         mtConfirmation, mbYesNo, 0) <> mrYes then exit;
+      TopicsGrid.HideEditor;
+      FBroker.DeleteSubTopic(pred(row));
+      UpdateGridSize;
+      if OldIndex >= RowCount then
+        Row := RowCount-1
+      else
+        Row := OldIndex;
+      Change;
+    end;
   end;
 end;
 
 procedure TBrokerEditForm.actEditExecute(Sender: TObject);
 var
-  ItemIndex: integer;
-  checkd: boolean;
+  ndx: integer;
 begin
-  ItemIndex :=  SubTopicsListBox.ItemIndex;
-  if (SubTopicsListBox.Items.Count = 0) or (ItemIndex = -1) then
-     Exit;
-  checkd := SubTopicsListBox.Checked[ItemIndex];
-  SubTopicsListBox.Items[ItemIndex] := InputBox(cbsCheckListBoxEditor,
-     cbsEdit, SubTopicsListBox.Items[ItemIndex]);
-  SubTopicsListBox.Checked[ItemIndex] := checkd;
-  FBroker.SubTopics[ItemIndex] := SubTopicsListBox.Items[ItemIndex];
-end;
-
-procedure TBrokerEditForm.actMoveDownExecute(Sender: TObject);
-var
-  itemtmp: string;
-  checkedtmp: boolean;
-  currentIndex: integer;
-begin
-  currentIndex := SubTopicsListBox.ItemIndex;
-  if (SubTopicsListBox.Items.Count<=1)or(currentIndex=SubTopicsListBox.Items.Count-1)or(currentIndex=-1) then exit;
-  FBroker.ExchangeSubTopics(currentIndex, succ(currentIndex));
-  // clean up below
-  itemtmp := SubTopicsListBox.Items[SubTopicsListBox.ItemIndex+1];
-  checkedtmp := SubTopicsListBox.Checked[SubTopicsListBox.ItemIndex+1];
-  SubTopicsListBox.Items[SubTopicsListBox.ItemIndex+1] := SubTopicsListBox.Items[SubTopicsListBox.ItemIndex];
-  SubTopicsListBox.Checked[SubTopicsListBox.ItemIndex+1] := SubTopicsListBox.Checked[SubTopicsListBox.ItemIndex];
-  SubTopicsListBox.Items[SubTopicsListBox.ItemIndex] := itemtmp;
-  SubTopicsListBox.Checked[SubTopicsListBox.ItemIndex] := checkedtmp;
-  SubTopicsListBox.ItemIndex := SubTopicsListBox.ItemIndex+1;
-  Change;
-end;
-
-procedure TBrokerEditForm.actMoveUpExecute(Sender: TObject);
-var
-  itemtmp: string;
-  checkedtmp: boolean;
-  currentIndex: integer;
-begin
-  currentIndex := SubTopicsListBox.ItemIndex;
-  if (SubTopicsListBox.Items.Count<=1)or(currentIndex<1) then exit;
-  // clean up below
-  FBroker.ExchangeSubTopics(currentIndex, pred(currentIndex));
-  itemtmp := SubTopicsListBox.Items[SubTopicsListBox.ItemIndex-1];
-  checkedtmp := SubTopicsListBox.Checked[SubTopicsListBox.ItemIndex-1];
-  SubTopicsListBox.Items[SubTopicsListBox.ItemIndex-1] := SubTopicsListBox.Items[SubTopicsListBox.ItemIndex];
-  SubTopicsListBox.Checked[SubTopicsListBox.ItemIndex-1] := SubTopicsListBox.Checked[SubTopicsListBox.ItemIndex];
-  SubTopicsListBox.Items[SubTopicsListBox.ItemIndex] := itemtmp;
-  SubTopicsListBox.Checked[SubTopicsListBox.ItemIndex] := checkedtmp;
-  SubTopicsListBox.ItemIndex := SubTopicsListBox.ItemIndex-1;
-  Change;
-end;
-
-procedure TBrokerEditForm.FormCloseQuery(Sender: TObject; var CanClose: boolean
-  );
-begin
-  if FCheckModified and FBroker.Modified then
-     CanClose := MessageDlg(csbBrokerEditor, cbsLoseChanges,  mtConfirmation, mbYesNo, 0) = mrYes;
+  with TopicsGrid do begin
+    if (row > 0) and (row <= FBroker.SubTopicsCount) then begin
+      TopicsGrid.HideEditor;
+      ndx := pred(row);
+      with TEditSubTopicForm.Create(self) do try
+        TopicEdit.Text := FBroker.SubTopics[ndx].topic;
+        QoSComboBox.ItemIndex := FBroker.SubTopics[ndx].qos;
+        UseCheckBox.Checked := FBroker.SubTopics[ndx].use;
+        if ShowModal = mrOk then begin
+          if trim(TopicEdit.Text) = '' then
+            actDelExecute(sender)            /// verify before ?
+          else begin
+            FBroker.SubTopics[ndx].topic := trim(TopicEdit.Text);
+            FBroker.SubTopics[ndx].qos   := QoSComboBox.ItemIndex;
+            FBroker.SubTopics[ndx].use   := UseCheckBox.Checked;
+          end;
+        end;
+      finally
+        free;
+      end;
+    end;
+  end;
 end;
 
 procedure TBrokerEditForm.CancelButtonClick(Sender: TObject);
@@ -229,89 +238,72 @@ end;
 
 procedure TBrokerEditForm.Change;
 begin
-  actClear.Enabled := SubTopicsListBox.Items.Count > 0;
-  actDel.Enabled := SubTopicsListBox.ItemIndex <> -1;
-  actEdit.Enabled := SubTopicsListBox.ItemIndex <> -1;
-  actMoveUp.Enabled := (SubTopicsListBox.ItemIndex <> -1) and (SubTopicsListBox.ItemIndex > 0);
-  actMoveDown.Enabled := (SubTopicsListBox.ItemIndex <> -1) and (SubTopicsListBox.ItemIndex < SubTopicsListBox.Count - 1);
+  actDel.Enabled := (TopicsGrid.RowCount > 1) and (TopicsGrid.Row > 0);
+  actEdit.Enabled := actDel.Enabled;
+  actClear.Enabled := TopicsGrid.RowCount > 1;
 end;
 
-procedure TBrokerEditForm.ClearFields;
+procedure TBrokerEditForm.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
-  HostEdit.Text := '';
-  PortEdit.Value := 1883;
-  UserEdit.Text := '';
-  PasswordEdit.Text := '';
-  SubTopicsListBox.Items.Clear;
-end;
-
-class function TBrokerEditForm.EditBroker(aBroker: TBroker): boolean;
-begin
-  with TBrokerEditForm.Create(application) do begin
-    ClearFields;
-    FBroker.Assign(aBroker);
-    FSource := aBroker;
-    result := ShowModal = mrOk;
-  end;
+  if FCheckModified and not FBroker.isEqual(FSource) then
+     CanClose := MessageDlg(csbBrokerEditor, cbsLoseChanges,  mtConfirmation, mbYesNo, 0) = mrYes;
 end;
 
 procedure TBrokerEditForm.FormCreate(Sender: TObject);
 begin
-  FBroker := TBroker.Create;
-end;
-
-procedure TBrokerEditForm.FormDestroy(Sender: TObject);
-begin
-  FBroker.Free;
-end;
-
-procedure TBrokerEditForm.HostEditChange(Sender: TObject);
-begin
-  FBroker.Host := HostEdit.Text;
-end;
-
-procedure TBrokerEditForm.PasswordEditChange(Sender: TObject);
-begin
-  FBroker.Password := PasswordEdit.Text;
-end;
-
-procedure TBrokerEditForm.PortEditChange(Sender: TObject);
-begin
-  FBroker.Port := PortEdit.Value;
-end;
-
-procedure TBrokerEditForm.PubTopicEditChange(Sender: TObject);
-begin
-  FBroker.PubTopic := PubTopicEdit.Text;
-end;
-
-procedure TBrokerEditForm.FormShow(Sender: TObject);
-begin
+  FCheckModified := true;
+  FBroker := TBroker.create;
+  TopicsGrid := TSubTopicsGrid.Create(self);
+  with TopicsGrid do begin
+     parent := SubscribePage;
+     AnchorSideLeft.Control := ToolBar;
+     AnchorSideTop.Control := ToolBar;
+     AnchorSideTop.Side := asrBottom;
+     AnchorSideRight.Control := ToolBar;
+     AnchorSideRight.Side := asrBottom;
+     AnchorSideBottom.Control := SubscribePage;
+     AnchorSideBottom.Side := asrBottom;
+     Left := 12;
+     Height := 339;
+     Top := 31;
+     Width := 490;
+     Anchors := [akTop, akLeft, akRight, akBottom];
+     Broker := FBroker;
+     //OnSelectCell := @TopicGridSelectCell;
+     //OnGetCellHint := @TopicGridGetCellHint;
+     Options := Options + [goCellHints];
+     ShowHint := true;
+     //TabOrder = 1
+  end;
   OpenDialog.Filename := configfile;
   SaveDialog.Filename := configfile;
-  actMoveUp.Hint := cbsUp;
-  actMoveDown.Hint := cbsDown;
   actDel.Hint := cbsDelete;
   actAdd.Hint := cbsAdd;
   actEdit.Hint := cbsEdit;
   actClear.Hint := cbsClear;
-  UpdateView;
 end;
 
-procedure TBrokerEditForm.UpdateView;
-var
-  i : integer;
+procedure TBrokerEditForm.FormDestroy(Sender: TObject);
 begin
-  with FBroker do begin
-    HostEdit.Text := Host;
-    PortEdit.Value := Port;
-    UserEdit.Text := User;
-    PasswordEdit.Text := Password;
-    PubTopicEdit.Text := PubTopic;
-    AssignTo(SubTopicsListBox);
-    if Count > 0 then
-      SubTopicsListBox.ItemIndex := 0;
-    Change;
+  FBroker.free;
+end;
+
+procedure TBrokerEditForm.HostEditEditingDone(Sender: TObject);
+begin
+  FBroker.Host := trim(HostEdit.Text);
+end;
+
+procedure TBrokerEditForm.KeepAlivesEditEditingDone(Sender: TObject);
+begin
+  FBroker.KeepAlives := KeepAlivesEdit.Value;
+end;
+
+procedure TBrokerEditForm.ListBox1Click(Sender: TObject);
+begin
+  with ListBox1 do begin
+    if ItemIndex < 0 then
+      ItemIndex := 0;
+    Notebook.PageIndex := ItemIndex
   end;
 end;
 
@@ -322,22 +314,58 @@ begin
     FBroker.LoadFromFile(OpenDialog.FileName);
     UpdateView;
     configfile := OpenDialog.Filename;
-    FBroker.Modified := true;
   end;
 end;
 
 procedure TBrokerEditForm.PasswordEditButtonClick(Sender: TObject);
 begin
   with PasswordEdit do begin
-    if passwordchar = #0 then begin  // hide password
-      passwordchar := '*';
-      ImageIndex := 6;
-    end
-    else begin // show password
-      passwordchar := #0;
-      ImageIndex := 7;
-    end;
-  end;
+     if passwordchar = #0 then begin  // hide password
+       passwordchar := '*';
+       ImageIndex := 0;
+     end
+     else begin // show password
+       passwordchar := #0;
+       ImageIndex := 1;
+     end;
+   end;
+end;
+
+procedure TBrokerEditForm.PasswordEditEditingDone(Sender: TObject);
+begin
+  FBroker.Password := PasswordEdit.Text;
+end;
+
+procedure TBrokerEditForm.PortEditEditingDone(Sender: TObject);
+begin
+  FBroker.Port := PortEdit.Value;
+end;
+
+procedure TBrokerEditForm.PubRetainCheckBoxChange(Sender: TObject);
+begin
+  FBroker.PubRetain := PubRetainCheckBox.Checked;
+  PubRetainCheckBox.Caption := Format('(%s)', [falsetruestr[FBroker.PubRetain]]);
+end;
+
+procedure TBrokerEditForm.PubTopicEditEditingDone(Sender: TObject);
+begin
+  FBroker.PubTopic := trim(PubTopicEdit.Text);
+end;
+
+procedure TBrokerEditForm.QoSComboBoxChange(Sender: TObject);
+begin
+  if QoSComboBox.ItemIndex >= 0 then
+    FBroker.PubQoS := QoSComboBox.ItemIndex;
+end;
+
+procedure TBrokerEditForm.ReconnectBackoffCheckBoxChange(Sender: TObject);
+begin
+  FBroker.ReconnectBackoff := ReconnectBackoffCheckBox.Checked;
+end;
+
+procedure TBrokerEditForm.ReconnectDelayEditEditingDone(Sender: TObject);
+begin
+  FBroker.ReconnectDelay := ReconnectDelayEdit.Value;
 end;
 
 procedure TBrokerEditForm.SaveButtonClick(Sender: TObject);
@@ -349,18 +377,51 @@ begin
   end;
 end;
 
-procedure TBrokerEditForm.SubTopicsListBoxClickCheck(Sender: TObject);
-var
-  itemIndex: integer;
+procedure TBrokerEditForm.SSLCertMemoEditingDone(Sender: TObject);
 begin
-  itemIndex := SubTopicsListBox.ItemIndex;
-  if (itemIndex < 0) or (itemIndex >= FBroker.Count) then exit;
-  FBroker.Subscribed[itemIndex] := SubTopicsListBox.Checked[itemIndex];
+  FBroker.SSLCert := SSLCertMemo.Text;
 end;
 
-procedure TBrokerEditForm.UserEditChange(Sender: TObject);
+procedure TBrokerEditForm.SSLCheckBoxEditingDone(Sender: TObject);
+begin
+  FBroker.SSL := SSLCheckBox.Checked;
+end;
+
+procedure TBrokerEditForm.TopicGridGetCellHint(Sender: TObject; ACol, ARow: Integer;
+  var HintText: String);
+begin
+  if aCol = 2 then
+    HintText := '0 - At most once'#10'1 - At least once'#10'2 - Exactly once'
+end;
+
+procedure TBrokerEditForm.UserEditEditingDone(Sender: TObject);
 begin
   FBroker.User := UserEdit.Text;
+end;
+
+procedure TBrokerEditForm.UpdateView;
+begin
+  with FBroker do begin
+    HostEdit.Text := Host;
+    PortEdit.Value := Port;
+    KeepAlivesEdit.Value := KeepAlives;
+    ReconnectDelayEdit.Value := ReconnectDelay;
+    ReconnectBackoffCheckBox.Checked := ReconnectBackoff;
+    UserEdit.Text := User;
+    PasswordEdit.Text := Password;
+    SSLCheckBox.Checked := SSL;
+    SSLCertMemo.Text := SSLCert;
+    PubTopicEdit.Text := PubTopic;
+    PayloadMemo.Text := PubPayload;
+    QoSComboBox.ItemIndex := PubQoS;
+    PubRetainCheckBox.Checked := PubRetain;
+    TopicsGrid.Broker := FBroker;
+    TopicsGrid.UpdateGridSize;
+    TopicsGrid.Invalidate;
+    if TopicsGrid.RowCount > 1 then
+      TopicsGrid.Row := 1;
+    Change;
+  end;
 end;
 
 function Vendor: string;
@@ -380,4 +441,5 @@ initialization
   ForceDirectories(configfile);   // create config directory, report error if false ?
   configfile := IncludeTrailingPathDelimiter(configfile) + CONFIGFILENAME;
 end.
+
 
