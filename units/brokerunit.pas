@@ -44,6 +44,7 @@ Type
     FReconnectDelay: Integer;
     FReconnectBackoff: Boolean;
     FPubTopic: String;
+    FPubPayload: String;
     FPubQoS: integer;
     FPubRetain: boolean;
     FSubTopics: TSubTopics;
@@ -76,6 +77,9 @@ Type
       { Removes all subscribed topics, and erases all the other fields }
     Procedure Clear;
 
+      { Removes all subscribed topics leaving other properties unchanged }
+    Procedure ClearSubTopics;
+
       { Returns the TSubTopicItem specified by its index from the SubTopics array.
         Returns nil if the index is out of range. }
     Function ExtractSubTopic(index: integer): TSubTopicItem; overload; virtual;
@@ -91,9 +95,6 @@ Type
       { Destroys the TSubTopicItem specified by its topic and removes it from the SubTopics array.
         Returns false if aTopic is not found, true otherwise. }
     Function DeleteSubTopic(const aTopic: string): boolean; overload;
-
-      { Not used }
-    Function ExchangeSubTopics(index1, index2: integer): boolean; virtual;
 
       { Returns the index of the given topic in the SubTopics array - first
         index is 0.}
@@ -135,6 +136,8 @@ Type
       { Default publish message topic }
     Property PubTopic: String Read FPubTopic Write FPubTopic;
 
+    Property PubPayload: String Read FPubPayload Write FPubPayload;
+
       { Default publish topic quality of service  }
     Property PubQoS: integer Read FPubQoS write FPubQoS;
 
@@ -168,18 +171,8 @@ Type
   end;
 
 
-Procedure ClearArray(var anArray: TSubTopics); overload;
-Function CreateTSubTopics(AJSON: TJSONData): TSubTopics;
-Procedure SaveTSubTopicsToJSON(AnArray: TSubTopics; AJSONArray: TJSONArray); overload;
-Function SaveTSubTopicsToJSON(AnArray: TSubTopics): TJSONArray; overload;
-Function CopyTSubTopics(source: TSubTopics): TSubTopics; overload;
-Procedure CopyTSubTopics(source: TSubTopics; var target: TSubTopics); overload;
-Procedure CopyTSubTopics(source: TSubTopics; target: TObject); overload;
-Function SameTopics(Array1, Array2: TSubTopics): boolean; overload;
-
 Var
   Broker: TBroker;
-
 
 implementation
 
@@ -201,12 +194,108 @@ const
   sReconnectDelayKey = 'ReconnectDelay';
   sReconnectBackoffKey = 'ReconnectBackoff';
   sPubTopicKey = 'PubTopic';
+  sPubPayloadKey = 'PubPayload';
   sPubQoSKey = 'PubQoS';
   sPubRetainKey = 'PubRetain';
   sSubTopicsKey = 'SubTopics';
 
+
+{ TSubTopics functions }
+
+Procedure ClearArray(Var anArray: TSubTopics);
+var
+  I: integer;
+begin
+  For I := 0 to Length(anArray)-1 do
+    FreeAndNil(anArray[I]);
+  SetLength(anArray,0);
+End;
+
+Function CopyTSubTopics(source: TSubTopics): TSubTopics;
+var
+  I: integer;
+begin
+  result := nil;
+  SetLength(result, length(source));
+  for I := 0 to Length(source)-1 do
+    result[i] := TSubTopicItem.Create(source[I])
+end;
+
+Procedure CopyTSubTopics(source: TSubTopics; var target: TSubTopics); overload;
+begin
+  ClearArray(target);
+  target := CopyTSubTopics(source);
+end;
+
+Procedure CopyTSubTopics(source: TSubTopics; target: TObject);
+var
+  I: integer;
+begin
+  if target is TStrings then begin
+    TStrings(target).Clear;
+    for I := 0 to Length(source) do
+      TStrings(target).Add(source[i].Topic);
+  end
+  else
+    raise Exception.CreateFmt('Cannot copy TSubTopics to %s', [target.ClassName]);
+end;
+
+Function CreateTSubTopics(AJSON: TJSONData): TSubTopics;
+var
+  I: integer;
+begin
+  result := nil;
+  SetLength(Result, AJSON.Count);
+  For I := 0 to AJSON.Count-1 do
+    Result[i] := TSubTopicItem.CreateFromJSON(AJSON.Items[i]);
+End;
+
+Procedure SaveTSubTopicsToJSON(AnArray: TSubTopics; AJSONArray: TJSONArray);
+var
+  I: integer;
+begin
+  For I := 0 to Length(AnArray)-1 do
+    AJSONArray.Add(AnArray[i].SaveToJSON);
+end;
+
+Function SaveTSubTopicsToJSON(AnArray: TSubTopics): TJSONArray;
+begin
+  Result := TJSONArray.Create;
+  Try
+    SaveTSubTopicsToJSON(AnArray,Result);
+  Except
+    FreeAndNil(Result);
+    Raise;
+  end;
+end;
+
+function SameTopics(Array1, Array2: TSubTopics): boolean;
+var
+  I: integer;
+begin
+  // this assumes the order of SubTopics is important
+  result := false;
+  if length(Array1) <> length(Array2) then
+    exit;
+  for I := 0 to length(Array1)-1 do
+    if not Array1[I].isEqual(Array2[I]) then
+      exit;
+  (*
+  for I := 0 to length(Array1)-1 do begin
+    n := indexOf(Array[2].Topic); ????
+    if not Array[I].isEqual(Array2[n]) then
+      exit;
+   end;
+  *)
+  result := true;
+end;
+
+{ TSubTopicItem }
+
 constructor TSubTopicItem.Create(const aTopic: string; aQoS: integer; aUse: boolean);
 begin
+  if (trim(aTopic) = '') then
+    Raise Exception.Create('Cannot subscribe to an empty topic');
   inherited Create;
   FTopic := aTopic;
   FQoS := aQoS;
@@ -268,94 +357,6 @@ begin
   AJSON.Add(sUseKey, Use);
 end;
 
-{ TSubTopics functions }
-
-Procedure ClearArray(Var anArray: TSubTopics);
-var
-  I: integer;
-begin
-  For I := 0 to Length(anArray)-1 do
-    FreeAndNil(anArray[I]);
-  SetLength(anArray,0);
-End;
-
-Function CopyTSubTopics(source: TSubTopics): TSubTopics;
-var
-  I: integer;
-begin
-  SetLength(result, length(source));
-  for I := 0 to Length(source)-1 do
-    result[i] := TSubTopicItem.Create(source[I])
-end;
-
-Procedure CopyTSubTopics(source: TSubTopics; var target: TSubTopics); overload;
-begin
-  ClearArray(target);
-  target := CopyTSubTopics(source);
-end;
-
-Procedure CopyTSubTopics(source: TSubTopics; target: TObject);
-var
-  I: integer;
-begin
-  if target is TStrings then begin
-    TStrings(target).Clear;
-    for I := 0 to Length(source) do
-      TStrings(target).Add(source[i].Topic);
-  end
-  else
-    raise Exception.CreateFmt('Cannot copy TSubTopics to %s', [target.ClassName]);
-end;
-
-Function CreateTSubTopics(AJSON: TJSONData): TSubTopics;
-var
-  I: integer;
-begin
-  SetLength(Result,AJSON.Count);
-  For I := 0 to AJSON.Count-1 do
-    Result[i] := TSubTopicItem.CreateFromJSON(AJSON.Items[i]);
-End;
-
-Function SaveTSubTopicsToJSON(AnArray: TSubTopics): TJSONArray;
-begin
-  Result := TJSONArray.Create;
-  Try
-    SaveTSubTopicsToJSON(AnArray,Result);
-  Except
-    FreeAndNil(Result);
-    Raise;
-  end;
-end;
-
-Procedure SaveTSubTopicsToJSON(AnArray: TSubTopics; AJSONArray: TJSONArray);
-var
-  I: integer;
-begin
-  For I := 0 to Length(AnArray)-1 do
-    AJSONArray.Add(AnArray[i].SaveToJSON);
-end;
-
-function SameTopics(Array1, Array2: TSubTopics): boolean;
-var
-  I: integer;
-begin
-  // this assumes the order of SubTopics is important
-  result := false;
-  if length(Array1) <> length(Array2) then
-    exit;
-  for I := 0 to length(Array1)-1 do
-    if not Array1[I].isEqual(Array2[I]) then
-      exit;
-  (*
-  for I := 0 to length(Array1)-1 do begin
-    n := indexOf(Array[2].Topic); ????
-    if not Array[I].isEqual(Array2[n]) then
-      exit;
-   end;
-  *)
-  result := true;
-end;
-
 { TBroker }
 
 constructor TBroker.Create;
@@ -394,6 +395,9 @@ begin
   FReconnectDelay := aBroker.ReconnectDelay;
   FReconnectBackoff := aBroker.ReconnectBackoff;
   FPubTopic := aBroker.PubTopic;
+  FPubPayload := aBroker.PubPayload;
+  FPubQoS := aBroker.PubQoS;
+  FPubRetain := aBroker.PubRetain;
   CopyTSubTopics(aBroker.SubTopics, FSubTopics);
 end;
 
@@ -431,8 +435,14 @@ begin
   FReconnectDelay := 0;
   FReconnectBackoff := false;
   FPubTopic := '';
+  FPubPayload := '';
   FPubQoS := 0;
   FPubRetain := false;
+  ClearSubTopics;
+end;
+
+procedure TBroker.ClearSubTopics;
+begin
   ClearArray(FSubTopics);
 end;
 
@@ -448,22 +458,6 @@ end;
 function TBroker.DeleteSubTopic(const aTopic: string): boolean;
 begin
   result := DeleteSubTopic(IndexOf(aTopic));
-end;
-
-function TBroker.ExchangeSubTopics(index1, index2: integer): boolean;
-var
-  temp: TSubTopicItem;
-  n: integer;
-begin
-  n := length(FSubTopics);
-  result := (index1 >= 0) and (index2 >= 0)
-        and (index1 < n) and (index2 < n)
-        and (index1 <> index2);
-  if result then begin
-    temp := FSubTopics[index2];
-    FSubTopics[index2] := FSubTopics[index1];
-    FSubTopics[index1] := temp;
-  end;
 end;
 
 function TBroker.ExtractSubTopic(index: integer): TSubTopicItem;
@@ -506,9 +500,10 @@ begin
   FReconnectDelay := DEFAULT_RECONNECTDELAY;
   FReconnectBackoff := DEFAULT_RECONNECTBACKOFF;
   FPubTopic := DEFAULT_PUBLISH_TOPIC;
+  FPubPayload := DEFAULT_PUBLISH_PAYLOAD;
   FPubQoS := DEFAULT_PUBQOS;
   FPubRetain := DEFAULT_PUBRETAIN;
-  ClearArray(FSubTopics);
+  ClearSubTopics;
   AddSubTopic(
     DEFAULT_FIRST_SUBTOPIC,
     DEFAULT_FIRST_SUBQOS,
@@ -528,6 +523,9 @@ begin
      (FReconnectDelay = aBroker.ReconnectDelay) and
      (FReconnectBackoff = aBroker.ReconnectBackoff) and
      (FPubTopic = aBroker.PubTopic) and
+     (FPubPayload = aBroker.PubPayload) and
+     (FPubQoS = aBroker.PubQoS) and
+     (FPubRetain = aBroker.PubRetain) and
      SameTopics(FSubTopics, aBroker.SubTopics);
 end;
 
@@ -552,6 +550,7 @@ procedure TBroker.LoadFromJSON(AJSON: TJSONData);
 var
   E: TJSONEnum;
 begin
+  Clear;
   for E in AJSON do begin
     case E.Key of
       sHostKey: Host := E.Value.AsString;
@@ -564,15 +563,10 @@ begin
       sReconnectDelayKey: ReconnectDelay := E.Value.AsInteger;
       sReconnectBackoffKey: ReconnectBackoff := E.Value.AsBoolean;
       sPubTopicKey: PubTopic := E.Value.AsString;
+      sPubPayloadKey: PubPayload := E.Value.AsString;
       sPubQoSKey: PubQoS := E.Value.AsInteger;
       sPubRetainKey: PubRetain := E.Value.AsBoolean;
       sSubTopicsKey: SubTopics := CreateTSubTopics(E.Value);
-      (*
-         begin
-           ClearArray(FSubTopics);
-           FSubTopics := CreateTSubTopics(E.Value);
-         end;
-       *)
        (*
        else: Warning or Error for unknown key ??
        *)
@@ -642,6 +636,7 @@ begin
   AJSON.Add(sReconnectDelayKey, ReconnectDelay);
   AJSON.Add(sReconnectBackoffKey, ReconnectBackoff);
   AJSON.Add(sPubTopicKey, PubTopic);
+  AJSON.Add(sPubPayloadKey, PubPayload);
   AJSON.Add(sPubQoSKey,  PubQoS);
   AJSON.Add(sPubRetainKey,  PubRetain);
   AJSON.Add(sSubTopicsKey, SaveTSubTopicsToJSON(SubTopics));
