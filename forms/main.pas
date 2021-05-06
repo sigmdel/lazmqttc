@@ -6,19 +6,15 @@ unit main;
   mosquitto.h and mqttclass.pas by Károly Balogh (chainq)
   @ https://github.com/chainq/mosquitto-p
 
-  Two libraries need to be installed in Debian systems:
-    libmosquitto1    (tested with version 1.6.9-1 in Mint 20.1)
-    libmosquitto-dev (tested with version 1.6.9-1 in Mint 20.1)
-  The first, libmosquitto1 will probably already be installed if
-  mosquitto-clients has been installed.
+  Requirements: The Eclipse mosquitto libraries must be installed on the
+  system. See the README file.
 
   There is no need to install the mosquitto broker assuming access to
   an MQTT broker is available on the network.
 
-
-  See project source because
-  Two units, cthreads and ctypes must be loaded at the start of the
-  program. See the uses clause in the project source:
+  See project source because the ctypes unit must be loaded at the start of
+  the program. Furthermore, the cthreads unit must be loaded first in
+  Linux systems. See the uses clause in the project source:
 
     uses
       {$IFDEF UNIX}{$IFDEF UseCThreads}
@@ -39,7 +35,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
-  PairSplitter, Grids, Buttons, ComCtrls, DividerBevel, brokerunit, mqttclass,
+  Grids, Buttons, ComCtrls, DividerBevel,  brokerunit, mqttclass,
   topicgrids, fileinfo;
 
 const
@@ -53,10 +49,10 @@ type
     CheckBox1: TCheckBox;
     DividerBevel1: TDividerBevel;
     Label2: TLabel;
+    Label7: TStaticText;
+    Splitter2: TSplitter;
+    SubTopicsPanel: TPanel;
     SourceLabel: TLabel;
-    PairSplitter1: TPairSplitter;
-    PairSplitterSide1: TPairSplitterSide;
-    PairSplitterSide2: TPairSplitterSide;
     RetainCheckBox: TCheckBox;
     QoSComboBox: TComboBox;
     Label5: TLabel;
@@ -67,7 +63,7 @@ type
     QuitButton: TButton;
     HostLabel: TLabel;
     statusLabel: TLabel;
-    Panel1: TPanel;
+    BottomPanel: TPanel;
     PublishTopicEdit: TEdit;
     Label1: TLabel;
     Label3: TLabel;
@@ -82,7 +78,6 @@ type
     procedure EditBrokerButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure SourceLabelClick(Sender: TObject);
-    procedure PairSplitter1Resize(Sender: TObject);
     procedure PayloadMemoEditingDone(Sender: TObject);
     procedure PublishButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -91,6 +86,7 @@ type
     procedure QoSComboBoxChange(Sender: TObject);
     procedure QuitButtonClick(Sender: TObject);
     procedure RetainCheckBoxChange(Sender: TObject);
+    procedure SubTopicsPanelResize(Sender: TObject);
   private
     FDisplayedState: TMQTTConnectionState;
     function ClientState: TMQTTConnectionState;
@@ -114,6 +110,17 @@ implementation
 
 uses
   LCLIntf, brokeredit, mosquitto;
+
+
+// mosquitto library log level
+const
+  {$IFDEF MSWINDOWS}  // no log in Windows
+  MOSQ_LOG = MOSQ_LOG_NONE;
+  {$ELSE} // chose one from any log level defined in mosquitto.pas,  for all debug levels
+  //MOSQ_LOG = MOSQ_LOG_ALL;
+  MOSQ_LOG = MOSQ_LOG_NODEBUG;
+  //MOSQ_LOG = MOSQ_LOG_NONE;
+  {$ENDIF}
 
 resourcestring
   mssNoClient = 'No Mqtt Client';
@@ -156,12 +163,15 @@ procedure TThisMQTTConnection.UpdateGUI;
 begin
    with MainForm.SubscribedMemo do begin
      Lines.BeginUpdate;
+     try
      while Lines.Count > SubscribedMemoSize do
         Lines.Delete(0);
+     finally
+       Lines.EndUpdate;
+     end;
      Lines.Add(FThisMessage);
      SelStart := Lines.Text.Length-1;
      SelLength := 1;
-     Lines.EndUpdate;
   end;
 end;
 
@@ -172,9 +182,12 @@ begin
    msg := '';
    with payload^ do begin
       { Note that MQTT messages can be binary, but for this test case we just
-        assume they're printable text, as a test }
-      SetLength(msg,payloadlen);
-      Move(payload^,msg[1],payloadlen);
+        assume they're printable text, as a test
+        Károly Balogh (chainq) }
+      if (payloadlen > 0) then begin
+        SetLength(msg,payloadlen);
+        Move(payload^,msg[1],payloadlen);
+      end;
       if ShowTopics then
         FThisMessage := Format('[%s] - %s', [topic, msg])
       else
@@ -248,8 +261,7 @@ begin
   result := false;
   freeandnil(MqttClient);
   FDisplayedState := mqttnone;
-  // with debug message use MOSQ_LOG_ALL);
-  MqttClient := TThisMQTTConnection.Create('mqttClient', MqttConfig, MOSQ_LOG_NODEBUG);
+  MqttClient := TThisMQTTConnection.Create('mqttClient', MqttConfig, MOSQ_LOG);
   try
     MqttClient.AutoReconnect := aBroker.AutoReconnect;
     MqttClient.OnMessage := @MqttClient.MessageHandler;
@@ -270,15 +282,6 @@ begin
     ConnectBroker(Broker)
   else
     freeandnil(MqttClient);
-(*
-  if assigned(MqttClient) and (MqttClient.State in [mqttConnecting, mqttConnected, mqttReconnecting]) then begin
-    ConnectButton.Caption := 'Disconnect';
-    ConnectButton.tag := 1;
-  end
-  else begin
-    ConnectButton.Caption := 'Connect';
-    ConnectButton.tag := 0;
-  end; *)
 end;
 
 procedure TMainForm.CheckBox1Change(Sender: TObject);
@@ -298,8 +301,8 @@ begin
   statusLabel.caption := statusStr[mqttNone];
   TopicsGrid := TSubTopicsGrid.Create(self);
   with TopicsGrid do begin
-    parent := PairSplitterSide1;
-    Top := 34;
+    parent := SubTopicsPanel;
+    Top := 8;
     Align := alClient;
     Broker := brokerunit.Broker;
     Options := Options + [goCellHints];
@@ -346,10 +349,6 @@ begin
   Constraints.MinWidth := Width;
 end;
 
-procedure TMainForm.PairSplitter1Resize(Sender: TObject);
-begin
-  TopicsGrid.Refresh;
-end;
 
 procedure TMainForm.PayloadMemoEditingDone(Sender: TObject);
 begin
@@ -412,11 +411,17 @@ begin
   Broker.PubRetain := RetainCheckBox.Checked;;
 end;
 
+procedure TMainForm.SubTopicsPanelResize(Sender: TObject);
+begin
+  TopicsGrid.Invalidate; // needed in Mint 20 Mate at least
+end;
+
 procedure TMainForm.RefreshGui;
 begin
   with Broker do begin
     hostLabel.caption := Format('%s:%d', [Host, Port]);
     PublishTopicEdit.Text := PubTopic;
+    PayloadMemo.Text := PubPayload;
     QoSComboBox.ItemIndex := PubQoS;
     RetainCheckBox.Checked := PubRetain;
     TopicsGrid.Broker := Broker;

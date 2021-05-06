@@ -8,6 +8,8 @@ The screen capture shows the message sent to the public `test.moquitto.org` brok
 
 ## Requirements
 
+### Linux
+
 The libmosquito library is needed. In Debian systems this means installing two packages:
 -  libmosquitto1    
 -  libmosquitto-dev 
@@ -15,6 +17,35 @@ The libmosquito library is needed. In Debian systems this means installing two p
 The first, `libmosquitto1` will probably already be installed if the mosquitto-clients package is available on the system. In Debian-based systems these packages can be installed with a package manager such as [Synaptic](http://www.nongnu.org/synaptic/) or from the command line.
 
     $ sudo apt install libmosquitto1 libmosquitto-dev
+
+### Windows 10
+
+
+1. Get the latest binary package from [Eclipse mosquitto Download](https://mosquitto.org/download/). Version 2.0.10 is available as of May 5, 2021. Chose the appropriate 64-bit `mosquitto-2.0.10-install-windows-x64.exe` or `32-bit mosquitto-2.0.10-install-windows-x32.exe`. 
+
+2. Click on the downloaded application to install the package. I did not install it as a service as I only want to test the `lazmqttc` in this environement. 
+
+> - The 64-bit package was installed in `C:\Program Files\mosquitto\`. 
+> - The 32-bit package will probably go into `C:\Program Files (x86)\mosquitto\`.
+ 
+ 3. Test the `mosquitto_sub` and `mosquitto_pub` utilities from the command line using a the host name or IP address of a reachable MQTT broker instead of &lt;<i>mqtt_broker</i>&gt;. 
+
+<pre>
+   C:\Users\michel>"c:\Program Files\mosquitto\mosquitto_sub" -h &lt;<i>mqtt_broker</i>&gt; -t "#"
+</pre>
+
+4. Copy the mosquitto libraries <pre>
+        C:\Program Files\mosquitto\mosquitto.dll
+        C:\Program Files\mosquitto\mosquitto_dynamic_security.dll
+        C:\Program Files\mosquitto\libcrypto-1_1-x64.dll
+        C:\Program Files\mosquitto\libssl-1_1-x64.dll
+        C:\Program Files\mosquitto\mosquittopp.dll
+</pre> to the same folder containing the compiled `lasmqtt.exe` executable. Depending on use, they may not all be necessary, but the first two are needed without doubt. 
+
+>> It is left as an exercise for knowledgable Windows users to find a more elegant way of ensuring that the DLL's are found.
+
+
+### Common
 
 Two Free Pascal units are required
 
@@ -30,6 +61,8 @@ In principle creating this tool should be straightforward: clone this repository
 ## Testing Environment
 
 The project was built with Lazarus 2.0.12 (Free Pascall 3.2.0) on a Mint 20.1 system with version 1.6.9-1 of the mosquitto libraries. 
+
+A cursory test was done with the same compiler in Windows 10.
 
 This utility was cobbled quickly to fulfill an immediate need: wrangling a number of IoT devices running Tasmota firmware. The code could use considerable improvement.
 

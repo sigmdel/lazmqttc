@@ -1,15 +1,105 @@
 object MainForm: TMainForm
   Left = 332
-  Height = 364
+  Height = 355
   Top = 250
   Width = 575
   Caption = 'MQTT Client'
-  ClientHeight = 364
+  ClientHeight = 355
   ClientWidth = 575
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '2.0.12.0'
+  object TopPanel: TPanel
+    AnchorSideTop.Control = Owner
+    Left = 0
+    Height = 37
+    Top = 0
+    Width = 575
+    Align = alTop
+    Alignment = taRightJustify
+    Anchors = [akTop]
+    AutoSize = True
+    BevelOuter = bvNone
+    ClientHeight = 37
+    ClientWidth = 575
+    TabOrder = 0
+    object Label1: TLabel
+      AnchorSideLeft.Control = EditBrokerButton
+      AnchorSideLeft.Side = asrCenter
+      AnchorSideTop.Control = ConnectButton
+      AnchorSideTop.Side = asrCenter
+      Left = 21
+      Height = 14
+      Top = 11
+      Width = 44
+      BorderSpacing.Left = 6
+      Caption = 'Broker:'
+      Layout = tlCenter
+      ParentColor = False
+    end
+    object EditBrokerButton: TButton
+      AnchorSideLeft.Control = TopPanel
+      AnchorSideTop.Control = TopPanel
+      AnchorSideRight.Control = ConnectButton
+      Left = 6
+      Height = 25
+      Top = 6
+      Width = 75
+      BorderSpacing.Left = 6
+      BorderSpacing.Top = 6
+      BorderSpacing.Bottom = 6
+      Caption = 'Edit'
+      OnClick = EditBrokerButtonClick
+      TabOrder = 0
+    end
+    object statusLabel: TLabel
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = EditBrokerButton
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = ConnectButton
+      Left = 426
+      Height = 14
+      Top = 11
+      Width = 47
+      Anchors = [akTop, akRight]
+      BorderSpacing.Left = 6
+      BorderSpacing.Right = 6
+      Caption = '<none>'
+      ParentColor = False
+    end
+    object ConnectButton: TButton
+      AnchorSideTop.Control = EditBrokerButton
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = TopPanel
+      AnchorSideRight.Side = asrBottom
+      Left = 479
+      Height = 25
+      Top = 6
+      Width = 90
+      Anchors = [akTop, akRight]
+      BorderSpacing.Right = 6
+      BorderSpacing.Bottom = 6
+      Caption = 'Disconnect'
+      OnClick = ConnectButtonClick
+      TabOrder = 1
+    end
+    object HostLabel: TLabel
+      AnchorSideLeft.Control = EditBrokerButton
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = ConnectButton
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = statusLabel
+      Left = 87
+      Height = 14
+      Top = 11
+      Width = 333
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Left = 6
+      BorderSpacing.Right = 6
+      Caption = '<host name>'
+      ParentColor = False
+    end
+  end
   object MiddlePanel: TPanel
     AnchorSideRight.Control = TopPanel
     Left = 0
@@ -171,136 +261,52 @@ object MainForm: TMainForm
     AnchorSideRight.Control = TopPanel
     Cursor = crVSplit
     Left = 0
-    Height = 10
+    Height = 8
     Top = 155
     Width = 575
     Align = alTop
     ResizeAnchor = akTop
   end
-  object TopPanel: TPanel
+  object BottomPanel: TPanel
     Left = 0
-    Height = 37
-    Top = 0
-    Width = 575
-    Align = alTop
-    Alignment = taRightJustify
-    Anchors = []
-    AutoSize = True
-    BevelOuter = bvNone
-    ClientHeight = 37
-    ClientWidth = 575
-    TabOrder = 0
-    object Label1: TLabel
-      AnchorSideLeft.Control = EditBrokerButton
-      AnchorSideLeft.Side = asrCenter
-      AnchorSideTop.Control = ConnectButton
-      AnchorSideTop.Side = asrCenter
-      Left = 21
-      Height = 14
-      Top = 11
-      Width = 44
-      BorderSpacing.Left = 6
-      Caption = 'Broker:'
-      Layout = tlCenter
-      ParentColor = False
-    end
-    object EditBrokerButton: TButton
-      AnchorSideLeft.Control = TopPanel
-      AnchorSideTop.Control = TopPanel
-      AnchorSideRight.Control = ConnectButton
-      Left = 6
-      Height = 25
-      Top = 6
-      Width = 75
-      BorderSpacing.Left = 6
-      BorderSpacing.Top = 6
-      BorderSpacing.Bottom = 6
-      Caption = 'Edit'
-      OnClick = EditBrokerButtonClick
-      TabOrder = 0
-    end
-    object statusLabel: TLabel
-      AnchorSideLeft.Side = asrBottom
-      AnchorSideTop.Control = EditBrokerButton
-      AnchorSideTop.Side = asrCenter
-      AnchorSideRight.Control = ConnectButton
-      Left = 426
-      Height = 14
-      Top = 11
-      Width = 47
-      Anchors = [akTop, akRight]
-      BorderSpacing.Left = 6
-      BorderSpacing.Right = 6
-      Caption = '<none>'
-      ParentColor = False
-    end
-    object ConnectButton: TButton
-      AnchorSideTop.Control = EditBrokerButton
-      AnchorSideTop.Side = asrCenter
-      AnchorSideRight.Control = TopPanel
-      AnchorSideRight.Side = asrBottom
-      Left = 479
-      Height = 25
-      Top = 6
-      Width = 90
-      Anchors = [akTop, akRight]
-      BorderSpacing.Right = 6
-      BorderSpacing.Bottom = 6
-      Caption = 'Disconnect'
-      OnClick = ConnectButtonClick
-      TabOrder = 1
-    end
-    object HostLabel: TLabel
-      AnchorSideLeft.Control = EditBrokerButton
-      AnchorSideLeft.Side = asrBottom
-      AnchorSideTop.Control = ConnectButton
-      AnchorSideTop.Side = asrCenter
-      AnchorSideRight.Control = statusLabel
-      Left = 87
-      Height = 14
-      Top = 11
-      Width = 333
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.Left = 6
-      BorderSpacing.Right = 6
-      Caption = '<host name>'
-      ParentColor = False
-    end
-  end
-  object Panel1: TPanel
-    Left = 0
-    Height = 37
-    Top = 327
+    Height = 126
+    Top = 229
     Width = 575
     Align = alBottom
     BevelOuter = bvNone
-    ClientHeight = 37
+    ClientHeight = 126
     ClientWidth = 575
     TabOrder = 3
     object QuitButton: TButton
-      AnchorSideTop.Control = Panel1
+      AnchorSideTop.Control = BottomPanel
       AnchorSideTop.Side = asrCenter
-      AnchorSideRight.Control = Panel1
+      AnchorSideRight.Control = BottomPanel
       AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = BottomPanel
+      AnchorSideBottom.Side = asrBottom
       Left = 494
       Height = 25
-      Top = 6
+      Top = 96
       Width = 75
-      Anchors = [akTop, akRight]
+      Anchors = [akRight, akBottom]
       BorderSpacing.Top = 4
       BorderSpacing.Right = 6
+      BorderSpacing.Bottom = 5
       Caption = 'Quit'
       OnClick = QuitButtonClick
       TabOrder = 0
     end
     object CheckBox1: TCheckBox
-      AnchorSideLeft.Control = Panel1
-      AnchorSideTop.Control = Panel1
+      AnchorSideLeft.Control = BottomPanel
+      AnchorSideTop.Control = BottomPanel
       AnchorSideTop.Side = asrCenter
+      AnchorSideBottom.Control = QuitButton
+      AnchorSideBottom.Side = asrCenter
       Left = 6
       Height = 23
-      Top = 7
+      Top = 96
       Width = 98
+      Anchors = [akLeft, akBottom]
       BorderSpacing.Left = 6
       Caption = 'Show topics'
       Checked = True
@@ -315,7 +321,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       Left = 128
       Height = 14
-      Top = 11
+      Top = 100
       Width = 41
       BorderSpacing.Left = 24
       Caption = 'Label2'
@@ -328,7 +334,7 @@ object MainForm: TMainForm
       Cursor = crHandPoint
       Left = 408
       Height = 22
-      Top = 7
+      Top = 97
       Width = 62
       Alignment = taRightJustify
       Anchors = [akTop, akRight]
@@ -341,60 +347,79 @@ object MainForm: TMainForm
       ParentFont = False
       OnClick = SourceLabelClick
     end
-  end
-  object PairSplitter1: TPairSplitter
-    Cursor = crDefault
-    Left = 0
-    Height = 162
-    Top = 165
-    Width = 575
-    Align = alClient
-    Color = clBtnFace
-    Position = 80
-    SplitterType = pstVertical
-    object PairSplitterSide1: TPairSplitterSide
-      Cursor = crArrow
-      Left = 0
-      Height = 80
+    object SubscribedMemo: TMemo
+      AnchorSideLeft.Control = BottomPanel
+      AnchorSideTop.Control = DividerBevel1
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = BottomPanel
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = QuitButton
+      Left = 6
+      Height = 72
+      Top = 18
+      Width = 563
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      BorderSpacing.Left = 6
+      BorderSpacing.Top = 2
+      BorderSpacing.Right = 6
+      BorderSpacing.Bottom = 6
+      Font.Height = -15
+      Font.Name = 'Ubuntu Mono'
+      ParentFont = False
+      ScrollBars = ssAutoVertical
+      TabOrder = 2
+    end
+    object DividerBevel1: TDividerBevel
+      AnchorSideLeft.Control = BottomPanel
+      AnchorSideRight.Control = BottomPanel
+      Left = 5
+      Height = 16
       Top = 0
-      Width = 575
-      OnResize = PairSplitter1Resize
+      Width = 564
+      Caption = 'Received Messages'
+      Align = alTop
+      BorderSpacing.Left = 5
+      BorderSpacing.Right = 6
+      ParentFont = False
     end
-    object PairSplitterSide2: TPairSplitterSide
-      Cursor = crArrow
+  end
+  object SubTopicsPanel: TPanel
+    Left = 6
+    Height = 61
+    Top = 163
+    Width = 563
+    Align = alClient
+    Anchors = [akBottom]
+    BorderSpacing.Left = 6
+    BorderSpacing.Right = 6
+    BevelOuter = bvNone
+    ClientHeight = 61
+    ClientWidth = 563
+    TabOrder = 4
+    TabStop = True
+    OnResize = SubTopicsPanelResize
+    object Label7: TStaticText
+      AnchorSideRight.Control = SubTopicsPanel
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = SubscribedMemo
       Left = 0
-      Height = 77
-      Top = 85
-      Width = 575
-      ClientWidth = 575
-      ClientHeight = 77
-      object SubscribedMemo: TMemo
-        Left = 6
-        Height = 55
-        Top = 22
-        Width = 563
-        Align = alClient
-        Anchors = []
-        BorderSpacing.Left = 6
-        BorderSpacing.Top = 6
-        BorderSpacing.Right = 6
-        Font.Height = -15
-        Font.Name = 'Ubuntu Mono'
-        ParentFont = False
-        ScrollBars = ssAutoVertical
-        TabOrder = 0
-      end
-      object DividerBevel1: TDividerBevel
-        Left = 6
-        Height = 16
-        Top = 0
-        Width = 563
-        Caption = 'Received Messages'
-        Align = alTop
-        BorderSpacing.Left = 6
-        BorderSpacing.Right = 6
-        ParentFont = False
-      end
+      Height = 16
+      Top = -125
+      Width = 563
+      Anchors = [akLeft, akRight, akBottom]
+      Caption = '   Received Messages  '
+      Color = clDefault
+      ParentColor = False
+      TabOrder = 0
     end
+  end
+  object Splitter2: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 224
+    Width = 575
+    Align = alBottom
+    ResizeAnchor = akBottom
   end
 end
