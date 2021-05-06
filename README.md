@@ -6,9 +6,23 @@ A basic MQTT client written in Free Pascal/Lazarus that can publish messages to 
 
 The screen capture shows the message sent to the public `test.moquitto.org` broker and it's reply. In this example, the client is subscribed to the same topic used to send the message, which in many cases would not be done.
 
-## Requirements
+<!-- TOC -->
 
-### Linux
+- [1. Requirements](#1-requirements)
+    - [1.1. Linux](#11-linux)
+    - [1.2. Windows 10](#12-windows-10)
+    - [1.3. Common](#13-common)
+- [2. Compiling](#2-compiling)
+- [3. Testing Environment](#3-testing-environment)
+- [4. Broker Definitions](#4-broker-definitions)
+- [5. Licence](#5-licence)
+
+<!-- /TOC -->
+
+
+## 1. Requirements
+
+### 1.1. Linux
 
 The libmosquito library is needed. In Debian systems this means installing two packages:
 -  libmosquitto1    
@@ -18,7 +32,7 @@ The first, `libmosquitto1` will probably already be installed if the mosquitto-c
 
     $ sudo apt install libmosquitto1 libmosquitto-dev
 
-### Windows 10
+### 1.2. Windows 10
 
 
 1. Get the latest binary package from [Eclipse mosquitto Download](https://mosquitto.org/download/). Version 2.0.10 is available as of May 5, 2021. Chose the appropriate 64-bit `mosquitto-2.0.10-install-windows-x64.exe` or `32-bit mosquitto-2.0.10-install-windows-x32.exe`. 
@@ -45,7 +59,7 @@ The first, `libmosquitto1` will probably already be installed if the mosquitto-c
 >> It is left as an exercise for knowledgable Windows users to find a more elegant way of ensuring that the DLL's are found.
 
 
-### Common
+### 1.3. Common
 
 Two Free Pascal units are required
 
@@ -54,11 +68,11 @@ Two Free Pascal units are required
 
 These files, found in the [mosquitto-p](mosquitto-p/) directory, are copied from the [GitHub repository](https://github.com/chainq/mosquitto-p) with the same name by Károly Balogh (chainq).
 
-## Compiling
+## 2. Compiling
 
 In principle creating this tool should be straightforward: clone this repository, start the Lazarus IDE, load the project, add an application icon if desired and compile the program. The application icon, called `lazmqttc.png`, is available in the `images`. The file `lazmqtt.lzp` is the LazPaint source for the image file. 
 
-## Testing Environment
+## 3. Testing Environment
 
 The project was built with Lazarus 2.0.12 (Free Pascall 3.2.0) on a Mint 20.1 system with version 1.6.9-1 of the mosquitto libraries. 
 
@@ -66,13 +80,66 @@ A cursory test was done with the same compiler in Windows 10.
 
 This utility was cobbled quickly to fulfill an immediate need: wrangling a number of IoT devices running Tasmota firmware. The code could use considerable improvement.
 
-## Licence
+## 4. Broker Definitions 
+
+The MQTT broker definition are JSON formated text files. Here is an example of a definition used with an MQTT broker running on a [Domoticz](https://domoticz.com/) home automation server. The default publish message will show status 5 of all Tasmota devices which can be useful because that will display their IP address.
+
+<pre>
+{
+  "Host" : "192.168.1.22",
+  "Port" : 1883,
+  "User" : "",
+  "Password" : "",
+  "SSL" : false,
+  "SSLCert" : "",
+  "KeepAlives" : 60,
+  "ReconnectDelay" : 10,
+  "ReconnectBackoff" : true,
+  "AutoReconnect" : true,
+  "PubTopic" : "cmnd/tasmotas/status",
+  "PubPayload" : "5",
+  "PubQoS" : 0,
+  "PubRetain" : false,
+  "SubTopics" : [
+    {
+      "Topic" : "stat/#",
+      "QoS" : 0,
+      "Use" : true
+    },
+    {
+      "Topic" : "tele/#",
+      "QoS" : 0,
+      "Use" : false
+    },
+    {
+      "Topic" : "domoticz/in",
+      "QoS" : 0,
+      "Use" : false
+    },
+    {
+      "Topic" : "domoticz/out",
+      "QoS" : 0,
+      "Use" : false
+    }
+  ]
+}   
+</pre>       
+
+In Linux, these definition files are saved in the `~/.config/sigmdel/lazmqttc`  
+where `~` is the user home directory. So fully expanded the directory is
+<pre>  /home/&lt;<i>user</i>&gt;/.config/sigmdel/lazmqttc</pre>
+
+In Windows 10, the files are save in the local `AppData` folder :
+<pre>  C:\Users\&lt;<i>user</i>&gt;\AppData\Local\sigmdel\lazmqttc</pre>
+
+
+## 5. Licence
 
 The [Eclipse Mosquitto](https://github.com/eclipse/mosquitto) project is dual-licensed under the Eclipse Public License 2.0 and the
 Eclipse Distribution License 1.0.
 
 The content of the `mosquito-p` repository is covered by the ISC License ([SPDX](https://spdx.dev/): [ISC](https://spdx.org/licenses/ISC.html)).
 
-The icon images were copied from the [Lazarus](https://www.lazarus-ide.org/) distribution which is provided under a modified LGPL licence (see COPYING.modifiedLGPL.txt in the Lazarus source tree. The source of the check list box editor (also covered by the modified LGPL licence) in the Lazarus IDE was borrowed to create the editor of subscribed topics. 
+The icon images were copied from the [Lazarus](https://www.lazarus-ide.org/) distribution which is provided under a modified LGPL licence (see COPYING.modifiedLGPL.txt in the Lazarus source tree. The source of the check list box editor (also covered by the modified LGPL licence) in the Lazarus IDE was borrowed to create the  subscribed topics editor. 
 
 The **BSD Zero Clause** ([SPDX](https://spdx.dev/): [0BSD](https://spdx.org/licenses/0BSD.html)) licence applies to the original code in this repository.
