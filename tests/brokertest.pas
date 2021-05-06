@@ -44,6 +44,7 @@ const
   sKeepAlivesKey = 'KeepAlives';
   sReconnectDelayKey = 'ReconnectDelay';
   sReconnectBackoffKey = 'ReconnectBackoff';
+  sAutoReconnectKey = 'AutoReconnect';
   sPubTopicKey = 'PubTopic';
   sPubPayloadKey = 'PubPayload';
   sPubQoSKey = 'PubQoS';
@@ -78,6 +79,7 @@ begin
   AssertEquals('default KeepAlives', DEFAULT_KEEPALIVES, FBroker.KeepAlives);
   AssertEquals('default ReconnectDelay', DEFAULT_RECONNECTDELAY, FBroker.ReconnectDelay);
   AssertEquals('default ReconnectBackoff', DEFAULT_RECONNECTBACKOFF, FBroker.ReconnectBackoff);
+  AssertEquals('default AutoReconnect', DEFAULT_AUTORECONNECT, FBroker.AutoReconnect);
 
   AssertEquals('default PubTopic', DEFAULT_PUBLISH_TOPIC, FBroker.PubTopic);
   AssertEquals('default PubQoS', DEFAULT_PUBQOS, FBroker.PubQoS);
@@ -208,6 +210,7 @@ begin
         sKeepAlivesKey : AssertEquals(sKeepAlivesKey, FBroker.KeepAlives, E.Value.AsInteger);
         sReconnectDelayKey : AssertEquals(sReconnectDelayKey, FBroker.ReconnectDelay, E.Value.AsInteger);
         sReconnectBackoffKey : AssertEquals(sReconnectBackoffKey, FBroker.ReconnectBackoff, E.Value.AsBoolean);
+        sAutoReconnectKey : AssertEquals(sAutoReconnectKey, FBroker.AutoReconnect, E.Value.AsBoolean);
         sSubTopicsKey : begin
            for i := 0 to E.Value.Count-1 do begin
              for F in E.Value.Items[i] do begin
@@ -252,6 +255,7 @@ begin
     AssertEquals('KeepAlives', DEFAULT_KEEPALIVES, LBroker.KeepAlives);
     AssertEquals('ReconnectDelay', DEFAULT_RECONNECTDELAY, LBroker.ReconnectDelay);
     AssertEquals('ReconnectBackoff', DEFAULT_RECONNECTBACKOFF, LBroker.ReconnectBackoff);
+    AssertEquals('AutoReconnect', DEFAULT_AUTORECONNECT, LBroker.AutoReconnect);
 
     AssertEquals('PubTopic', DEFAULT_PUBLISH_TOPIC, LBroker.PubTopic);
     AssertEquals('PubPayload', DEFAULT_PUBLISH_PAYLOAD, LBroker.PubPayload);
@@ -293,8 +297,10 @@ begin
     AssertEquals('loaded KeepAlives', DEFAULT_KEEPALIVES, FBroker.KeepAlives);
     AssertEquals('loaded ReconnectDelay', DEFAULT_RECONNECTDELAY, FBroker.ReconnectDelay);
     AssertEquals('loaded ReconnectBackoff', DEFAULT_RECONNECTBACKOFF, FBroker.ReconnectBackoff);
+    AssertEquals('loaded AutoReconnect', DEFAULT_AUTORECONNECT, FBroker.AutoReconnect);
 
     AssertEquals('loaded PubTopic', DEFAULT_PUBLISH_TOPIC, FBroker.PubTopic);
+    AssertEquals('loaded PubPayload', DEFAULT_PUBLISH_PAYLOAD, FBroker.PubPayload);
     AssertEquals('loaded PubQoS', DEFAULT_PUBQOS, FBroker.PubQoS);
     AssertEquals('loaded PubRetain', DEFAULT_PUBRETAIN, FBroker.PubRetain);
 

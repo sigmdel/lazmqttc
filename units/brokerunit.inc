@@ -15,6 +15,7 @@ const
   DEFAULT_PUBLISH_PAYLOAD = '';     // no default publish payload
   DEFAULT_PUBQOS = 0;               // publish topic quality of service
   DEFAULT_PUBRETAIN = false;        // retail publish topic
+  DEFAULT_AUTORECONNECT = true;     // reconnect after disconnection
   DEFAULT_FIRST_SUBTOPIC = '#';     // subscribe to all topics
   DEFAULT_FIRST_SUBQOS = 0;         // subscribed quality of service 0
   DEFAULT_FIRST_SUBUSE = True;      // activate this subscribe topic

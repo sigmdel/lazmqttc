@@ -20,6 +20,8 @@ type
     actEdit: TAction;
     ActionList1: TActionList;
     CancelButton: TButton;
+    AutoReconnectCheckBox: TCheckBox;
+    Label10: TLabel;
     Label14: TLabel;
     PayloadMemo: TMemo;
     ReconnectBackoffCheckBox: TCheckBox;
@@ -70,6 +72,7 @@ type
     procedure actClearExecute(Sender: TObject);
     procedure actDelExecute(Sender: TObject);
     procedure actEditExecute(Sender: TObject);
+    procedure AutoReconnectCheckBoxChange(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure HostEditEditingDone(Sender: TObject);
@@ -231,6 +234,12 @@ begin
   end;
 end;
 
+procedure TBrokerEditForm.AutoReconnectCheckBoxChange(Sender: TObject);
+begin
+  FBroker.AutoReconnect := AutoReconnectCheckBox.Checked;
+  AutoReconnectCheckBox.Caption := Format('(%s)', [falsetruestr[FBroker.AutoReconnect]]);
+end;
+
 procedure TBrokerEditForm.CancelButtonClick(Sender: TObject);
 begin
   ModalResult := mrCancel;
@@ -361,6 +370,7 @@ end;
 procedure TBrokerEditForm.ReconnectBackoffCheckBoxChange(Sender: TObject);
 begin
   FBroker.ReconnectBackoff := ReconnectBackoffCheckBox.Checked;
+  ReconnectBackoffCheckBox.Caption := Format('(%s)', [falsetruestr[FBroker.ReconnectBackoff]]);
 end;
 
 procedure TBrokerEditForm.ReconnectDelayEditEditingDone(Sender: TObject);
@@ -407,6 +417,7 @@ begin
     KeepAlivesEdit.Value := KeepAlives;
     ReconnectDelayEdit.Value := ReconnectDelay;
     ReconnectBackoffCheckBox.Checked := ReconnectBackoff;
+    AutoReconnectCheckBox.Checked := AutoReconnect;
     UserEdit.Text := User;
     PasswordEdit.Text := Password;
     SSLCheckBox.Checked := SSL;

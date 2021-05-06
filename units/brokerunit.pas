@@ -47,6 +47,7 @@ Type
     FPubPayload: String;
     FPubQoS: integer;
     FPubRetain: boolean;
+    FAutoReconnect: boolean;
     FSubTopics: TSubTopics;
     function GetSubTopicsCount: integer;
     function GetSubTopicsUseCount: integer;
@@ -121,6 +122,9 @@ Type
       { Saves the values of all properties in a JSON object}
     Procedure SaveToJSON(AJSON: TJSONObject); overload; virtual;
 
+      { If true then attempts at reconnecting will be made if connection to the broker is lost }
+    Property AutoReconnect: boolean Read FAutoReconnect Write FAutoReconnect;
+
       { Host name or IP address of the broker. Can use local domain host names in Linux systems}
     Property Host: String Read FHost Write FHost;
 
@@ -193,6 +197,7 @@ const
   sKeepAlivesKey = 'KeepAlives';
   sReconnectDelayKey = 'ReconnectDelay';
   sReconnectBackoffKey = 'ReconnectBackoff';
+  sAutoReconnectKey = 'AutoReconnect';
   sPubTopicKey = 'PubTopic';
   sPubPayloadKey = 'PubPayload';
   sPubQoSKey = 'PubQoS';
@@ -394,6 +399,7 @@ begin
   FKeepAlives := aBroker.KeepAlives;
   FReconnectDelay := aBroker.ReconnectDelay;
   FReconnectBackoff := aBroker.ReconnectBackoff;
+  FAutoReconnect := aBroker.AutoReconnect;
   FPubTopic := aBroker.PubTopic;
   FPubPayload := aBroker.PubPayload;
   FPubQoS := aBroker.PubQoS;
@@ -434,6 +440,7 @@ begin
   FKeepAlives := 60;
   FReconnectDelay := 0;
   FReconnectBackoff := false;
+  FAutoReconnect := true;
   FPubTopic := '';
   FPubPayload := '';
   FPubQoS := 0;
@@ -499,6 +506,7 @@ begin
   FKeepalives := DEFAULT_KEEPALIVES;
   FReconnectDelay := DEFAULT_RECONNECTDELAY;
   FReconnectBackoff := DEFAULT_RECONNECTBACKOFF;
+  FAutoReconnect := DEFAULT_AUTORECONNECT;
   FPubTopic := DEFAULT_PUBLISH_TOPIC;
   FPubPayload := DEFAULT_PUBLISH_PAYLOAD;
   FPubQoS := DEFAULT_PUBQOS;
@@ -522,6 +530,7 @@ begin
      (FKeepAlives = aBroker.KeepAlives) and
      (FReconnectDelay = aBroker.ReconnectDelay) and
      (FReconnectBackoff = aBroker.ReconnectBackoff) and
+     (FAutoReconnect = aBroker.AutoReconnect) and
      (FPubTopic = aBroker.PubTopic) and
      (FPubPayload = aBroker.PubPayload) and
      (FPubQoS = aBroker.PubQoS) and
@@ -562,6 +571,7 @@ begin
       sKeepAlivesKey: KeepAlives := E.Value.AsInteger;
       sReconnectDelayKey: ReconnectDelay := E.Value.AsInteger;
       sReconnectBackoffKey: ReconnectBackoff := E.Value.AsBoolean;
+      sAutoReconnectKey: AutoReconnect := E.Value.AsBoolean;
       sPubTopicKey: PubTopic := E.Value.AsString;
       sPubPayloadKey: PubPayload := E.Value.AsString;
       sPubQoSKey: PubQoS := E.Value.AsInteger;
@@ -635,6 +645,7 @@ begin
   AJSON.Add(sKeepAlivesKey, KeepAlives);
   AJSON.Add(sReconnectDelayKey, ReconnectDelay);
   AJSON.Add(sReconnectBackoffKey, ReconnectBackoff);
+  AJSON.Add(sAutoReconnectKey, AutoReconnect);
   AJSON.Add(sPubTopicKey, PubTopic);
   AJSON.Add(sPubPayloadKey, PubPayload);
   AJSON.Add(sPubQoSKey,  PubQoS);

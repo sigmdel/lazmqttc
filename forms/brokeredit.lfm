@@ -96,7 +96,7 @@ object BrokerEditForm: TBrokerEditForm
     Height = 370
     Top = 0
     Width = 508
-    PageIndex = 2
+    PageIndex = 0
     Align = alClient
     Anchors = [akTop, akLeft, akRight]
     TabOrder = 2
@@ -136,7 +136,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
-        Left = 96
+        Left = 111
         Height = 14
         Top = 85
         Width = 29
@@ -145,16 +145,14 @@ object BrokerEditForm: TBrokerEditForm
         ParentColor = False
       end
       object PortEdit: TSpinEdit
-        AnchorSideLeft.Control = Label3
-        AnchorSideLeft.Side = asrBottom
+        AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = HostEdit
         AnchorSideTop.Side = asrBottom
-        Left = 132
+        Left = 149
         Height = 32
         Hint = 'Default MQTT Port: 1883'
         Top = 76
         Width = 120
-        BorderSpacing.Left = 7
         BorderSpacing.Top = 12
         MaxValue = 65365
         MinValue = 1024
@@ -168,23 +166,23 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
-        Left = 56
+        Left = 71
         Height = 14
-        Top = 123
+        Top = 129
         Width = 69
         Anchors = [akTop, akRight]
         Caption = 'Keep Alives'
         ParentColor = False
       end
       object KeepAlivesEdit: TSpinEdit
-        AnchorSideLeft.Control = PortEdit
+        AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = PortEdit
         AnchorSideTop.Side = asrBottom
-        Left = 132
+        Left = 149
         Height = 32
-        Top = 114
+        Top = 120
         Width = 120
-        BorderSpacing.Top = 6
+        BorderSpacing.Top = 12
         MaxValue = 0
         OnEditingDone = KeepAlivesEditEditingDone
         TabOrder = 2
@@ -196,37 +194,38 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
-        Left = 21
+        Left = 36
         Height = 14
-        Top = 161
+        Top = 173
         Width = 104
         Anchors = [akTop, akRight]
         Caption = 'Reconnect  Delay'
         ParentColor = False
       end
       object ReconnectDelayEdit: TSpinEdit
-        AnchorSideLeft.Control = KeepAlivesEdit
+        AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = KeepAlivesEdit
         AnchorSideTop.Side = asrBottom
-        Left = 132
+        Left = 149
         Height = 32
-        Top = 152
+        Top = 164
         Width = 120
-        BorderSpacing.Top = 6
+        BorderSpacing.Top = 12
         MaxValue = 0
         OnEditingDone = ReconnectDelayEditEditingDone
         TabOrder = 3
         Value = 1024
       end
       object ReconnectBackoffCheckBox: TCheckBox
-        AnchorSideLeft.Control = ReconnectDelayEdit
+        AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = ReconnectDelayEdit
         AnchorSideTop.Side = asrBottom
-        Left = 132
+        Left = 149
         Height = 23
-        Top = 196
-        Width = 23
+        Top = 208
+        Width = 63
         BorderSpacing.Top = 12
+        Caption = '(false)'
         OnChange = ReconnectBackoffCheckBoxChange
         TabOrder = 4
       end
@@ -234,12 +233,41 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideLeft.Control = Label2
         AnchorSideTop.Control = ReconnectBackoffCheckBox
         AnchorSideTop.Side = asrCenter
-        Left = 12
+        AnchorSideRight.Control = Label10
+        AnchorSideRight.Side = asrBottom
+        Left = 27
         Height = 14
-        Top = 200
+        Top = 212
         Width = 113
+        Anchors = [akTop, akRight]
         Caption = 'Reconnect Backoff'
         ParentColor = False
+      end
+      object Label10: TLabel
+        AnchorSideLeft.Control = Label2
+        AnchorSideTop.Control = AutoReconnectCheckBox
+        AnchorSideTop.Side = asrCenter
+        Left = 12
+        Height = 14
+        Top = 247
+        Width = 128
+        Caption = 'Automatic Reconnect'
+        ParentColor = False
+      end
+      object AutoReconnectCheckBox: TCheckBox
+        AnchorSideLeft.Control = Label10
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = ReconnectBackoffCheckBox
+        AnchorSideTop.Side = asrBottom
+        Left = 149
+        Height = 23
+        Top = 243
+        Width = 59
+        BorderSpacing.Left = 9
+        BorderSpacing.Top = 12
+        Caption = '(true)'
+        OnChange = AutoReconnectCheckBoxChange
+        TabOrder = 5
       end
     end
     object SecurityPage: TPage

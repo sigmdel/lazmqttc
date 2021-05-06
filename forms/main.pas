@@ -251,6 +251,7 @@ begin
   // with debug message use MOSQ_LOG_ALL);
   MqttClient := TThisMQTTConnection.Create('mqttClient', MqttConfig, MOSQ_LOG_NODEBUG);
   try
+    MqttClient.AutoReconnect := aBroker.AutoReconnect;
     MqttClient.OnMessage := @MqttClient.MessageHandler;
     MqttClient.Connect;
     PublishTopicEdit.Text := aBroker.PubTopic;
