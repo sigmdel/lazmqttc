@@ -1,13 +1,11 @@
 
 # Change Log
 
-<!-- ## Unreleased (development) -->
+## 0.2.1 (57488bd, Released)
 
+- Auto reconnect added
 
-<!-- ## Released -->
-
-### Current
-
+### 0.2.0 (f53e95)
 - QoS for subscribed messages added
 - QoS and Retain for published messages added
 - All properties of `TMQTTConfig` record now included in `TBroker`
@@ -16,7 +14,7 @@
 - Rationalized editing of `TBroker` so that any changes made to the current MQTT broker definition in the main form are passed on to the broker editor form
 
 
-### 0.1.0 (de68488)
+## 0.1.0 (de68488, Released)
 
 - Should be last commit before adding QoS, Retain messages, etc.
 - Improved TBroker.LoadFromFile
