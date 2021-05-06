@@ -79,6 +79,7 @@ type
     procedure KeepAlivesEditEditingDone(Sender: TObject);
     procedure PasswordEditButtonClick(Sender: TObject);
     procedure PasswordEditEditingDone(Sender: TObject);
+    procedure PayloadMemoEditingDone(Sender: TObject);
     procedure ReconnectBackoffCheckBoxChange(Sender: TObject);
     procedure ReconnectDelayEditEditingDone(Sender: TObject);
     procedure PortEditEditingDone(Sender: TObject);
@@ -153,7 +154,6 @@ begin
   end
   else begin
     FSource.assign(FBroker);
-    FBroker.SaveToFile('/home/michel/broker2.json');  // debugging
     ModalResult := mrOk;
   end;
 end;
@@ -343,6 +343,11 @@ end;
 procedure TBrokerEditForm.PasswordEditEditingDone(Sender: TObject);
 begin
   FBroker.Password := PasswordEdit.Text;
+end;
+
+procedure TBrokerEditForm.PayloadMemoEditingDone(Sender: TObject);
+begin
+  FBroker.PubPayload := PayloadMemo.Text;
 end;
 
 procedure TBrokerEditForm.PortEditEditingDone(Sender: TObject);

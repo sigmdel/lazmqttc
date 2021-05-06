@@ -96,7 +96,7 @@ object BrokerEditForm: TBrokerEditForm
     Height = 370
     Top = 0
     Width = 508
-    PageIndex = 0
+    PageIndex = 3
     Align = alClient
     Anchors = [akTop, akLeft, akRight]
     TabOrder = 2
@@ -521,6 +521,7 @@ object BrokerEditForm: TBrokerEditForm
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Top = 6
         BorderSpacing.Bottom = 12
+        OnEditingDone = PayloadMemoEditingDone
         ScrollBars = ssAutoVertical
         TabOrder = 3
       end
