@@ -392,7 +392,6 @@ object MainForm: TMainForm
         Align = alTop
         BorderSpacing.Left = 6
         BorderSpacing.Right = 6
-        Font.Style = [fsBold]
         ParentFont = False
       end
     end
