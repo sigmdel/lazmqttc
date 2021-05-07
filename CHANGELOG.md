@@ -1,7 +1,14 @@
 
 # Change Log
 
-## 0.2.2 (current, Released)
+### 0.2.3 (Current)
+
+- Improved reporting when of publishing a message
+- Added two forms to replace rather garish built-in Lazarus dialogs
+- Removed the no longer needed `Delay` function in `main.pas`
+- Made sure the `EditorDone` handler is called before processing `FormCloseQuery` in `brokeredit.pas` to avoid loosing changes made in an edit control that still had the focus
+
+### 0.2.2 (bbb9e17)
 
 - Ensured mosquitto does write log messages when running in Windows (there must be a better solution)
 - Removed PairSplitter which would not play nice in Windows and replaced with a second splitter and an additional panel
@@ -22,9 +29,9 @@
 - Rationalized editing of `TBroker` so that any changes made to the current MQTT broker definition in the main form are passed on to the broker editor form
 
 
-## 0.1.0 (de68488, Released)
+### 0.1.0 (de68488)
 
-- Should be last commit before adding QoS, Retain messages, etc.
+- Last commit before adding QoS, Retain messages, etc.
 - Improved TBroker.LoadFromFile
 - Attribution for Unsubscribe methods in TMQTTConnection class added
 - Added tests in TBroker unit test
