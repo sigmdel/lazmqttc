@@ -102,7 +102,6 @@ type
     procedure UpdateView;
   public
     TopicsGrid: TSubTopicsGrid;
-    //procedure TopicGridSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
     procedure TopicGridGetCellHint(Sender: TObject; ACol, ARow: Integer; var HintText: String);
     class function EditBroker(aBroker: TBroker): boolean;
   end;
@@ -113,17 +112,11 @@ implementation
 {$R *.lfm}
 
 uses
-  editsubtopic;
+  editsubtopic, verify;
 
 resourcestring
-  csbBrokerEditor = 'MQTT Broker Editor';  //*
-  cbsLoseChanges = 'Close without saving changes'; //*
-  cbsSubscribeTopics = 'Subscribe Topics'; //*
-  cbsDeleteQuery = 'Delete <%s>';  //*
-  cbsEdit = 'Edit the topic';
-  cbsAdd = 'Add new topic';
-  cbsDelete = 'Delete the topic';
-  cbsClear = 'Delete all topics';
+  cbsLoseChanges = 'Close without saving changes';
+  cbsDeleteQuery = 'Delete <%s>';
 
 const
   CONFIGFILENAME = 'default.json';
@@ -191,17 +184,17 @@ var
 begin
   with TopicsGrid do begin
     OldIndex := row;
-    if (row > 0) and (row <= FBroker.SubTopicsCount) then begin
-      if MessageDlg(cbsSubscribeTopics, Format(cbsDeleteQuery, [FBroker.SubTopics[pred(row)].Topic]),
-         mtConfirmation, mbYesNo, 0) <> mrYes then exit;
-      TopicsGrid.HideEditor;
-      FBroker.DeleteSubTopic(pred(row));
-      UpdateGridSize;
-      if OldIndex >= RowCount then
-        Row := RowCount-1
-      else
-        Row := OldIndex;
-      Change;
+    if (row > 0)
+      and (row <= FBroker.SubTopicsCount)
+      and ConfirmAction(Format(cbsDeleteQuery, [FBroker.SubTopics[pred(row)].Topic])) then begin
+        TopicsGrid.HideEditor;
+        FBroker.DeleteSubTopic(pred(row));
+        UpdateGridSize;
+        if OldIndex >= RowCount then
+          Row := RowCount-1
+        else
+          Row := OldIndex;
+        Change;
     end;
   end;
 end;
@@ -253,9 +246,20 @@ begin
 end;
 
 procedure TBrokerEditForm.FormCloseQuery(Sender: TObject; var CanClose: boolean);
+var
+  aControl: TWinControl;
 begin
+  // Clicking on close [X] button while in an Edit control means that
+  // an attempt to close the form will be made without calling the EditingDone
+  // handler. Switching the active control before checking for changes
+  // will result in EditingDone being called.
+  aControl := ActiveControl;
+  if assigned(aControl) then
+    ListBox1.SetFocus;
   if FCheckModified and not FBroker.isEqual(FSource) then
-     CanClose := MessageDlg(csbBrokerEditor, cbsLoseChanges,  mtConfirmation, mbYesNo, 0) = mrYes;
+    CanClose := ConfirmAction(cbsLoseChanges);
+  if not CanClose and assigned(aControl) then
+    aControl.SetFocus;
 end;
 
 procedure TBrokerEditForm.FormCreate(Sender: TObject);
@@ -278,18 +282,12 @@ begin
      Width := 490;
      Anchors := [akTop, akLeft, akRight, akBottom];
      Broker := FBroker;
-     //OnSelectCell := @TopicGridSelectCell;
-     //OnGetCellHint := @TopicGridGetCellHint;
+     OnGetCellHint := @TopicGridGetCellHint;
      Options := Options + [goCellHints];
      ShowHint := true;
-     //TabOrder = 1
   end;
   OpenDialog.Filename := configfile;
   SaveDialog.Filename := configfile;
-  actDel.Hint := cbsDelete;
-  actAdd.Hint := cbsAdd;
-  actEdit.Hint := cbsEdit;
-  actClear.Hint := cbsClear;
 end;
 
 procedure TBrokerEditForm.FormDestroy(Sender: TObject);

@@ -96,7 +96,7 @@ object BrokerEditForm: TBrokerEditForm
     Height = 370
     Top = 0
     Width = 508
-    PageIndex = 3
+    PageIndex = 0
     Align = alClient
     Anchors = [akTop, akLeft, akRight]
     TabOrder = 2
@@ -576,7 +576,7 @@ object BrokerEditForm: TBrokerEditForm
         end
         object ToolButton1: TToolButton
           Left = 70
-          Height = 8
+          Height = 22
           Top = 2
           Caption = 'ToolButton1'
           Style = tbsSeparator
@@ -597,22 +597,26 @@ object BrokerEditForm: TBrokerEditForm
     Top = 304
     object actAdd: TAction
       Caption = 'Add'
+      Hint = 'Add new topic'
       ImageIndex = 2
       OnExecute = actAddExecute
       ShortCut = 45
     end
     object actDel: TAction
       Caption = 'actDel'
+      Hint = 'Delete the selected topic'
       ImageIndex = 3
       OnExecute = actDelExecute
     end
     object actEdit: TAction
       Caption = 'Edit'
+      Hint = 'Edit the selected topic'
       ImageIndex = 4
       OnExecute = actEditExecute
     end
     object actClear: TAction
       Caption = 'Clear'
+      Hint = 'Delete all topics'
       ImageIndex = 5
       OnExecute = actClearExecute
     end

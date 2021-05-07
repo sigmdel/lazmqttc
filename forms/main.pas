@@ -136,19 +136,6 @@ var
 const
   falsetruestr: array[boolean] of string = ('false', 'true');
 
- procedure Delay(ms: DWORD);
-(*
-Source: GetMem on  Lazarus forum
-https://forum.lazarus.freepascal.org/index.php/topic,31526.msg202088.html#msg202088
-*)
-var
-  tc : DWORD;
-begin
-  tc := GetTickCount64;
-  while (GetTickCount64 < tc + ms) and (not Application.Terminated) do
-    Application.ProcessMessages;
-end;
-
 type
   TThisMQTTConnection = class(TMQTTConnection)
   private
