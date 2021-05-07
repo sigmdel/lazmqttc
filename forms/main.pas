@@ -109,7 +109,7 @@ implementation
 {$R *.lfm}
 
 uses
-  LCLIntf, brokeredit, mosquitto;
+  LCLIntf, brokeredit, mosquitto, report;
 
 
 // mosquitto library log level
@@ -358,43 +358,44 @@ end;
 procedure TMainForm.PublishButtonClick(Sender: TObject);
 var
   res: integer;
-  waitfor: dword;
-  msg: string;
+  topic, msg: string;
 begin
+  topic := trim(PublishTopicEdit.Text);
   if not assigned(MqttClient) then
     res := -1000
   else if MQttClient.State <> mqttConnected then
     res := -1001
+  else if topic = '' then
+    res := -1002
   else begin
-    res := MqttClient.Publish(PublishTopicEdit.Text, PayloadMemo.Text,
+    res := MqttClient.Publish(topic, PayloadMemo.Text,
       QoSComboBox.ItemIndex, RetainCheckBox.Checked);
     if (res = 0) and (PayloadMemo.Text = '') then begin
-      res := -1002;
-      if RetainCheckBox.Checked then dec(res);
+      res := -1003;
+      if RetainCheckBox.Checked then dec(res); // -1004
     end;
   end;
-
-  PayloadMemo.Lines.Add('');
-  waitfor := 3000;
 
   if res = -1000 then
     msg := 'The Mqtt Client has not been created'
   else if res = -1001 then
-    msg := 'The Mqtt Client has not been created'
+    msg := 'The Mqtt Client is not connected'
   else if res = -1002 then
-    msg := 'Warning: Message set with no payload'
-  else if res = -1003 then
-    msg := 'OK - removed retain flag'
+    msg := 'A topic must be specified'
+  else if res = -1003 then begin
+    msg := 'OK but the message had no payload';
+    res := 0;
+  end
+  else if res = -1004 then begin
+    msg := 'Retain flag removed for topic ' + topic;
+    res := 0;
+  end
   else if res > 0 then
     msg := Format('MQTT Error: %d', [res])
-  else begin
+  else
     msg := 'OK';
-    waitfor := 1000;
-  end;
-  PayloadMemo.Lines.Add(msg);
-  Delay(waitfor);
-  PayloadMemo.Lines.Delete(PayloadMemo.Lines.Count-1);
-  PayloadMemo.Lines.Delete(PayloadMemo.Lines.Count-1);
+
+  ShowPublishResult(msg, res = 0);
   RetainCheckBox.Checked := false;
 end;
 

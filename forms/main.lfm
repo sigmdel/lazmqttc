@@ -272,7 +272,7 @@ object MainForm: TMainForm
     Height = 126
     Top = 229
     Width = 575
-    Align = alBottom
+    Align = alClient
     BevelOuter = bvNone
     ClientHeight = 126
     ClientWidth = 575
@@ -371,13 +371,13 @@ object MainForm: TMainForm
     end
     object DividerBevel1: TDividerBevel
       AnchorSideLeft.Control = BottomPanel
+      AnchorSideTop.Control = BottomPanel
       AnchorSideRight.Control = BottomPanel
       Left = 5
       Height = 16
       Top = 0
       Width = 564
       Caption = 'Received Messages'
-      Align = alTop
       BorderSpacing.Left = 5
       BorderSpacing.Right = 6
       ParentFont = False
@@ -388,8 +388,8 @@ object MainForm: TMainForm
     Height = 61
     Top = 163
     Width = 563
-    Align = alClient
-    Anchors = [akBottom]
+    Align = alTop
+    Anchors = []
     BorderSpacing.Left = 6
     BorderSpacing.Right = 6
     BevelOuter = bvNone
@@ -419,7 +419,7 @@ object MainForm: TMainForm
     Height = 5
     Top = 224
     Width = 575
-    Align = alBottom
-    ResizeAnchor = akBottom
+    Align = alTop
+    ResizeAnchor = akTop
   end
 end
