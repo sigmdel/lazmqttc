@@ -19,6 +19,7 @@ type
       aState: TGridDrawState); override;
     procedure DrawGridCheckboxBitmaps(const aCol,aRow: Integer; const aRect: TRect;
                                         const aState: TCheckboxState); override;
+    function  GetCellHintText(ACol, ARow: Integer): string; override;
     function  GetEditText(aCol, aRow: Longint): string; override;
     procedure SetEditText(ACol, ARow: Longint; const Value: string); override;
     procedure SetCheckboxState(const aCol, aRow:Integer; const aState: TCheckboxState); override;
@@ -145,6 +146,9 @@ type
 
 implementation
 
+uses
+  stringres;
+
 constructor TSubTopicsGrid.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -157,22 +161,17 @@ begin
   ScrollBars := ssAutoVertical;
   with Columns.Add do begin
     Title.Alignment := taCenter;
-    Title.Caption := 'Use';
+    Title.Caption := sUseTitle;
     ButtonStyle := cbsCheckboxColumn;
   end;
   with Columns.Add do begin
     Title.Alignment := taCenter;
-    Title.Caption := 'Topic';
+    Title.Caption := sTopicTitle;
   end;
   with Columns.Add do begin
     Title.Alignment := taCenter;
-    Title.Caption := 'QoS';
+    Title.Caption := sQoSTitle;
     Alignment := taCenter;
-    {
-    PickList.Add('0 - At most once');
-    PickList.Add('1 - At least once');
-    PickList.Add('2 - Exactly once');
-    }
     PickList.Add('0');
     PickList.Add('1');
     PickList.Add('2');
@@ -191,6 +190,14 @@ begin
       state := cbUnchecked;
     inherited DrawGridCheckboxBitmaps(aCol, aRow, aRect, state);
   end;
+end;
+
+function TSubTopicsGrid.GetCellHintText(ACol, ARow: Integer): string;
+begin
+  if aCol = 2 then
+    result := sQoSHint
+  else
+    result := '';
 end;
 
 procedure TSubTopicsGrid.DrawTextInCell(aCol, aRow: Integer; aRect: TRect;

@@ -102,7 +102,6 @@ type
     procedure UpdateView;
   public
     TopicsGrid: TSubTopicsGrid;
-    procedure TopicGridGetCellHint(Sender: TObject; ACol, ARow: Integer; var HintText: String);
     class function EditBroker(aBroker: TBroker): boolean;
   end;
 
@@ -112,15 +111,10 @@ implementation
 {$R *.lfm}
 
 uses
-  editsubtopic, verify;
-
-resourcestring
-  cbsLoseChanges = 'Close without saving changes';
-  cbsDeleteQuery = 'Delete <%s>';
+  stringres, editsubtopic, verify;
 
 const
   CONFIGFILENAME = 'default.json';
-  falsetruestr: array[boolean] of string = ('false', 'true');
 
 var
   configfile: string; // see initialization
@@ -282,7 +276,7 @@ begin
      Width := 490;
      Anchors := [akTop, akLeft, akRight, akBottom];
      Broker := FBroker;
-     OnGetCellHint := @TopicGridGetCellHint;
+     //OnGetCellHint := @TopicGridGetCellHint;
      Options := Options + [goCellHints];
      ShowHint := true;
   end;
@@ -398,13 +392,6 @@ end;
 procedure TBrokerEditForm.SSLCheckBoxEditingDone(Sender: TObject);
 begin
   FBroker.SSL := SSLCheckBox.Checked;
-end;
-
-procedure TBrokerEditForm.TopicGridGetCellHint(Sender: TObject; ACol, ARow: Integer;
-  var HintText: String);
-begin
-  if aCol = 2 then
-    HintText := '0 - At most once'#10'1 - At least once'#10'2 - Exactly once'
 end;
 
 procedure TBrokerEditForm.UserEditEditingDone(Sender: TObject);

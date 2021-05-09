@@ -9,7 +9,6 @@ object MainForm: TMainForm
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '2.0.12.0'
   object TopPanel: TPanel
     AnchorSideTop.Control = Owner
     Left = 0
@@ -119,7 +118,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       Left = 6
       Height = 14
-      Top = 15
+      Top = 12
       Width = 32
       BorderSpacing.Left = 6
       Caption = 'Topic'
@@ -131,7 +130,7 @@ object MainForm: TMainForm
       AnchorSideRight.Control = MiddlePanel
       AnchorSideRight.Side = asrBottom
       Left = 61
-      Height = 32
+      Height = 27
       Top = 6
       Width = 508
       Anchors = [akTop, akLeft, akRight]
@@ -149,8 +148,8 @@ object MainForm: TMainForm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = QoSComboBox
       Left = 61
-      Height = 37
-      Top = 44
+      Height = 44
+      Top = 39
       Width = 508
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Left = 6
@@ -166,7 +165,7 @@ object MainForm: TMainForm
       AnchorSideTop.Control = PayloadMemo
       Left = 6
       Height = 22
-      Top = 44
+      Top = 39
       Width = 49
       AutoSize = False
       Caption = 'Payload'
@@ -182,7 +181,7 @@ object MainForm: TMainForm
       AnchorSideBottom.Side = asrBottom
       Left = 494
       Height = 25
-      Top = 89
+      Top = 90
       Width = 75
       Anchors = [akTop, akRight]
       BorderSpacing.Left = 6
@@ -198,7 +197,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       Left = 6
       Height = 14
-      Top = 94
+      Top = 95
       Width = 194
       Caption = 'Message quality of service (QoS)'
       Layout = tlCenter
@@ -211,8 +210,8 @@ object MainForm: TMainForm
       AnchorSideBottom.Control = MiddlePanel
       AnchorSideBottom.Side = asrBottom
       Left = 206
-      Height = 28
-      Top = 87
+      Height = 26
+      Top = 89
       Width = 149
       Anchors = [akLeft, akBottom]
       BorderSpacing.Left = 6
@@ -236,7 +235,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       Left = 373
       Height = 14
-      Top = 94
+      Top = 95
       Width = 38
       BorderSpacing.Left = 18
       Caption = 'Retain'
@@ -250,7 +249,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       Left = 418
       Height = 23
-      Top = 90
+      Top = 91
       Width = 63
       BorderSpacing.Left = 7
       Caption = '(false)'

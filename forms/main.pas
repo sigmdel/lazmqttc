@@ -97,7 +97,6 @@ type
   public
     TopicsGrid: TSubTopicsGrid;
     procedure TopicsGridSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
-    procedure TopicsGridGetCellHint(Sender: TObject; ACol, ARow: Integer; var HintText: String);
     procedure TopicsGridSetUse(Sender: TObject; aCol, aRow: Integer; const aState: TCheckboxState);
   end;
 
@@ -109,7 +108,7 @@ implementation
 {$R *.lfm}
 
 uses
-  LCLIntf, brokeredit, mosquitto, report;
+  LCLIntf, stringres, brokeredit, mosquitto, report;
 
 
 // mosquitto library log level
@@ -122,19 +121,8 @@ const
   //MOSQ_LOG = MOSQ_LOG_NONE;
   {$ENDIF}
 
-resourcestring
-  mssNoClient = 'No Mqtt Client';
-  mssConnecting = 'Attempting to connect';
-  mssConnected = 'Connected';
-  mssReconnecting = 'Attempting to reconnect';
-  mssDisconnected = 'Disconnected';
-
 var
-  statusStr: array[TMQTTConnectionState] of string;
   ShowTopics: boolean = true;
-
-const
-  falsetruestr: array[boolean] of string = ('false', 'true');
 
 type
   TThisMQTTConnection = class(TMQTTConnection)
@@ -176,7 +164,7 @@ begin
         Move(payload^,msg[1],payloadlen);
       end;
       if ShowTopics then
-        FThisMessage := Format('[%s] - %s', [topic, msg])
+        FThisMessage := Format(srxMsgFormat, [topic, msg])
       else
         FThisMessage := msg;
       Synchronize(@UpdateGui);
@@ -205,11 +193,11 @@ begin
     statusLabel.Caption := statusStr[newState];
     FDisplayedState := newState;
     if (newState in [mqttConnecting, mqttConnected, mqttReconnecting]) then begin
-      ConnectButton.Caption := 'Disconnect';
+      ConnectButton.Caption := sDisconnect;
       ConnectButton.tag := 1;
     end
     else begin
-      ConnectButton.Caption := 'Connect';
+      ConnectButton.Caption := sConnect;
       ConnectButton.tag := 0;
     end;
     if newState = mqttConnected then begin
@@ -281,7 +269,7 @@ var
   Version : TProgramVersion;
 begin
   if GetProgramVersion(Version) then with Version do
-    label2.caption := Format('(version %d.%d.%d)', [Major,Minor,Revision])
+    label2.caption := Format(sVersionFormat, [Major,Minor,Revision])
   else
     label2.caption := '';
 
@@ -295,9 +283,8 @@ begin
     Options := Options + [goCellHints];
     ShowHint := true;
     BorderSpacing.Around := 6;
-    Columns[1].Title.Caption := 'Subscribe Topics';
+    Columns[1].Title.Caption := sSubscribeColumnTitle;
     OnSelectCell := @TopicsGridSelectCell;
-    OnGetCellHint := @TopicsGridGetCellHint;
     OnSetCheckboxState := @TopicsGridSetUse;
     //TabOrder = 1
   end;
@@ -364,24 +351,23 @@ begin
   end;
 
   if res = -1000 then
-    msg := 'The Mqtt Client has not been created'
+    msg := sNoClientError
   else if res = -1001 then
-    msg := 'The Mqtt Client is not connected'
+    msg := sNotConnectedError
   else if res = -1002 then
-    msg := 'A topic must be specified'
+    msg := sNoTopicError
   else if res = -1003 then begin
-    msg := 'OK but the message had no payload';
+    msg := sNoPayloadWarning;
     res := 0;
   end
   else if res = -1004 then begin
-    msg := 'Retain flag removed for topic ' + topic;
+    msg := Format(SRetainRemovedFormat, [topic]);
     res := 0;
   end
   else if res > 0 then
-    msg := Format('MQTT Error: %d', [res])
+    msg := Format(sMQTTErrorFormat, [res])
   else
-    msg := 'OK';
-
+    msg := sOk;
   ShowPublishResult(msg, res = 0);
   RetainCheckBox.Checked := false;
 end;
@@ -426,13 +412,6 @@ begin
   OpenUrl('https://github.com/sigmdel/lazmqttc');  // report error ?
 end;
 
-procedure TMainForm.TopicsGridGetCellHint(Sender: TObject; ACol, ARow: Integer;
-  var HintText: String);
-begin
-  if aCol = 2 then
-    HintText := '0 - At most once'#10'1 - At least once'#10'2 - Exactly once'
-end;
-
 procedure TMainForm.TopicsGridSelectCell(Sender: TObject; aCol, aRow: Integer;
   var CanSelect: Boolean);
 begin
@@ -458,13 +437,6 @@ begin
   end;
 end;
 
-
-initialization
-  statusStr[mqttNone] := mssNoClient;
-  statusStr[mqttConnecting] := mssConnecting;
-  statusStr[mqttConnected] := mssConnected;
-  statusStr[mqttReconnecting] := mssReconnecting;
-  statusStr[mqttDisconnected] := mssDisconnected;
 end.
 
 
