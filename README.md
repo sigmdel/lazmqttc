@@ -16,7 +16,7 @@ The screen capture shows the message sent to the public `test.moquitto.org` brok
 - [4. Installation](#4-installation)
 - [5. Broker Definitions](#5-broker-definitions)
 - [6. Improvements and Development](#6-improvements-and-development)
-- [7. Acknowledment](#7-acknowledment)
+- [7. Acknowledgment](#7-acknowledgment)
 - [8. Licence](#8-licence)
 
 <!-- /TOC -->
@@ -84,7 +84,7 @@ When compiling a final version, it would be advisable to heed the following advi
 
 1. Add an application icon. Select `Load Icon` in `Project / Project Options` in the Lazarus IDE. The `lazmqttc.png` image the `images` directory can be used. The file `lazmqtt.lzp` is the [LazPaint](https://lazpaint.github.io/) source for the image file. 
 
-2. Compile the release version. Select the `Release` build mode in `Project / Project Options / Compilter Options` in the Lazarus IDE. This will reduce the size of the executable by an order of magnitude.
+2. Compile the release version. Select the `Release` build mode in `Project / Project Options / Compiler Options` in the Lazarus IDE. This will reduce the size of the executable by an order of magnitude.
 
 ## 3. Testing
 
@@ -104,7 +104,7 @@ Details about installation of an application in Windows 10 are unfortunately not
 
 ## 5. Broker Definitions 
 
-The MQTT broker definition are JSON formatted text files. Here is an example of a definition used with an MQTT broker running on a [Domoticz](https://domoticz.com/) home automation server. The default publish message will show status 5 of all Tasmota devices which can be useful because that will display their IP address.
+MQTT broker definitions are JSON formatted text files. As an example, here is a definition used with an MQTT broker running on a Raspberry Pi also hosting a [Domoticz](https://domoticz.com/) home automation server. By default, the client will subscribe to the `stat\#` topic only when it connects with the broker. When the default the publish message is sent to the broker, all subscribed [Tasmota](https://github.com/tasmota) devices respond by sending a "status 5" message. This can be useful because that will display the IP address of each device.
 
 <pre>
 {
@@ -147,22 +147,28 @@ The MQTT broker definition are JSON formatted text files. Here is an example of 
 }   
 </pre>       
 
-In Linux, these definition files are saved in the `~/.config/sigmdel/lazmqttc`  
+In Linux, these broker definition files are saved in the `~/.config/sigmdel/lazmqttc`  
 where `~` is the user home directory. So fully expanded the directory is
 <pre>  /home/&lt;<i>user</i>&gt;/.config/sigmdel/lazmqttc</pre>
 
 In Windows 10, the files are saved in the local `AppData` folder :
 <pre>  C:\Users\&lt;<i>user</i>&gt;\AppData\Local\sigmdel\lazmqttc</pre>
 
+## National Language Support
+
+The `languages` directory contains national language translations of the literal strings found in the program. This directory should be copied alongside the executable file.
+
+Only a single translation into French is provided: `lazmqttc.fr.po`. However there is a template file, `lazmqttc.po`, that can be used to create a translation into other languages.
+
+The choice of language, is done automatically based on the system locale when the program starts up. There is no provision for choosing the language at run-time. Those that prefer to use the English language version even if a translation into the national language exists can achieve their goal by renaming or erasing the `languages` directory.
 
 ## 6. Improvements and Development
 
-Initially this utility was quickly cobbled to fulfill an immediate need: wrangling a number of IoT devices running Tasmota firmware mostly to get their IP address. Since then, an attempt has been made to combine the important features of the mosquitto "pub and sub clients" into a single application. At the same time, some attention has been given to cleaning up the code, but improvements are certainly possible. All suggestions welcomed.
+Initially this utility was quickly cobbled to fulfill an immediate need: wrangling a number of IoT devices running Tasmota firmware mostly to get their IP address. Since then, an attempt has been made to combine the important features of the mosquitto "pub and sub clients" into a single application. At the same time, some attention has been given to cleaning up the code, but improvements are certainly possible. All suggestions welcome.
 
-Currently, local language support is the only development under consideration.
+There are aspects of the MQTT protocol that are not implemented including the Last Will and Testament feature and clean sessions.
 
-
-## 7. Acknowledment
+## 7. Acknowledgment
 
 Obviously, this utility would not have been possible without 
 
@@ -170,7 +176,7 @@ Obviously, this utility would not have been possible without
 - the [Eclipse Mosquitto](https://github.com/eclipse/mosquitto) project and 
 - the [mosquitto-p](https://github.com/chainq/mosquitto-p) project by Károly Balogh (chainq).
 
-Not quite as obvious, the JSON data viewer by Michael Van Canneyt (named `jsonviewer`) provided the code for saving and loading JSON broker definition files. The utility can be found in the `tools` directory in the Lazarus source. The  the full path is `/usr/share/lazarus/2.0.12/tools/jsonviewer` in a default installation of Lazarus in Mint 20.1.
+Not quite as obvious, the JSON data viewer by Michael Van Canneyt (named `jsonviewer`) provided the code for saving and loading JSON broker definition files. The utility can be found in the `tools` directory in the Lazarus source. The full path is `/usr/share/lazarus/2.0.12/tools/jsonviewer` in a default installation of Lazarus in Mint 20.1.
 
 ## 8. Licence
 
@@ -179,6 +185,24 @@ Eclipse Distribution License 1.0.
 
 The content of the `mosquito-p` repository is covered by the ISC License ([SPDX](https://spdx.dev/): [ISC](https://spdx.org/licenses/ISC.html)).
 
-The icon images were copied from the [Lazarus](https://www.lazarus-ide.org/) distribution which is provided under a modified LGPL licence (see COPYING.modifiedLGPL.txt in the Lazarus source tree. The source of the check list box editor (also covered by the modified LGPL licence) in the Lazarus IDE was borrowed to create the  subscribed topics editor. 
+Except for `eye.png` and `no_eye.png`, the icons used in the broker editor form were copied from the [Lazarus](https://www.lazarus-ide.org/) distribution which is provided under a modified LGPL licence (see COPYING.modifiedLGPL.txt in the Lazarus source tree. The source of the check list box editor (also covered by the modified LGPL licence) in the Lazarus IDE was the initial inspiration for the subscribed topics editor. 
 
 The **BSD Zero Clause** ([SPDX](https://spdx.dev/): [0BSD](https://spdx.org/licenses/0BSD.html)) licence applies to the original code in this repository.
+
+
+<!-- KeepAlives
+
+https://github.com/knolleary/pubsubclient/issues/239
+Keepalive timeout for default MQTT Broker is 10s, pubsubclient is default set to 15s?
+
+ I discovered the  I discovered the default keepalive timeout for Mosquitto is 10s seconds is 10s seconds
+
+
+nestor@domo:~ $ man mosquitto.conf
+... 
+keepalive_interval seconds
+           Set the number of seconds after which the bridge should send a ping
+           if no other traffic has occurred. Defaults to 60. A minimum value
+           of 5 seconds is allowed.
+
+-->

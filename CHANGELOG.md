@@ -1,6 +1,13 @@
 
 # Change Log
 
+## 0.3.0 (current)
+
+- Added national language support and a translation into French
+- Improved instructions on installation in a Linux system
+- Updated documentation
+
+
 ## 0.2.3 (e903cea, Release v0.2.3)
 
 - Improved reporting when of publishing a message
