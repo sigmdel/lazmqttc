@@ -1,13 +1,14 @@
 #!/usr/bin/env xdg-open
 
 [Desktop Entry]
-Version=0.1.0
+Version=0.3.0
 Encoding=UTF-8
 Type=Application
-Icon=/home/michel/.local/bin/lazmqttc.png
-Exec=/home/michel/.local/bin/lazmqttc
+Exec=/home/$USER/.local/bin/lazmqttc/lazmqttc
+Icon=/home/$USER/.local/bin/lazmqttc/lazmqttc.png
 Name=MQTT Client
-Categories=Development;
+Name[fr_CA]=Client MQTT
+Categories=Network;
 Terminal=false
 Comment=Subscribe to and publish MQTT messages
 Comment[fr_CA]=Souscrire et publier des messages MQTT
