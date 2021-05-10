@@ -15,9 +15,10 @@ The screen capture shows the message sent to the public `test.moquitto.org` brok
 - [3. Testing](#3-testing)
 - [4. Installation](#4-installation)
 - [5. Broker Definitions](#5-broker-definitions)
-- [6. Improvements and Development](#6-improvements-and-development)
-- [7. Acknowledgment](#7-acknowledgment)
-- [8. Licence](#8-licence)
+- [6. National Language Support](#6-national-language-support)
+- [7. Improvements and Development](#7-improvements-and-development)
+- [8. Acknowledgment](#8-acknowledgment)
+- [9. Licence](#9-licence)
 
 <!-- /TOC -->
 
@@ -154,7 +155,7 @@ where `~` is the user home directory. So fully expanded the directory is
 In Windows 10, the files are saved in the local `AppData` folder :
 <pre>  C:\Users\&lt;<i>user</i>&gt;\AppData\Local\sigmdel\lazmqttc</pre>
 
-## National Language Support
+## 6. National Language Support
 
 The `languages` directory contains national language translations of the literal strings found in the program. This directory should be copied alongside the executable file.
 
@@ -162,13 +163,13 @@ Only a single translation into French is provided: `lazmqttc.fr.po`. However the
 
 The choice of language, is done automatically based on the system locale when the program starts up. There is no provision for choosing the language at run-time. Those that prefer to use the English language version even if a translation into the national language exists can achieve their goal by renaming or erasing the `languages` directory.
 
-## 6. Improvements and Development
+## 7. Improvements and Development
 
 Initially this utility was quickly cobbled to fulfill an immediate need: wrangling a number of IoT devices running Tasmota firmware mostly to get their IP address. Since then, an attempt has been made to combine the important features of the mosquitto "pub and sub clients" into a single application. At the same time, some attention has been given to cleaning up the code, but improvements are certainly possible. All suggestions welcome.
 
 There are aspects of the MQTT protocol that are not implemented including the Last Will and Testament feature and clean sessions.
 
-## 7. Acknowledgment
+## 8. Acknowledgment
 
 Obviously, this utility would not have been possible without 
 
@@ -178,7 +179,7 @@ Obviously, this utility would not have been possible without
 
 Not quite as obvious, the JSON data viewer by Michael Van Canneyt (named `jsonviewer`) provided the code for saving and loading JSON broker definition files. The utility can be found in the `tools` directory in the Lazarus source. The full path is `/usr/share/lazarus/2.0.12/tools/jsonviewer` in a default installation of Lazarus in Mint 20.1.
 
-## 8. Licence
+## 9. Licence
 
 The [Eclipse Mosquitto](https://github.com/eclipse/mosquitto) project is dual-licensed under the Eclipse Public License 2.0 and the
 Eclipse Distribution License 1.0.
