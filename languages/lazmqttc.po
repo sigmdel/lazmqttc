@@ -1,0 +1,345 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: stringres.cbsdeletequery
+msgctxt "stringres.cbsdeletequery"
+msgid "Delete <%s>"
+msgstr ""
+
+#: stringres.cbslosechanges
+msgctxt "stringres.cbslosechanges"
+msgid "Close without saving changes"
+msgstr ""
+
+#: stringres.mssconnected
+msgctxt "stringres.mssconnected"
+msgid "Connected"
+msgstr ""
+
+#: stringres.mssconnecting
+msgctxt "stringres.mssconnecting"
+msgid "Attempting to connect"
+msgstr ""
+
+#: stringres.mssdisconnected
+msgctxt "stringres.mssdisconnected"
+msgid "Disconnected"
+msgstr ""
+
+#: stringres.mssnoclient
+msgctxt "stringres.mssnoclient"
+msgid "No MQTT Client"
+msgstr ""
+
+#: stringres.mssreconnecting
+msgctxt "stringres.mssreconnecting"
+msgid "Attempting to reconnect"
+msgstr ""
+
+#: stringres.sconnect
+msgctxt "stringres.sconnect"
+msgid "Connect"
+msgstr ""
+
+#: stringres.sdisconnect
+msgctxt "stringres.sdisconnect"
+msgid "Disconnect"
+msgstr ""
+
+#: stringres.sfalse
+msgctxt "stringres.sfalse"
+msgid "false"
+msgstr ""
+
+#: stringres.smessagenotsent
+msgctxt "stringres.smessagenotsent"
+msgid "Message not published"
+msgstr ""
+
+#: stringres.smessagesent
+msgctxt "stringres.smessagesent"
+msgid "Message published"
+msgstr ""
+
+#: stringres.smqtterrorformat
+msgctxt "stringres.smqtterrorformat"
+msgid "MQTT Error: %d"
+msgstr ""
+
+#: stringres.snoclienterror
+msgctxt "stringres.snoclienterror"
+msgid "The Mqtt client has not been created"
+msgstr ""
+
+#: stringres.snopayloadwarning
+msgctxt "stringres.snopayloadwarning"
+msgid "OK but the message had no payload"
+msgstr ""
+
+#: stringres.snotconnectederror
+msgctxt "stringres.snotconnectederror"
+msgid "The Mqtt client is not connected"
+msgstr ""
+
+#: stringres.snotopicerror
+msgctxt "stringres.snotopicerror"
+msgid "A topic must be specified"
+msgstr ""
+
+#: stringres.sok
+msgctxt "stringres.sok"
+msgid "OK"
+msgstr ""
+
+#: stringres.spagenames
+msgctxt "stringres.spangenames"
+msgid ""
+"Broker\n"
+"Security\n"
+"Encryption\n"
+"Publish Topic\n"
+"Subscribe Topics"
+msgstr ""
+
+#: stringres.sqos
+msgid "Quality of Service"
+msgstr ""
+
+#: stringres.sqoshint
+msgctxt "stringres.sqoshint"
+msgid ""
+"0 - At most once\n"
+"1 - At least once\n"
+"2 - Exactly once"
+msgstr ""
+
+#: stringres.sqostitle
+msgid "QoS"
+msgstr ""
+
+#: stringres.sretainremovedformat
+msgctxt "stringres.sretainremovedformat"
+msgid "Retain flag removed for topic %s"
+msgstr ""
+
+#: stringres.srxmsgformat
+msgctxt "stringres.srxmsgformat"
+msgid "[%s] - %s"
+msgstr ""
+
+#: stringres.ssubscribecolumntitle
+msgctxt "stringres.ssubscribecolumntitle"
+msgid "Subscribe Topics"
+msgstr ""
+
+#: stringres.stopictitle
+msgctxt "stringres.stopictitle"
+msgid "Topic"
+msgstr ""
+
+#: stringres.strue
+msgctxt "stringres.strue"
+msgid "true"
+msgstr ""
+
+#: stringres.susetitle
+msgid "Use"
+msgstr ""
+
+#: stringres.sversionformat
+msgctxt "stringres.sversionformat"
+msgid "(version %d.%d.%d)"
+msgstr ""
+
+#: tbrokereditform.acceptbutton.caption
+msgid "&Accept"
+msgstr ""
+
+#: tbrokereditform.actadd.caption
+msgid "Add"
+msgstr ""
+
+#: tbrokereditform.actadd.hint
+msgid "Add new topic"
+msgstr ""
+
+#: tbrokereditform.actclear.caption
+msgid "Clear"
+msgstr ""
+
+#: tbrokereditform.actclear.hint
+msgid "Delete all topics"
+msgstr ""
+
+#: tbrokereditform.actdel.hint
+msgid "Delete the selected topic"
+msgstr ""
+
+#: tbrokereditform.actedit.caption
+msgctxt "tbrokereditform.actedit.caption"
+msgid "Edit"
+msgstr ""
+
+#: tbrokereditform.actedit.hint
+msgid "Edit the selected topic"
+msgstr ""
+
+#: tbrokereditform.autoreconnectcheckbox.caption
+msgid "(true)"
+msgstr ""
+
+#: tbrokereditform.cancelbutton.caption
+msgid "&Cancel"
+msgstr ""
+
+#: tbrokereditform.caption
+msgid "MQTT Broker Editor"
+msgstr ""
+
+#: tbrokereditform.label1.caption
+msgid "Keep Alive Interval"
+msgstr ""
+
+#: tbrokereditform.label10.caption
+msgid "Automatic Reconnect"
+msgstr ""
+
+#: tbrokereditform.label11.caption
+msgctxt "tbrokereditform.label11.caption"
+msgid "Topic"
+msgstr ""
+
+#: tbrokereditform.label12.caption
+msgid "Quality of Service (QoS)"
+msgstr ""
+
+#: tbrokereditform.label13.caption
+msgctxt "tbrokereditform.label13.caption"
+msgid "Retain"
+msgstr ""
+
+#: tbrokereditform.label14.caption
+msgctxt "tbrokereditform.label14.caption"
+msgid "Payload"
+msgstr ""
+
+#: tbrokereditform.label2.caption
+msgid "Host:"
+msgstr ""
+
+#: tbrokereditform.label3.caption
+msgid "Port:"
+msgstr ""
+
+#: tbrokereditform.label4.caption
+msgid "Reconnect  Delay"
+msgstr ""
+
+#: tbrokereditform.label5.caption
+msgid "Reconnect Backoff"
+msgstr ""
+
+#: tbrokereditform.label6.caption
+msgid "User:"
+msgstr ""
+
+#: tbrokereditform.label7.caption
+msgid "Password:"
+msgstr ""
+
+#: tbrokereditform.label8.caption
+msgid "Enable SSL"
+msgstr ""
+
+#: tbrokereditform.label9.caption
+msgid "SSL Certificate"
+msgstr ""
+
+#: tbrokereditform.loadbutton.caption
+msgid "&Load..."
+msgstr ""
+
+#: tbrokereditform.opendialog.title
+msgid "Open existing file"
+msgstr ""
+
+#: tbrokereditform.portedit.hint
+msgid "Default MQTT Port: 1883"
+msgstr ""
+
+#: tbrokereditform.savebutton.caption
+msgid "&Save..."
+msgstr ""
+
+#: tbrokereditform.savedialog.title
+msgid "Save file as"
+msgstr ""
+
+#: tform1.button1.caption
+msgid "&Close"
+msgstr ""
+
+#: tform2.caption
+msgid "Confirmation"
+msgstr ""
+
+#: tform2.nobutton.caption
+msgid "&No"
+msgstr ""
+
+#: tform2.yesbutton.caption
+msgid "&Yes"
+msgstr ""
+
+#: tmainform.caption
+msgid "MQTT Client"
+msgstr ""
+
+#: tmainform.checkbox1.caption
+msgid "Show topics"
+msgstr ""
+
+#: tmainform.dividerbevel1.caption
+msgid "Received Messages"
+msgstr ""
+
+#: tmainform.editbrokerbutton.caption
+msgctxt "tmainform.editbrokerbutton.caption"
+msgid "Edit"
+msgstr ""
+
+#: tmainform.label1.caption
+msgid "Broker:"
+msgstr ""
+
+#: tmainform.label3.caption
+msgctxt "tmainform.label3.caption"
+msgid "Topic"
+msgstr ""
+
+#: tmainform.label4.caption
+msgctxt "tmainform.label4.caption"
+msgid "Payload"
+msgstr ""
+
+#: tmainform.label5.caption
+msgid "Quality of service (QoS)"
+msgstr ""
+
+#: tmainform.label6.caption
+msgctxt "tmainform.label6.caption"
+msgid "Retain"
+msgstr ""
+
+#: tmainform.publishbutton.caption
+msgid "Publish"
+msgstr ""
+
+#: tmainform.quitbutton.caption
+msgid "Quit"
+msgstr ""
+
+#: tmainform.sourcelabel.caption
+msgid "Source"
+msgstr ""
+

@@ -39,7 +39,7 @@ object Form2: TForm2
       Top = 0
       Width = 75
       BorderSpacing.Left = 40
-      Caption = 'No'
+      Caption = '&No'
       ModalResult = 7
       TabOrder = 0
     end
@@ -48,7 +48,7 @@ object Form2: TForm2
       Height = 25
       Top = 0
       Width = 75
-      Caption = 'Yes'
+      Caption = '&Yes'
       ModalResult = 6
       TabOrder = 1
     end

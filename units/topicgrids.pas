@@ -192,14 +192,6 @@ begin
   end;
 end;
 
-function TSubTopicsGrid.GetCellHintText(ACol, ARow: Integer): string;
-begin
-  if aCol = 2 then
-    result := sQoSHint
-  else
-    result := '';
-end;
-
 procedure TSubTopicsGrid.DrawTextInCell(aCol, aRow: Integer; aRect: TRect;
   aState: TGridDrawState);
 begin
@@ -215,6 +207,18 @@ procedure TSubTopicsGrid.EditorTextChanged(const aCol,aRow: Integer; const aText
 begin
   if (aRow > 0) and (aRow <= FBroker.SubTopicsCount) and (aCol = 2) then
     FBroker.SubTopics[pred(aRow)].QoS := TPickListCellEditor(Editor).ItemIndex;
+end;
+
+function TSubTopicsGrid.GetCellHintText(ACol, ARow: Integer): string;
+begin
+  if aCol = 2 then begin
+    if aRow = 0 then
+      result := sQoS
+    else
+      result := sQoSHint
+  end
+  else
+    result := '';
 end;
 
 function TSubTopicsGrid.GetEditText(aCol, aRow: Longint): string;

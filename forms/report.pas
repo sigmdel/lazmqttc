@@ -26,9 +26,8 @@ implementation
 
 {$R *.lfm}
 
-resourcestring
-  sMessageSent =  'Message published';
-  sMessageNotSent =  'Message not published';
+uses
+  stringres;
 
 { TForm1 }
 

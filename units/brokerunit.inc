@@ -8,7 +8,7 @@ const
   DEFAULT_PASSWORD = '';            // no security
   DEFAULT_SSL = false;              // no encryption
   DEFAULT_SSLCERT = '';             // no encryption
-  DEFAULT_KEEPALIVES = 60;          // second delay between keep alive pings
+  DEFAULT_KEEPALIVES = 60;          // second delay between keep alive pings - min 5 secs
   DEFAULT_RECONNECTDELAY = 0;       // reconnection delay - default is 1 second
   DEFAULT_RECONNECTBACKOFF = false; // exponential reconnection delay
   DEFAULT_PUBLISH_TOPIC = '';       // no default publish topic

@@ -28,14 +28,13 @@ unit main;
 
 *)
 
-
 {$mode objfpc}{$H+}
 
 interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
-  Grids, Buttons, ComCtrls, DividerBevel,  brokerunit, mqttclass,
+  Grids, Buttons, ComCtrls, DefaultTranslator, DividerBevel,  brokerunit, mqttclass,
   topicgrids, fileinfo;
 
 const
@@ -46,13 +45,15 @@ type
   { TMainForm }
 
   TMainForm = class(TForm)
+    BottomPanel: TPanel;
     CheckBox1: TCheckBox;
     DividerBevel1: TDividerBevel;
     Label2: TLabel;
-    Label7: TStaticText;
-    Splitter2: TSplitter;
-    SubTopicsPanel: TPanel;
+    QuitButton: TButton;
     SourceLabel: TLabel;
+    Splitter2: TSplitter;
+    SubscribedMemo: TMemo;
+    SubTopicsPanel: TPanel;
     RetainCheckBox: TCheckBox;
     QoSComboBox: TComboBox;
     Label5: TLabel;
@@ -60,10 +61,8 @@ type
     EditBrokerButton: TButton;
     ConnectButton: TButton;
     PublishButton: TButton;
-    QuitButton: TButton;
     HostLabel: TLabel;
     statusLabel: TLabel;
-    BottomPanel: TPanel;
     PublishTopicEdit: TEdit;
     Label1: TLabel;
     Label3: TLabel;
@@ -71,7 +70,6 @@ type
     PayloadMemo: TMemo;
     MiddlePanel: TPanel;
     Splitter1: TSplitter;
-    SubscribedMemo: TMemo;
     TopPanel: TPanel;
     procedure CheckBox1Change(Sender: TObject);
     procedure ConnectButtonClick(Sender: TObject);
@@ -89,6 +87,7 @@ type
     procedure SubTopicsPanelResize(Sender: TObject);
   private
     FDisplayedState: TMQTTConnectionState;
+    procedure I10nFixup;
     function ClientState: TMQTTConnectionState;
     procedure RefreshGui;
     function ConnectBroker(aBroker: TBroker): boolean;
@@ -132,7 +131,14 @@ type
     procedure MessageHandler(const payload: Pmosquitto_message);
   end;
 
+
 { TThisMQTTConnection }
+
+
+var
+  MqttClient: TThisMQTTConnection = nil;
+  MqttConfig: TMQTTConfig;
+
 
 procedure TThisMQTTConnection.UpdateGUI;
 begin
@@ -171,9 +177,13 @@ begin
    end;
 end;
 
-var
-  MqttClient: TThisMQTTConnection = nil;
-  MqttConfig: TMQTTConfig;
+{ TMainForm }
+
+procedure TMainForm.AppIdle(Sender: TObject; var Done: Boolean);
+begin
+  UpdateConnectionState;
+  Done := true;
+end;
 
 function TMainForm.ClientState: TMQTTConnectionState;
 begin
@@ -181,42 +191,6 @@ begin
     result := MqttClient.State
   else
     result := mqttNone;
-end;
-
-procedure TMainForm.UpdateConnectionState;
-var
-  newState: TMQTTConnectionState;
-  i: integer;
-begin
-  newState := ClientState;
-  if FDisplayedState <> newState then begin
-    statusLabel.Caption := statusStr[newState];
-    FDisplayedState := newState;
-    if (newState in [mqttConnecting, mqttConnected, mqttReconnecting]) then begin
-      ConnectButton.Caption := sDisconnect;
-      ConnectButton.tag := 1;
-    end
-    else begin
-      ConnectButton.Caption := sConnect;
-      ConnectButton.tag := 0;
-    end;
-    if newState = mqttConnected then begin
-      // subscribe to all used topics
-      for i := 0 to Broker.SubTopicsCount-1 do begin
-        if Broker.SubTopics[i].Use then begin
-          MqttClient.Subscribe(Broker.subTopics[i].Topic, Broker.subTopics[i].QoS); // and subsbcribe to wanted topics
-        end;
-      end;
-    end;
-  end;
-end;
-
-{ TMainForm }
-
-procedure TMainForm.AppIdle(Sender: TObject; var Done: Boolean);
-begin
-  UpdateConnectionState;
-  Done := true;
 end;
 
 function TMainForm.ConnectBroker(aBroker: TBroker): boolean;
@@ -268,6 +242,7 @@ procedure TMainForm.FormCreate(Sender: TObject);
 var
   Version : TProgramVersion;
 begin
+  I10nFixup;
   if GetProgramVersion(Version) then with Version do
     label2.caption := Format(sVersionFormat, [Major,Minor,Revision])
   else
@@ -323,6 +298,11 @@ begin
   Constraints.MinWidth := Width;
 end;
 
+procedure TMainForm.I10nFixup;
+begin
+  QosComboBox.Items.Text := sQosHint;
+  QosComboBox.ItemIndex := 0;
+end;
 
 procedure TMainForm.PayloadMemoEditingDone(Sender: TObject);
 begin
@@ -433,6 +413,34 @@ begin
         MqttClient.Subscribe(topic, qos)
       else
         MqttClient.Unsubscribe(topic);
+    end;
+  end;
+end;
+
+procedure TMainForm.UpdateConnectionState;
+var
+  newState: TMQTTConnectionState;
+  i: integer;
+begin
+  newState := ClientState;
+  if FDisplayedState <> newState then begin
+    statusLabel.Caption := statusStr[newState];
+    FDisplayedState := newState;
+    if (newState in [mqttConnecting, mqttConnected, mqttReconnecting]) then begin
+      ConnectButton.Caption := sDisconnect;
+      ConnectButton.tag := 1;
+    end
+    else begin
+      ConnectButton.Caption := sConnect;
+      ConnectButton.tag := 0;
+    end;
+    if newState = mqttConnected then begin
+      // subscribe to all used topics
+      for i := 0 to Broker.SubTopicsCount-1 do begin
+        if Broker.SubTopics[i].Use then begin
+          MqttClient.Subscribe(Broker.subTopics[i].Topic, Broker.subTopics[i].QoS); // and subsbcribe to wanted topics
+        end;
+      end;
     end;
   end;
 end;

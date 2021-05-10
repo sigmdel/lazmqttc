@@ -99,6 +99,7 @@ type
     FSource: TBroker;
     FCheckModified: boolean;
     procedure Change;
+    procedure I10nFixup;
     procedure UpdateView;
   public
     TopicsGrid: TSubTopicsGrid;
@@ -258,6 +259,7 @@ end;
 
 procedure TBrokerEditForm.FormCreate(Sender: TObject);
 begin
+  I10nFixup;
   FCheckModified := true;
   FBroker := TBroker.create;
   TopicsGrid := TSubTopicsGrid.Create(self);
@@ -292,6 +294,12 @@ end;
 procedure TBrokerEditForm.HostEditEditingDone(Sender: TObject);
 begin
   FBroker.Host := trim(HostEdit.Text);
+end;
+
+procedure TBrokerEditForm.I10nFixup;
+begin
+  ListBox1.Items.Text := sPageNames;
+  ListBox1.ItemIndex := 0;
 end;
 
 procedure TBrokerEditForm.KeepAlivesEditEditingDone(Sender: TObject);

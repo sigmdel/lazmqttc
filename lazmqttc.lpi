@@ -14,11 +14,14 @@
       </XPManifest>
       <Icon Value="0"/>
     </General>
+    <i18n>
+      <EnableI18N Value="True"/>
+      <OutDir Value="languages"/>
+    </i18n>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
-      <MinorVersionNr Value="2"/>
-      <RevisionNr Value="3"/>
-      <StringTable CompanyName="sigmdel.ca" LegalCopyright="Michel Deslierres" ProductName="lazmqttc" ProductVersion="0.2"/>
+      <MinorVersionNr Value="3"/>
+      <StringTable CompanyName="sigmdel.ca" LegalCopyright="Michel Deslierres" ProductName="lazmqttc" ProductVersion="0.3"/>
     </VersionInfo>
     <BuildModes Count="3">
       <Item1 Name="Default" Default="True"/>

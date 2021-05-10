@@ -8,7 +8,7 @@ uses
  mqttclass;
 
 resourcestring
-  mssNoClient = 'No Mqtt Client';
+  mssNoClient = 'No MQTT Client';
   mssConnecting = 'Attempting to connect';
   mssConnected = 'Connected';
   mssReconnecting = 'Attempting to reconnect';
@@ -30,6 +30,7 @@ resourcestring
   sOK = 'OK';
 
   // sbrorkeredit
+  sPageNames = 'Broker'#10'Security'#10'Encryption'#10'Publish Topic'#10'Subscribe Topics';
   sQoSHint = '0 - At most once'#10'1 - At least once'#10'2 - Exactly once';
   cbsLoseChanges = 'Close without saving changes';
   cbsDeleteQuery = 'Delete <%s>';
@@ -38,6 +39,12 @@ resourcestring
   sUseTitle = 'Use';
   sTopicTitle = 'Topic';
   sQosTitle = 'QoS';
+  sQos = 'Quality of Service';
+
+  // report
+  sMessageSent =  'Message published';
+  sMessageNotSent =  'Message not published';
+
 
 var
   statusStr: array[TMQTTConnectionState] of string;

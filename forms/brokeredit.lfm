@@ -12,42 +12,43 @@ object BrokerEditForm: TBrokerEditForm
   LCLVersion = '2.0.12.0'
   object Panel1: TPanel
     Left = 0
-    Height = 44
-    Top = 370
+    Height = 42
+    Top = 372
     Width = 652
     Align = alBottom
     Anchors = []
     AutoSize = True
     BevelOuter = bvNone
-    ClientHeight = 44
+    ClientHeight = 42
     ClientWidth = 652
     TabOrder = 0
     object LoadButton: TButton
-      Left = 92
-      Height = 32
+      Left = 63
+      Height = 30
       Top = 6
       Width = 80
       Align = alLeft
       BorderSpacing.Top = 6
       BorderSpacing.Bottom = 6
-      Caption = 'Load...'
+      Caption = '&Load...'
       OnClick = LoadButtonClick
       TabOrder = 0
     end
     object AcceptButton: TButton
-      Left = 566
-      Height = 32
+      Left = 591
+      Height = 30
       Top = 6
-      Width = 80
+      Width = 55
       Align = alRight
+      AutoSize = True
       BorderSpacing.Around = 6
       Caption = '&Accept'
       OnClick = AcceptButtonClick
       TabOrder = 1
     end
     object CancelButton: TButton
-      Left = 480
-      Height = 32
+      Left = 505
+      Height = 30
       Top = 6
       Width = 80
       Align = alRight
@@ -59,19 +60,20 @@ object BrokerEditForm: TBrokerEditForm
     end
     object SaveButton: TButton
       Left = 6
-      Height = 32
+      Height = 30
       Top = 6
-      Width = 80
+      Width = 51
       Align = alLeft
+      AutoSize = True
       BorderSpacing.Around = 6
-      Caption = 'Save...'
+      Caption = '&Save...'
       OnClick = SaveButtonClick
       TabOrder = 3
     end
   end
   object ListBox1: TListBox
     Left = 6
-    Height = 364
+    Height = 366
     Top = 6
     Width = 138
     Align = alLeft
@@ -94,7 +96,7 @@ object BrokerEditForm: TBrokerEditForm
   end
   object Notebook: TNotebook
     Left = 144
-    Height = 370
+    Height = 372
     Top = 0
     Width = 508
     PageIndex = 0
@@ -121,7 +123,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Control = BrokerPage
         AnchorSideRight.Side = asrBottom
         Left = 12
-        Height = 32
+        Height = 27
         Top = 32
         Width = 490
         Anchors = [akTop, akLeft, akRight]
@@ -137,9 +139,9 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
-        Left = 111
+        Left = 235
         Height = 14
-        Top = 85
+        Top = 77
         Width = 29
         Anchors = [akTop, akRight]
         Caption = 'Port:'
@@ -149,10 +151,10 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = HostEdit
         AnchorSideTop.Side = asrBottom
-        Left = 149
-        Height = 32
+        Left = 273
+        Height = 27
         Hint = 'Default MQTT Port: 1883'
-        Top = 76
+        Top = 71
         Width = 120
         BorderSpacing.Top = 12
         MaxValue = 65365
@@ -167,24 +169,25 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
-        Left = 71
+        Left = 151
         Height = 14
-        Top = 129
-        Width = 69
+        Top = 116
+        Width = 113
         Anchors = [akTop, akRight]
-        Caption = 'Keep Alives'
+        Caption = 'Keep Alive Interval'
         ParentColor = False
       end
       object KeepAlivesEdit: TSpinEdit
         AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = PortEdit
         AnchorSideTop.Side = asrBottom
-        Left = 149
-        Height = 32
-        Top = 120
+        Left = 273
+        Height = 27
+        Top = 110
         Width = 120
         BorderSpacing.Top = 12
-        MaxValue = 0
+        MaxValue = 200000
+        MinValue = 5
         OnEditingDone = KeepAlivesEditEditingDone
         TabOrder = 2
         Value = 1883
@@ -195,9 +198,9 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
-        Left = 36
+        Left = 160
         Height = 14
-        Top = 173
+        Top = 155
         Width = 104
         Anchors = [akTop, akRight]
         Caption = 'Reconnect  Delay'
@@ -207,9 +210,9 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = KeepAlivesEdit
         AnchorSideTop.Side = asrBottom
-        Left = 149
-        Height = 32
-        Top = 164
+        Left = 273
+        Height = 27
+        Top = 149
         Width = 120
         BorderSpacing.Top = 12
         MaxValue = 0
@@ -221,9 +224,9 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = ReconnectDelayEdit
         AnchorSideTop.Side = asrBottom
-        Left = 149
+        Left = 273
         Height = 23
-        Top = 208
+        Top = 188
         Width = 63
         BorderSpacing.Top = 12
         Caption = '(false)'
@@ -236,9 +239,9 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label10
         AnchorSideRight.Side = asrBottom
-        Left = 27
+        Left = 151
         Height = 14
-        Top = 212
+        Top = 192
         Width = 113
         Anchors = [akTop, akRight]
         Caption = 'Reconnect Backoff'
@@ -248,10 +251,11 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideLeft.Control = Label2
         AnchorSideTop.Control = AutoReconnectCheckBox
         AnchorSideTop.Side = asrCenter
-        Left = 12
+        Left = 136
         Height = 14
-        Top = 247
+        Top = 227
         Width = 128
+        Anchors = [akTop]
         Caption = 'Automatic Reconnect'
         ParentColor = False
       end
@@ -260,9 +264,9 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = ReconnectBackoffCheckBox
         AnchorSideTop.Side = asrBottom
-        Left = 149
+        Left = 273
         Height = 23
-        Top = 243
+        Top = 223
         Width = 59
         BorderSpacing.Left = 9
         BorderSpacing.Top = 12
@@ -288,7 +292,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrBottom
         Left = 8
         Height = 14
-        Top = 76
+        Top = 71
         Width = 61
         BorderSpacing.Top = 12
         Caption = 'Password:'
@@ -301,7 +305,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Control = SecurityPage
         AnchorSideRight.Side = asrBottom
         Left = 8
-        Height = 32
+        Height = 27
         Top = 32
         Width = 494
         Anchors = [akTop, akLeft, akRight]
@@ -318,8 +322,8 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Control = SecurityPage
         AnchorSideRight.Side = asrBottom
         Left = 8
-        Height = 32
-        Top = 96
+        Height = 27
+        Top = 91
         Width = 494
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 6
@@ -372,9 +376,9 @@ object BrokerEditForm: TBrokerEditForm
         Left = 12
         Height = 14
         Top = 47
-        Width = 104
+        Width = 86
         BorderSpacing.Top = 12
-        Caption = 'SSL CACertificate'
+        Caption = 'SSL Certificate'
         ParentColor = False
       end
       object SSLCertMemo: TMemo
@@ -386,7 +390,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideBottom.Control = EncryptionPage
         AnchorSideBottom.Side = asrBottom
         Left = 12
-        Height = 303
+        Height = 305
         Top = 67
         Width = 490
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -417,7 +421,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         Left = 12
         Height = 14
-        Top = 314
+        Top = 317
         Width = 141
         BorderSpacing.Top = 11
         Caption = 'Quality of Service (QoS)'
@@ -430,8 +434,8 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrBottom
         AnchorSideBottom.Control = PubRetainCheckBox
         Left = 159
-        Height = 28
-        Top = 307
+        Height = 26
+        Top = 311
         Width = 149
         Anchors = [akLeft, akBottom]
         BorderSpacing.Left = 6
@@ -454,7 +458,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         Left = 12
         Height = 14
-        Top = 351
+        Top = 353
         Width = 38
         Caption = 'Retain'
         Layout = tlCenter
@@ -469,7 +473,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideBottom.Side = asrBottom
         Left = 56
         Height = 23
-        Top = 347
+        Top = 349
         Width = 63
         Anchors = [akLeft, akBottom]
         BorderSpacing.Left = 6
@@ -485,7 +489,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Control = PublishPage
         AnchorSideRight.Side = asrBottom
         Left = 12
-        Height = 32
+        Height = 27
         Top = 32
         Width = 490
         Anchors = [akTop, akLeft, akRight]
@@ -501,9 +505,8 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrBottom
         Left = 12
         Height = 14
-        Top = 76
+        Top = 71
         Width = 49
-        AutoSize = False
         BorderSpacing.Top = 12
         Caption = 'Payload'
         ParentColor = False
@@ -516,8 +519,8 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = QoSComboBox
         Left = 12
-        Height = 199
-        Top = 96
+        Height = 208
+        Top = 91
         Width = 490
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Top = 6
@@ -586,6 +589,7 @@ object BrokerEditForm: TBrokerEditForm
     end
   end
   object OpenDialog: TOpenDialog
+    Title = 'Open existing file'
     DefaultExt = '.json'
     Filter = 'JSON files|*.json|All files|*.*'
     Options = [ofFileMustExist, ofEnableSizing, ofViewDetail]
@@ -822,6 +826,7 @@ object BrokerEditForm: TBrokerEditForm
     }
   end
   object SaveDialog: TSaveDialog
+    Title = 'Save file as'
     DefaultExt = '.json'
     Filter = 'JSON files|*.json|All files|*.*'
     Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]

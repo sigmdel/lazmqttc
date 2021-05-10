@@ -1,0 +1,359 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Project-Id-Version: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_FR\n"
+
+#: stringres.cbsdeletequery
+msgctxt "stringres.cbsdeletequery"
+msgid "Delete <%s>"
+msgstr "Éliminer <%s>"
+
+#: stringres.cbslosechanges
+msgctxt "stringres.cbslosechanges"
+msgid "Close without saving changes"
+msgstr "Fermer sans sauvegarder les modifications"
+
+#: stringres.mssconnected
+msgctxt "stringres.mssconnected"
+msgid "Connected"
+msgstr "Connecté"
+
+#: stringres.mssconnecting
+msgctxt "stringres.mssconnecting"
+msgid "Attempting to connect"
+msgstr "Connexion en cours"
+
+#: stringres.mssdisconnected
+msgctxt "stringres.mssdisconnected"
+msgid "Disconnected"
+msgstr "Déconnecté"
+
+#: stringres.mssnoclient
+msgctxt "stringres.mssnoclient"
+msgid "No MQTT Client"
+msgstr "Pas de client MQTT"
+
+#: stringres.mssreconnecting
+msgctxt "stringres.mssreconnecting"
+msgid "Attempting to reconnect"
+msgstr "Reconnexion en cours"
+
+#: stringres.sconnect
+msgctxt "stringres.sconnect"
+msgid "Connect"
+msgstr "Connecter"
+
+#: stringres.sdisconnect
+msgctxt "stringres.sdisconnect"
+msgid "Disconnect"
+msgstr "Déconnecter"
+
+#: stringres.sfalse
+msgctxt "stringres.sfalse"
+msgid "false"
+msgstr "faux"
+
+#: stringres.smessagenotsent
+msgctxt "stringres.smessagenotsent"
+msgid "Message not published"
+msgstr "Message non publié"
+
+#: stringres.smessagesent
+msgctxt "stringres.smessagesent"
+msgid "Message published"
+msgstr "Message publié"
+
+#: stringres.smqtterrorformat
+msgctxt "stringres.smqtterrorformat"
+msgid "MQTT Error: %d"
+msgstr "Erreur MQTT : %d"
+
+#: stringres.snoclienterror
+msgctxt "stringres.snoclienterror"
+msgid "The Mqtt client has not been created"
+msgstr "Le client MQTT n'a pas été crée"
+
+#: stringres.snopayloadwarning
+msgctxt "stringres.snopayloadwarning"
+msgid "OK but the message had no payload"
+msgstr "OK, mais le message était vide"
+
+#: stringres.snotconnectederror
+msgctxt "stringres.snotconnectederror"
+msgid "The Mqtt client is not connected"
+msgstr "Le client MQTT n'est pas connecté"
+
+#: stringres.snotopicerror
+msgctxt "stringres.snotopicerror"
+msgid "A topic must be specified"
+msgstr "Un sujet doit être défini"
+
+#: stringres.sok
+msgctxt "stringres.sok"
+msgid "OK"
+msgstr "Ok"
+
+#: stringres.spagenames
+msgctxt "stringres.spangenames"
+msgid ""
+"Broker\n"
+"Security\n"
+"Encryption\n"
+"Publish Topic\n"
+"Subscribe Topics"
+msgstr ""
+"Agent\n"
+"Sécurité\n"
+"Cryptage\n"
+"Sujet publié\n"
+"Sujets souscris"
+
+#: stringres.sqos
+msgid "Quality of Service"
+msgstr "Qualité du serviced"
+
+#: stringres.sqoshint
+msgctxt "stringres.sqoshint"
+msgid ""
+"0 - At most once\n"
+"1 - At least once\n"
+"2 - Exactly once"
+msgstr ""
+"0 - Au plus un envoi\n"
+"1 - Au moins un envoi\n"
+"2 - Exactement un envoi"
+
+#: stringres.sqostitle
+msgid "QoS"
+msgstr "QdS"
+
+#: stringres.sretainremovedformat
+msgctxt "stringres.sretainremovedformat"
+msgid "Retain flag removed for topic %s"
+msgstr "Le sujet %s ne sera plus conservé"
+
+#: stringres.srxmsgformat
+msgctxt "stringres.srxmsgformat"
+msgid "[%s] - %s"
+msgstr "[%s] - %s"
+
+#: stringres.ssubscribecolumntitle
+msgctxt "stringres.ssubscribecolumntitle"
+msgid "Subscribe Topics"
+msgstr "Sujets souscris"
+
+#: stringres.stopictitle
+msgctxt "stringres.stopictitle"
+msgid "Topic"
+msgstr "Sujet"
+
+#: stringres.strue
+msgctxt "stringres.strue"
+msgid "true"
+msgstr "vrai"
+
+#: stringres.susetitle
+msgid "Use"
+msgstr "Act."
+
+#: stringres.sversionformat
+msgctxt "stringres.sversionformat"
+msgid "(version %d.%d.%d)"
+msgstr "(version %d.%d.%d)"
+
+#: tbrokereditform.acceptbutton.caption
+msgid "&Accept"
+msgstr "&Valider"
+
+#: tbrokereditform.actadd.caption
+msgid "Add"
+msgstr "Ajouter"
+
+#: tbrokereditform.actadd.hint
+msgid "Add new topic"
+msgstr "Ajouter un sujet"
+
+#: tbrokereditform.actclear.caption
+msgid "Clear"
+msgstr "Tout éliminer"
+
+#: tbrokereditform.actclear.hint
+msgid "Delete all topics"
+msgstr "Éliminer tous les sujets"
+
+#: tbrokereditform.actdel.hint
+msgid "Delete the selected topic"
+msgstr "Éliminer le sujet sélectionné"
+
+#: tbrokereditform.actedit.caption
+msgctxt "tbrokereditform.actedit.caption"
+msgid "Edit"
+msgstr "Modifier"
+
+#: tbrokereditform.actedit.hint
+msgid "Edit the selected topic"
+msgstr "Modifier le suset sélectionné"
+
+#: tbrokereditform.autoreconnectcheckbox.caption
+msgid "(true)"
+msgstr "(vrai)"
+
+#: tbrokereditform.cancelbutton.caption
+msgid "&Cancel"
+msgstr "&Annuler"
+
+#: tbrokereditform.caption
+msgid "MQTT Broker Editor"
+msgstr "Editeur de l'agent MQTT"
+
+#: tbrokereditform.label1.caption
+msgid "Keep Alive Interval"
+msgstr "Intervalle de maintien en vie"
+
+#: tbrokereditform.label10.caption
+msgid "Automatic Reconnect"
+msgstr "Reconnexion automatique"
+
+#: tbrokereditform.label11.caption
+msgctxt "tbrokereditform.label11.caption"
+msgid "Topic"
+msgstr "Sujet"
+
+#: tbrokereditform.label12.caption
+msgid "Quality of Service (QoS)"
+msgstr "Qualité du service (QdS"
+
+#: tbrokereditform.label13.caption
+msgctxt "tbrokereditform.label13.caption"
+msgid "Retain"
+msgstr "Conserver"
+
+#: tbrokereditform.label14.caption
+msgctxt "tbrokereditform.label14.caption"
+msgid "Payload"
+msgstr "Contenu"
+
+#: tbrokereditform.label2.caption
+msgid "Host:"
+msgstr "Hôte :"
+
+#: tbrokereditform.label3.caption
+msgid "Port:"
+msgstr "Port :"
+
+#: tbrokereditform.label4.caption
+msgid "Reconnect  Delay"
+msgstr "Délai de reconnexion"
+
+#: tbrokereditform.label5.caption
+msgid "Reconnect Backoff"
+msgstr "Ralentissement des reconnexions"
+
+#: tbrokereditform.label6.caption
+msgid "User:"
+msgstr "Utilisateur"
+
+#: tbrokereditform.label7.caption
+msgid "Password:"
+msgstr "Mot de passe"
+
+#: tbrokereditform.label8.caption
+msgid "Enable SSL"
+msgstr "SSL activé"
+
+#: tbrokereditform.label9.caption
+msgid "SSL Certificate"
+msgstr "Certificat SSL"
+
+#: tbrokereditform.loadbutton.caption
+msgid "&Load..."
+msgstr "&Charger..."
+
+#: tbrokereditform.opendialog.title
+msgid "Open existing file"
+msgstr "Ouvrir un fichier existant"
+
+#: tbrokereditform.portedit.hint
+msgid "Default MQTT Port: 1883"
+msgstr "Port MQTT par défaut : 1883"
+
+#: tbrokereditform.savebutton.caption
+msgid "&Save..."
+msgstr "&Sauvegarder..."
+
+#: tbrokereditform.savedialog.title
+msgid "Save file as"
+msgstr "Enregistrer sous"
+
+#: tform1.button1.caption
+msgid "&Close"
+msgstr "&Exit"
+
+#: tform2.caption
+msgid "Confirmation"
+msgstr "Confirmation"
+
+#: tform2.nobutton.caption
+msgid "&No"
+msgstr "&Non"
+
+#: tform2.yesbutton.caption
+msgid "&Yes"
+msgstr "&Oui"
+
+#: tmainform.caption
+msgid "MQTT Client"
+msgstr "Client MQTT"
+
+#: tmainform.checkbox1.caption
+msgid "Show topics"
+msgstr "Montrer les sujets"
+
+#: tmainform.dividerbevel1.caption
+msgid "Received Messages"
+msgstr "Messages reçus"
+
+#: tmainform.editbrokerbutton.caption
+msgctxt "tmainform.editbrokerbutton.caption"
+msgid "Edit"
+msgstr "Modifier"
+
+#: tmainform.label1.caption
+msgid "Broker:"
+msgstr "Agent :"
+
+#: tmainform.label3.caption
+msgctxt "tmainform.label3.caption"
+msgid "Topic"
+msgstr "Sujet"
+
+#: tmainform.label4.caption
+msgctxt "tmainform.label4.caption"
+msgid "Payload"
+msgstr "Contenu"
+
+#: tmainform.label5.caption
+msgid "Quality of service (QoS)"
+msgstr "Qualité du service (QdS)"
+
+#: tmainform.label6.caption
+msgctxt "tmainform.label6.caption"
+msgid "Retain"
+msgstr "Conserver"
+
+#: tmainform.publishbutton.caption
+msgid "Publish"
+msgstr "Envoyer"
+
+#: tmainform.quitbutton.caption
+msgid "Quit"
+msgstr "Exit"
+
+#: tmainform.sourcelabel.caption
+msgid "Source"
+msgstr "Source"
+
