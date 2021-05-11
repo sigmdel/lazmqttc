@@ -330,16 +330,20 @@ object MainForm: TMainForm
       State = cbChecked
       TabOrder = 1
     end
-    object Label2: TLabel
-      AnchorSideLeft.Control = CheckBox1
+    object VersionLabel: TLabel
+      AnchorSideLeft.Control = autoClearCheckBox
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = CheckBox1
       AnchorSideTop.Side = asrCenter
-      Left = 128
+      AnchorSideRight.Control = SourceLabel
+      Left = 222
       Height = 1
       Top = 105
-      Width = 1
+      Width = 180
+      Alignment = taCenter
+      Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Left = 24
+      BorderSpacing.Right = 6
       ParentColor = False
     end
     object SourceLabel: TLabel
@@ -398,6 +402,19 @@ object MainForm: TMainForm
       BorderSpacing.Left = 5
       BorderSpacing.Right = 6
       ParentFont = False
+    end
+    object autoClearCheckBox: TCheckBox
+      AnchorSideLeft.Control = CheckBox1
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = CheckBox1
+      AnchorSideTop.Side = asrCenter
+      Left = 110
+      Height = 23
+      Top = 94
+      Width = 88
+      BorderSpacing.Left = 6
+      Caption = 'Auto clear'
+      TabOrder = 3
     end
   end
 end

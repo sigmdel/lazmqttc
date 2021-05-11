@@ -291,12 +291,21 @@ msgstr ""
 msgid "&Yes"
 msgstr ""
 
+#: tmainform.autoclearcheckbox.caption
+msgid "Auto clear"
+msgstr ""
+
 #: tmainform.caption
 msgid "MQTT Client"
 msgstr ""
 
 #: tmainform.checkbox1.caption
 msgid "Show topics"
+msgstr ""
+
+#: tmainform.connectbutton.caption
+msgctxt "tmainform.connectbutton.caption"
+msgid "Disconnect"
 msgstr ""
 
 #: tmainform.dividerbevel1.caption
@@ -306,6 +315,10 @@ msgstr ""
 #: tmainform.editbrokerbutton.caption
 msgctxt "tmainform.editbrokerbutton.caption"
 msgid "Edit"
+msgstr ""
+
+#: tmainform.hostlabel.caption
+msgid "<host name>"
 msgstr ""
 
 #: tmainform.label1.caption
@@ -337,6 +350,11 @@ msgstr ""
 
 #: tmainform.quitbutton.caption
 msgid "Quit"
+msgstr ""
+
+#: tmainform.retaincheckbox.caption
+msgctxt "tmainform.retaincheckbox.caption"
+msgid "(false)"
 msgstr ""
 
 #: tmainform.sourcelabel.caption

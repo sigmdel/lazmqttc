@@ -305,6 +305,10 @@ msgstr "&Non"
 msgid "&Yes"
 msgstr "&Oui"
 
+#: tmainform.autoclearcheckbox.caption
+msgid "Auto clear"
+msgstr "Auto effacement"
+
 #: tmainform.caption
 msgid "MQTT Client"
 msgstr "Client MQTT"

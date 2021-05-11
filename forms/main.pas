@@ -47,8 +47,9 @@ type
   TMainForm = class(TForm)
     BottomPanel: TPanel;
     CheckBox1: TCheckBox;
+    autoClearCheckBox: TCheckBox;
     DividerBevel1: TDividerBevel;
-    Label2: TLabel;
+    VersionLabel: TLabel;
     QuitButton: TButton;
     SourceLabel: TLabel;
     Splitter2: TSplitter;
@@ -122,6 +123,7 @@ const
 
 var
   ShowTopics: boolean = true;
+  FClearMessageMemo: boolean = false;
 
 type
   TThisMQTTConnection = class(TMQTTConnection)
@@ -143,12 +145,18 @@ var
 procedure TThisMQTTConnection.UpdateGUI;
 begin
    with MainForm.SubscribedMemo do begin
-     Lines.BeginUpdate;
-     try
-     while Lines.Count > SubscribedMemoSize do
-        Lines.Delete(0);
-     finally
-       Lines.EndUpdate;
+     if FClearMessageMemo then begin
+       Clear;
+       FClearMessageMemo := false;
+     end
+     else begin
+       Lines.BeginUpdate;
+       try
+         while Lines.Count > SubscribedMemoSize do
+            Lines.Delete(0);
+       finally
+         Lines.EndUpdate;
+       end;
      end;
      Lines.Add(FThisMessage);
      SelStart := Lines.Text.Length-1;
@@ -244,9 +252,9 @@ var
 begin
   I10nFixup;
   if GetProgramVersion(Version) then with Version do
-    label2.caption := Format(sVersionFormat, [Major,Minor,Revision])
+    VersionLabel.caption := Format(sVersionFormat, [Major,Minor,Revision])
   else
-    label2.caption := '';
+    VersionLabel.caption := '';
 
   statusLabel.caption := statusStr[mqttNone];
   TopicsGrid := TSubTopicsGrid.Create(self);
@@ -322,6 +330,7 @@ begin
   else if topic = '' then
     res := -1002
   else begin
+    FClearMessageMemo := autoClearCheckBox.checked;
     res := MqttClient.Publish(topic, PayloadMemo.Text,
       QoSComboBox.ItemIndex, RetainCheckBox.Checked);
     if (res = 0) and (PayloadMemo.Text = '') then begin
@@ -348,6 +357,8 @@ begin
     msg := Format(sMQTTErrorFormat, [res])
   else
     msg := sOk;
+  if res <> 0 then
+    FClearMessageMemo := false;
   ShowPublishResult(msg, res = 0);
   RetainCheckBox.Checked := false;
 end;
