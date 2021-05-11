@@ -409,10 +409,12 @@ begin
     doUse := aState = cbChecked;
     with Broker.SubTopics[aRow-1] do begin
       Use := doUse;
-      if doUse and (ClientState = mqttConnected) then
-        MqttClient.Subscribe(topic, qos)
-      else
-        MqttClient.Unsubscribe(topic);
+      if ClientState = mqttConnected then begin
+        if doUse then
+          MqttClient.Subscribe(topic, qos)
+        else
+          MqttClient.Unsubscribe(topic);
+      end;
     end;
   end;
 end;

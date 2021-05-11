@@ -9,7 +9,6 @@ object MainForm: TMainForm
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '2.0.12.0'
   object TopPanel: TPanel
     AnchorSideTop.Control = Owner
     Left = 0
@@ -149,7 +148,7 @@ object MainForm: TMainForm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = QoSComboBox
       Left = 61
-      Height = 44
+      Height = 41
       Top = 39
       Width = 508
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -181,7 +180,7 @@ object MainForm: TMainForm
       AnchorSideBottom.Side = asrBottom
       Left = 510
       Height = 30
-      Top = 87
+      Top = 85
       Width = 59
       Anchors = [akTop, akRight]
       AutoSize = True
@@ -198,7 +197,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       Left = 6
       Height = 14
-      Top = 95
+      Top = 93
       Width = 140
       Caption = 'Quality of service (QoS)'
       Layout = tlCenter
@@ -211,8 +210,8 @@ object MainForm: TMainForm
       AnchorSideBottom.Control = MiddlePanel
       AnchorSideBottom.Side = asrBottom
       Left = 152
-      Height = 26
-      Top = 89
+      Height = 29
+      Top = 86
       Width = 149
       Anchors = [akLeft, akBottom]
       BorderSpacing.Left = 6
@@ -229,7 +228,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       Left = 319
       Height = 14
-      Top = 95
+      Top = 93
       Width = 38
       BorderSpacing.Left = 18
       Caption = 'Retain'
@@ -243,7 +242,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       Left = 364
       Height = 23
-      Top = 91
+      Top = 89
       Width = 63
       BorderSpacing.Left = 7
       Caption = '(false)'
