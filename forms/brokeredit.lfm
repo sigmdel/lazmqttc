@@ -9,7 +9,7 @@ object BrokerEditForm: TBrokerEditForm
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '2.0.12.0'
+  Position = poMainFormCenter
   object Panel1: TPanel
     Left = 0
     Height = 42
