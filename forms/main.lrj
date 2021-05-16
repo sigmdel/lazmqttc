@@ -1,0 +1,18 @@
+{"version":1,"strings":[
+{"hash":80778036,"name":"tmainform.caption","sourcebytes":[77,81,84,84,32,67,108,105,101,110,116],"value":"MQTT Client"},
+{"hash":160832538,"name":"tmainform.label1.caption","sourcebytes":[66,114,111,107,101,114,58],"value":"Broker:"},
+{"hash":310020,"name":"tmainform.editbrokerbutton.caption","sourcebytes":[69,100,105,116],"value":"Edit"},
+{"hash":174193460,"name":"tmainform.connectbutton.caption","sourcebytes":[68,105,115,99,111,110,110,101,99,116],"value":"Disconnect"},
+{"hash":104240430,"name":"tmainform.hostlabel.caption","sourcebytes":[60,104,111,115,116,32,110,97,109,101,62],"value":"<host name>"},
+{"hash":5990131,"name":"tmainform.label3.caption","sourcebytes":[84,111,112,105,99],"value":"Topic"},
+{"hash":110114084,"name":"tmainform.label4.caption","sourcebytes":[80,97,121,108,111,97,100],"value":"Payload"},
+{"hash":129577160,"name":"tmainform.publishbutton.caption","sourcebytes":[80,117,98,108,105,115,104],"value":"Publish"},
+{"hash":14315705,"name":"tmainform.label5.caption","sourcebytes":[81,117,97,108,105,116,121,32,111,102,32,115,101,114,118,105,99,101,32,40,81,111,83,41],"value":"Quality of service (QoS)"},
+{"hash":93104126,"name":"tmainform.label6.caption","sourcebytes":[82,101,116,97,105,110],"value":"Retain"},
+{"hash":248002905,"name":"tmainform.retaincheckbox.caption","sourcebytes":[40,102,97,108,115,101,41],"value":"(false)"},
+{"hash":363524,"name":"tmainform.quitbutton.caption","sourcebytes":[81,117,105,116],"value":"Quit"},
+{"hash":135239987,"name":"tmainform.checkbox1.caption","sourcebytes":[83,104,111,119,32,116,111,112,105,99,115],"value":"Show topics"},
+{"hash":94816405,"name":"tmainform.sourcelabel.caption","sourcebytes":[83,111,117,114,99,101],"value":"Source"},
+{"hash":205169459,"name":"tmainform.dividerbevel1.caption","sourcebytes":[82,101,99,101,105,118,101,100,32,77,101,115,115,97,103,101,115],"value":"Received Messages"},
+{"hash":24028978,"name":"tmainform.autoclearcheckbox.caption","sourcebytes":[65,117,116,111,32,99,108,101,97,114],"value":"Auto clear"}
+]}

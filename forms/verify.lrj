@@ -1,0 +1,6 @@
+{"version":1,"strings":[
+{"hash":228516702,"name":"tform2.caption","sourcebytes":[67,111,110,102,105,114,109,97,116,105,111,110],"value":"Confirmation"},
+{"hash":86477809,"name":"tform2.label1.caption","sourcebytes":[76,97,98,101,108,49],"value":"Label1"},
+{"hash":11087,"name":"tform2.nobutton.caption","sourcebytes":[38,78,111],"value":"&No"},
+{"hash":180163,"name":"tform2.yesbutton.caption","sourcebytes":[38,89,101,115],"value":"&Yes"}
+]}

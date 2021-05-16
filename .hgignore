@@ -15,8 +15,6 @@ backup
 *.~*
 *~
 
-# i18n files
-*.lrj
 # Archives
 *.zip
 *.gz
