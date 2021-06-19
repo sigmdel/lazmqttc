@@ -15,6 +15,7 @@ The screen capture shows the message sent to the public `test.moquitto.org` brok
 - [3. Testing](#3-testing)
 - [4. Installation](#4-installation)
 - [5. Broker Definitions](#5-broker-definitions)
+    - [5.1. Security Warning](#51-security-warning)
 - [6. National Language Support](#6-national-language-support)
 - [7. Improvements and Development](#7-improvements-and-development)
 - [8. Acknowledgment](#8-acknowledgment)
@@ -154,6 +155,13 @@ where `~` is the user home directory. So fully expanded the directory is
 
 In Windows 10, the files are saved in the local `AppData` folder :
 <pre>  C:\Users\&lt;<i>user</i>&gt;\AppData\Local\sigmdel\lazmqttc</pre>
+
+### 5.1. Security Warning
+
+The MQTT broker password is stored in plain text in the broker definitions file. 
+
+**Do not save the MQTT broker password in the broker definition screen**
+
 
 ## 6. National Language Support
 
