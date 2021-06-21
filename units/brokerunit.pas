@@ -181,7 +181,7 @@ Var
 implementation
 
 uses
-  JSONParser;
+  pwd, JSONParser;
 
 // JSON keys, do not translate these.
 const
@@ -565,7 +565,7 @@ begin
       sHostKey: Host := E.Value.AsString;
       sPortKey: Port := E.Value.AsInteger;
       sUserKey: User := E.Value.AsString;
-      sPasswordKey: Password := E.Value.AsString;
+      sPasswordKey: Password := Decrypt(E.Value.AsString);
       sSSLKey: SSL := E.Value.AsBoolean;
       sSSLCertKey: SSLCert := E.Value.AsString;
       sKeepAlivesKey: KeepAlives := E.Value.AsInteger;
@@ -639,7 +639,7 @@ begin
   AJSON.Add(sHostKey, Host);
   AJSON.Add(sPortKey, Port);
   AJSON.Add(sUserKey, User);
-  AJSON.Add(sPasswordKey, Password);
+  AJSON.Add(sPasswordKey, Encrypt(Password));
   AJSON.Add(sSSLKey, SSL);
   AJSON.Add(sSSLCertKey, SSLCert);
   AJSON.Add(sKeepAlivesKey, KeepAlives);

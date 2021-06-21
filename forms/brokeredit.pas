@@ -318,6 +318,8 @@ end;
 
 procedure TBrokerEditForm.LoadButtonClick(Sender: TObject);
 begin
+  PasswordEdit.passwordchar := '#';
+  PasswordEdit.ImageIndex := 0;
   OpenDialog.Filename := configfile;
   if OpenDialog.Execute then begin
     FBroker.LoadFromFile(OpenDialog.FileName);

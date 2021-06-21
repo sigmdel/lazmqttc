@@ -8,7 +8,8 @@ uses
   {$ENDIF}{$ENDIF}
   ctypes, // needed by mosquitto
   Interfaces, // this includes the LCL widgetset
-  Forms, lazcontrols, main, report, brokerunit, brokeredit, verify, stringres;
+  Forms, lazcontrols, main, report, brokerunit, brokeredit, verify, stringres,
+  pwd;
 
 {$R *.res}
 

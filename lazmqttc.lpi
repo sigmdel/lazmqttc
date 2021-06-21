@@ -120,7 +120,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="13">
+    <Units Count="14">
       <Unit0>
         <Filename Value="lazmqttc.pas"/>
         <IsPartOfProject Value="True"/>
@@ -186,6 +186,10 @@
         <Filename Value="units/stringres.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit12>
+      <Unit13>
+        <Filename Value="units/pwd.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit13>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
