@@ -68,7 +68,11 @@ msgstr ""
 
 #: stringres.snoclienterror
 msgctxt "stringres.snoclienterror"
-msgid "The Mqtt client has not been created"
+msgid "The MQTT client has not been created"
+msgstr ""
+
+#: stringres.snoencryptionkey
+msgid "Password encryption key is empty - program halted"
 msgstr ""
 
 #: stringres.snopayloadwarning
@@ -78,7 +82,7 @@ msgstr ""
 
 #: stringres.snotconnectederror
 msgctxt "stringres.snotconnectederror"
-msgid "The Mqtt client is not connected"
+msgid "The MQTT client is not connected"
 msgstr ""
 
 #: stringres.snotopicerror
@@ -98,7 +102,7 @@ msgid ""
 "Security\n"
 "Encryption\n"
 "Publish Topic\n"
-"Subscribe Topics\n"
+"Subscribe Topics"
 msgstr ""
 
 #: stringres.sqos
@@ -110,7 +114,7 @@ msgctxt "stringres.sqoshint"
 msgid ""
 "0 - At most once\n"
 "1 - At least once\n"
-"2 - Exactly once\n"
+"2 - Exactly once"
 msgstr ""
 
 #: stringres.sqostitle
@@ -303,11 +307,6 @@ msgstr ""
 msgid "Show topics"
 msgstr ""
 
-#: tmainform.connectbutton.caption
-msgctxt "tmainform.connectbutton.caption"
-msgid "Disconnect"
-msgstr ""
-
 #: tmainform.dividerbevel1.caption
 msgid "Received Messages"
 msgstr ""
@@ -315,10 +314,6 @@ msgstr ""
 #: tmainform.editbrokerbutton.caption
 msgctxt "tmainform.editbrokerbutton.caption"
 msgid "Edit"
-msgstr ""
-
-#: tmainform.hostlabel.caption
-msgid "<host name>"
 msgstr ""
 
 #: tmainform.label1.caption
@@ -350,11 +345,6 @@ msgstr ""
 
 #: tmainform.quitbutton.caption
 msgid "Quit"
-msgstr ""
-
-#: tmainform.retaincheckbox.caption
-msgctxt "tmainform.retaincheckbox.caption"
-msgid "(false)"
 msgstr ""
 
 #: tmainform.sourcelabel.caption

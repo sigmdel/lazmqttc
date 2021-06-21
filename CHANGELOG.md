@@ -1,7 +1,33 @@
 
 # Change Log
 
-## 0.3.0 (current)
+## 0.3.3 (current)
+
+- Bumped up the version to 0.3.3
+- Fixed errors in instructions about the `lazmqttc.desktop file`
+- Updated the documentation including warning about lack of security 
+- Added some missing translations in `lazmqtt.fr.po` and missing step in procedure `TBrokerEditForm.i18nFixup` (formally `i10nFixup`)
+- Updated the PO files
+- Added encryption of MQTT broker passwords in definition files
+
+
+
+## 0.3.2 (b3e2325)
+
+- Bumped up the version to 0.3.2
+- Added missing .jr files
+- Added feature to automatically clear a message after it is published
+- Centered broker edit form on main form 
+
+
+## 0.3.1 (9e48a6f, Release v0.3.1)
+
+- Release of the version with NLS support
+- Removed attempt to unsubscribe when not connected to the MQTT broker
+- Cleaned up PO files
+
+
+### 0.3.0 
 
 - Added national language support and a translation into French
 - Improved instructions on installation in a Linux system
