@@ -21,7 +21,7 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MinorVersionNr Value="3"/>
-      <RevisionNr Value="2"/>
+      <RevisionNr Value="3"/>
       <StringTable CompanyName="sigmdel.ca" LegalCopyright="Michel Deslierres" ProductName="lazmqttc" ProductVersion="0.3"/>
     </VersionInfo>
     <BuildModes Count="3">

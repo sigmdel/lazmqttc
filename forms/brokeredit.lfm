@@ -75,7 +75,7 @@ object BrokerEditForm: TBrokerEditForm
     Left = 6
     Height = 366
     Top = 6
-    Width = 138
+    Width = 145
     Align = alLeft
     BorderSpacing.Left = 6
     BorderSpacing.Top = 6
@@ -90,15 +90,15 @@ object BrokerEditForm: TBrokerEditForm
     ItemHeight = 35
     ItemIndex = 0
     OnClick = ListBox1Click
-    ScrollWidth = 136
+    ScrollWidth = 143
     Style = lbOwnerDrawFixed
     TabOrder = 1
   end
   object Notebook: TNotebook
-    Left = 144
+    Left = 151
     Height = 372
     Top = 0
-    Width = 508
+    Width = 501
     PageIndex = 0
     Align = alClient
     Anchors = [akTop, akLeft, akRight]
@@ -125,7 +125,7 @@ object BrokerEditForm: TBrokerEditForm
         Left = 12
         Height = 27
         Top = 32
-        Width = 490
+        Width = 483
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 6
         BorderSpacing.Right = 6
@@ -139,7 +139,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
-        Left = 235
+        Left = 232
         Height = 14
         Top = 77
         Width = 29
@@ -151,7 +151,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = HostEdit
         AnchorSideTop.Side = asrBottom
-        Left = 273
+        Left = 270
         Height = 27
         Hint = 'Default MQTT Port: 1883'
         Top = 71
@@ -169,7 +169,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
-        Left = 151
+        Left = 148
         Height = 14
         Top = 116
         Width = 113
@@ -181,7 +181,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = PortEdit
         AnchorSideTop.Side = asrBottom
-        Left = 273
+        Left = 270
         Height = 27
         Top = 110
         Width = 120
@@ -198,7 +198,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
-        Left = 160
+        Left = 157
         Height = 14
         Top = 155
         Width = 104
@@ -210,7 +210,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = KeepAlivesEdit
         AnchorSideTop.Side = asrBottom
-        Left = 273
+        Left = 270
         Height = 27
         Top = 149
         Width = 120
@@ -224,7 +224,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = ReconnectDelayEdit
         AnchorSideTop.Side = asrBottom
-        Left = 273
+        Left = 270
         Height = 23
         Top = 188
         Width = 63
@@ -239,7 +239,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label10
         AnchorSideRight.Side = asrBottom
-        Left = 151
+        Left = 148
         Height = 14
         Top = 192
         Width = 113
@@ -251,7 +251,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideLeft.Control = Label2
         AnchorSideTop.Control = AutoReconnectCheckBox
         AnchorSideTop.Side = asrCenter
-        Left = 136
+        Left = 133
         Height = 14
         Top = 227
         Width = 128
@@ -264,7 +264,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = ReconnectBackoffCheckBox
         AnchorSideTop.Side = asrBottom
-        Left = 273
+        Left = 270
         Height = 23
         Top = 223
         Width = 59
@@ -580,7 +580,7 @@ object BrokerEditForm: TBrokerEditForm
         end
         object ToolButton1: TToolButton
           Left = 70
-          Height = 8
+          Height = 22
           Top = 2
           Caption = 'ToolButton1'
           Style = tbsSeparator

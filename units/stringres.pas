@@ -21,13 +21,15 @@ resourcestring
   sVersionFormat = '(version %d.%d.%d)';
   sSubscribeColumnTitle = 'Subscribe Topics';
 
-  sNoClientError = 'The Mqtt client has not been created';
-  sNotConnectedError = 'The Mqtt client is not connected';
+  sNoClientError = 'The MQTT client has not been created';
+  sNotConnectedError = 'The MQTT client is not connected';
   sNoTopicError = 'A topic must be specified';
   sNoPayloadWarning = 'OK but the message had no payload';
   sRetainRemovedFormat = 'Retain flag removed for topic %s';
   sMQTTErrorFormat = 'MQTT Error: %d';
   sOK = 'OK';
+
+  sNoEncryptionKey = 'Password encryption key is empty - program halted';
 
   // sbrorkeredit
   sPageNames = 'Broker'#10'Security'#10'Encryption'#10'Publish Topic'#10'Subscribe Topics';

@@ -88,7 +88,7 @@ type
     procedure SubTopicsPanelResize(Sender: TObject);
   private
     FDisplayedState: TMQTTConnectionState;
-    procedure I10nFixup;
+    procedure i18nFixup;
     function ClientState: TMQTTConnectionState;
     procedure RefreshGui;
     function ConnectBroker(aBroker: TBroker): boolean;
@@ -108,7 +108,7 @@ implementation
 {$R *.lfm}
 
 uses
-  LCLIntf, stringres, brokeredit, mosquitto, report;
+  LCLIntf, stringres, brokeredit, mosquitto, pwd, report;
 
 
 // mosquitto library log level
@@ -246,11 +246,19 @@ begin
   ShowTopics := CheckBox1.Checked;
 end;
 
+procedure TMainForm.EditBrokerButtonClick(Sender: TObject);
+begin
+  if TBrokerEditForm.EditBroker(Broker) then begin
+    freeandnil(MqttClient);
+    RefreshGUI;
+  end;
+end;
+
 procedure TMainForm.FormCreate(Sender: TObject);
 var
   Version : TProgramVersion;
 begin
-  I10nFixup;
+  i18nFixup;
   if GetProgramVersion(Version) then with Version do
     VersionLabel.caption := Format(sVersionFormat, [Major,Minor,Revision])
   else
@@ -281,35 +289,26 @@ begin
   freeandnil(MqttClient);
 end;
 
-procedure TMainForm.PublishTopicEditEditingDone(Sender: TObject);
-begin
-  if trim(PublishTopicEdit.Text) <> '' then
-    Broker.PubTopic := PublishTopicEdit.Text;
-end;
-
-procedure TMainForm.QoSComboBoxChange(Sender: TObject);
-begin
-  Broker.PubQoS := QoSComboBox.ItemIndex;
-end;
-
-procedure TMainForm.EditBrokerButtonClick(Sender: TObject);
-begin
-  if TBrokerEditForm.EditBroker(Broker) then begin
-    freeandnil(MqttClient);
-    RefreshGUI;
-  end;
-end;
-
 procedure TMainForm.FormShow(Sender: TObject);
 begin
   Constraints.MinHeight := Height;
   Constraints.MinWidth := Width;
+  if DefaultKey = '' then begin
+    ShowPublishResult(sNoEncryptionKey, false);
+    halt;
+  end;
 end;
 
-procedure TMainForm.I10nFixup;
+procedure TMainForm.i18nFixup;
 begin
   QosComboBox.Items.Text := sQosHint;
   QosComboBox.ItemIndex := 0;
+end;
+
+procedure TMainForm.PublishTopicEditEditingDone(Sender: TObject);
+begin
+  if trim(PublishTopicEdit.Text) <> '' then
+    Broker.PubTopic := PublishTopicEdit.Text;
 end;
 
 procedure TMainForm.PayloadMemoEditingDone(Sender: TObject);
@@ -363,22 +362,16 @@ begin
   RetainCheckBox.Checked := false;
 end;
 
+procedure TMainForm.QoSComboBoxChange(Sender: TObject);
+begin
+  Broker.PubQoS := QoSComboBox.ItemIndex;
+end;
+
 procedure TMainForm.QuitButtonClick(Sender: TObject);
 begin
   freeandnil(MqttClient);
   // save broker definition ?
   close;
-end;
-
-procedure TMainForm.RetainCheckBoxChange(Sender: TObject);
-begin
-  RetainCheckBox.Caption := Format('(%s)', [falsetruestr[RetainCheckBox.Checked]]);
-  Broker.PubRetain := RetainCheckBox.Checked;;
-end;
-
-procedure TMainForm.SubTopicsPanelResize(Sender: TObject);
-begin
-  TopicsGrid.Invalidate; // needed in Mint 20 Mate at least
 end;
 
 procedure TMainForm.RefreshGui;
@@ -398,9 +391,20 @@ begin
   end;
 end;
 
+procedure TMainForm.RetainCheckBoxChange(Sender: TObject);
+begin
+  RetainCheckBox.Caption := Format('(%s)', [falsetruestr[RetainCheckBox.Checked]]);
+  Broker.PubRetain := RetainCheckBox.Checked;;
+end;
+
 procedure TMainForm.SourceLabelClick(Sender: TObject);
 begin
   OpenUrl('https://github.com/sigmdel/lazmqttc');  // report error ?
+end;
+
+procedure TMainForm.SubTopicsPanelResize(Sender: TObject);
+begin
+  TopicsGrid.Invalidate; // needed in Mint 20 Mate at least
 end;
 
 procedure TMainForm.TopicsGridSelectCell(Sender: TObject; aCol, aRow: Integer;

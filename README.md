@@ -74,7 +74,7 @@ There is no requirement to install the mosquitto MQTT broker.
 
 >> It is left as an exercise for knowledgable Windows users to find a more elegant way of ensuring that the DLLs are found.
 
-Ultimately, if a mosquitto MQTT broker is to be run on the system, it may make more sense to simply copy `lazmqttc.exe` into the `mosquitto` directory along side the `mosquitto_pub.exe` and `mosquitto_sub.exe` utilities it emulates.
+Ultimately, if a mosquitto MQTT broker is to be run on the system, it may make more sense to simply copy `lazmqttc.exe` into the `mosquitto` directory alongside the `mosquitto_pub.exe` and `mosquitto_sub.exe` utilities it emulates.
 
 ## 2. Compiling
 
@@ -83,6 +83,8 @@ The repository is self-contained (except for the mosquitto library of course), s
 The project uses a custom component, a "virtual grid" to display subscribed topics. This component is so specialized that there is no point in adding it to the IDE component palette. Instead the component is created at run-time in the `FormCreate` methods of the main and broker edit forms. Consequently, it is normal to not find the component in the form designer.
 
 When compiling a final version, it would be advisable to heed the following advice.
+
+1. Modify the default password encryption key 'DEFAULT_KEY' in the 'units/pwd.pas' file. That way it will not be easy for any one of the vast number of users of this application to read a broker definition file and obtain the MQTT broker password. See [5.1. Security Warning](#51-security-warning) for more details.
 
 1. Add an application icon. Select `Load Icon` in `Project / Project Options` in the Lazarus IDE. The `lazmqttc.png` image the `images` directory can be used. The file `lazmqtt.lzp` is the [LazPaint](https://lazpaint.github.io/) source for the image file. 
 
@@ -106,7 +108,15 @@ Details about installation of an application in Windows 10 are unfortunately not
 
 ## 5. Broker Definitions 
 
-MQTT broker definitions are JSON formatted text files. As an example, here is a definition used with an MQTT broker running on a Raspberry Pi also hosting a [Domoticz](https://domoticz.com/) home automation server. By default, the client will subscribe to the `stat\#` topic only when it connects with the broker. When the default the publish message is sent to the broker, all subscribed [Tasmota](https://github.com/tasmota) devices respond by sending a "status 5" message. This can be useful because that will display the IP address of each device.
+MQTT broker definitions can be retrieved, saved, edited or created by clicking on the **` Edit `** button at the top of the main program window. Editing the current MQTT definition is the only whay to add, remove or change the list of subscribed topics. 
+
+In Linux, broker definition files are saved in the `~/.config/sigmdel/lazmqttc` where `~` is the user home directory. So fully expanded the directory is
+<pre>  /home/&lt;<i>user</i>&gt;/.config/sigmdel/lazmqttc</pre>
+
+In Windows 10, the files are saved in the local `AppData` folder :
+<pre>  C:\Users\&lt;<i>user</i>&gt;\AppData\Local\sigmdel\lazmqttc</pre>
+
+MQTT broker definitions are JSON formatted text files. As an example, here is a definition used with an MQTT broker running on a Raspberry Pi also hosting a [Domoticz](https://domoticz.com/) home automation server. By default, the client will subscribe to the `stat/+/STATUS5` topic only when it connects with the broker. When the default publish message is sent to the broker, all subscribed [Tasmota](https://github.com/tasmota) devices respond by sending a "status 5" message. This can be useful because that will display the IP address of each device.
 
 <pre>
 {
@@ -126,7 +136,7 @@ MQTT broker definitions are JSON formatted text files. As an example, here is a 
   "PubRetain" : false,
   "SubTopics" : [
     {
-      "Topic" : "stat/#",
+      "Topic" : "stat/+/STATUS5",
       "QoS" : 0,
       "Use" : true
     },
@@ -149,19 +159,14 @@ MQTT broker definitions are JSON formatted text files. As an example, here is a 
 }   
 </pre>       
 
-In Linux, these broker definition files are saved in the `~/.config/sigmdel/lazmqttc`  
-where `~` is the user home directory. So fully expanded the directory is
-<pre>  /home/&lt;<i>user</i>&gt;/.config/sigmdel/lazmqttc</pre>
-
-In Windows 10, the files are saved in the local `AppData` folder :
-<pre>  C:\Users\&lt;<i>user</i>&gt;\AppData\Local\sigmdel\lazmqttc</pre>
 
 ### 5.1. Security Warning
 
-The MQTT broker password is stored in plain text in the broker definitions file. 
+Prior to version 3.3, the MQTT broker passwords were stored in plain text in the broker definitions file. **Do not save MQTT broker passwords in the broker definition screen** in these older versions. 
 
-**Do not save the MQTT broker password in the broker definition screen**
+A quick fix was added in version 3.3 so that an encrypted password will be saved in the broker definition file. A default encryption key is defined which should be changed if compiling the program (see [2. Compiling](#2-compiling) for details). However those using binary releases can override the default key by storing a different key in a file named `key.txt` in the directory that contains the broker definition files. The file should contain the key on one line and nothing else. Since this is a plain text file, this is not to be considered secured at all.
 
+Note that the MQTT user and password are transmitted in plain text over an HTTP connection, so truly secure handling of the MQTT password will have to wait until communication with the broker using the HTTPS protocol is implemented.
 
 ## 6. National Language Support
 
@@ -169,7 +174,7 @@ The `languages` directory contains national language translations of the literal
 
 Only a single translation into French is provided: `lazmqttc.fr.po`. However there is a template file, `lazmqttc.po`, that can be used to create a translation into other languages.
 
-The choice of language, is done automatically based on the system locale when the program starts up. There is no provision for choosing the language at run-time. Those that prefer to use the English language version even if a translation into the national language exists can achieve their goal by renaming or erasing the `languages` directory.
+The choice of language is done automatically based on the system locale when the program starts up. There is no provision for choosing the language at run-time. Those that prefer to use the English language version even if a translation into the national language exists can achieve their goal by renaming or erasing the `languages` directory.
 
 ## 7. Improvements and Development
 
@@ -187,6 +192,8 @@ Obviously, this utility would not have been possible without
 
 Not quite as obvious, the JSON data viewer by Michael Van Canneyt (named `jsonviewer`) provided the code for saving and loading JSON broker definition files. The utility can be found in the `tools` directory in the Lazarus source. The full path is `/usr/share/lazarus/2.0.12/tools/jsonviewer` in a default installation of Lazarus in Mint 20.1.
 
+The broker password encryption using the <span class="tm">Free Pascal</span> Blowfish unit is based on a blog post by leledumbo [Blowfish, the cryptography unit by leledumbo](http://pascalgeek.blogspot.com/2012/06/encryption-decryption-and-asynchronous.html) (June 24, 2012).
+
 ## 9. Licence
 
 The [Eclipse Mosquitto](https://github.com/eclipse/mosquitto) project is dual-licensed under the Eclipse Public License 2.0 and the
@@ -203,9 +210,6 @@ The **BSD Zero Clause** ([SPDX](https://spdx.dev/): [0BSD](https://spdx.org/lice
 
 https://github.com/knolleary/pubsubclient/issues/239
 Keepalive timeout for default MQTT Broker is 10s, pubsubclient is default set to 15s?
-
- I discovered the  I discovered the default keepalive timeout for Mosquitto is 10s seconds is 10s seconds
-
 
 nestor@domo:~ $ man mosquitto.conf
 ... 

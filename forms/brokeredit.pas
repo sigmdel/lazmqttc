@@ -99,13 +99,15 @@ type
     FSource: TBroker;
     FCheckModified: boolean;
     procedure Change;
-    procedure I10nFixup;
+    procedure i18nFixup;
     procedure UpdateView;
   public
     TopicsGrid: TSubTopicsGrid;
     class function EditBroker(aBroker: TBroker): boolean;
   end;
 
+var
+  configfile: string; // see initialization
 
 implementation
 
@@ -117,8 +119,7 @@ uses
 const
   CONFIGFILENAME = 'default.json';
 
-var
-  configfile: string; // see initialization
+
 
 { TBrokerEditForm }
 
@@ -259,7 +260,7 @@ end;
 
 procedure TBrokerEditForm.FormCreate(Sender: TObject);
 begin
-  I10nFixup;
+  i18nFixup;
   FCheckModified := true;
   FBroker := TBroker.create;
   TopicsGrid := TSubTopicsGrid.Create(self);
@@ -296,10 +297,12 @@ begin
   FBroker.Host := trim(HostEdit.Text);
 end;
 
-procedure TBrokerEditForm.I10nFixup;
+procedure TBrokerEditForm.i18nFixup;
 begin
   ListBox1.Items.Text := sPageNames;
   ListBox1.ItemIndex := 0;
+  QosComboBox.Items.Text := sQosHint;
+  QosComboBox.ItemIndex := 0;
 end;
 
 procedure TBrokerEditForm.KeepAlivesEditEditingDone(Sender: TObject);

@@ -1,11 +1,9 @@
 (*
   String Encryption and Decryption Functions using Free Pascal Blowfish unit
 
-  Source
-    http://pascalgeek.blogspot.com/2012/06/encryption-decryption-and-asynchronous.html
-    Blowfish, the cryptography unit
-    by leledumbo
-    June 24, 2012
+  Based on
+    Blowfish, the cryptography unit by leledumbo (June 24, 2012)
+    @ http://pascalgeek.blogspot.com/2012/06/encryption-decryption-and-asynchronous.html
 *)
 
 unit pwd;
@@ -14,14 +12,19 @@ unit pwd;
 
 interface
 
+uses
+  brokeredit, report;
+
 const
-  DefaultKey = 'CdBZoYYSWjPiZV8fxbN62a4TK8cSDNDKQoAmA73t3qX';
+  DEFAULT_KEY = 'CdBZoYYSWjPiZV8fxbN62a4TK8cSDNDKQoAmA73t3qX';
+
+var
+  DefaultKey: string = DEFAULT_KEY;
 
 function Encrypt(value: string; encode: boolean = true; const aKey: string = ''): string;
 function Decrypt(value: string; encoded: boolean = true; const aKey: string = ''): string;
 
 implementation
-
 
 uses
   SysUtils, Classes, base64, BlowFish;
@@ -87,5 +90,23 @@ begin
   end;
 end;
 
+procedure GetDefaultKey;
+var
+  fname: string;
+  inf: textfile;
+begin
+  fname := ExtractFilePath(configfile) + 'key.txt';
+  {$i-}
+  assign(inf, fname);
+  reset(inf);
+  {$i+}
+  if (IoResult=0) then begin
+    read(inf, DefaultKey);
+    close(inf);
+  end;
+end;
+
+initialization
+  GetDefaultKey;
 end.
 
