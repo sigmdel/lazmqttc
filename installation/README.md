@@ -8,8 +8,8 @@ To install the compiled executable in Mint 20.1 (MATE) :
     2. the image file `images/lazmqttc.png` ,
     3. the directory `languages`,
     
-3. Copy the `lazmqtt.desktop` file to '~/.local/share/applications'.
-4. Replace `$USER` in the `Exec=` and `Icon=` lines of the copied `lazmqtt.desktop` file to the correct user name. If the executable is renamed or if it is placed in a different directory than `~/.local/bin/lazmqttc` then the rest of those lines will also need to be adjusted.
+3. Copy the `lazmqttc.desktop` file to '~/.local/share/applications'.
+4. Replace `$USER` in the `Exec=` and `Icon=` lines of the copied `lazmqttc.desktop` file to the correct user name. If the executable is renamed or if it is placed in a different directory than `~/.local/bin/lazmqttc` then the rest of those lines will also need to be adjusted.
 
 Since my user name is `michel` on my Mint 20.1 machine the two lines in my `lazmqttc.desktop` file are
 
