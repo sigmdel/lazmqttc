@@ -3,9 +3,12 @@
 
 syntax: glob
 
+# some work directories
 lib/
 publish/
 langs*/
+passwd/
+
 
 # Backup, unit and binary output folders
 backup
