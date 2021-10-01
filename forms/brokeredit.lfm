@@ -10,6 +10,7 @@ object BrokerEditForm: TBrokerEditForm
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poMainFormCenter
+  LCLVersion = '2.0.12.0'
   object Panel1: TPanel
     Left = 0
     Height = 42
@@ -539,7 +540,7 @@ object BrokerEditForm: TBrokerEditForm
         Left = 12
         Height = 24
         Top = 7
-        Width = 490
+        Width = 483
         AutoSize = True
         BorderSpacing.Left = 12
         BorderSpacing.Top = 7
@@ -569,7 +570,6 @@ object BrokerEditForm: TBrokerEditForm
           Left = 78
           Top = 2
           Action = actClear
-          Caption = 'actClear'
         end
         object tbEdit: TToolButton
           Left = 1
@@ -580,18 +580,15 @@ object BrokerEditForm: TBrokerEditForm
         end
         object ToolButton1: TToolButton
           Left = 70
-          Height = 22
+          Height = 8
           Top = 2
-          Caption = 'ToolButton1'
           Style = tbsSeparator
         end
       end
     end
   end
   object OpenDialog: TOpenDialog
-    Title = 'Open existing file'
     DefaultExt = '.json'
-    Filter = 'JSON files|*.json|All files|*.*'
     Options = [ofFileMustExist, ofEnableSizing, ofViewDetail]
     Left = 80
     Top = 192
@@ -601,26 +598,22 @@ object BrokerEditForm: TBrokerEditForm
     Left = 24
     Top = 304
     object actAdd: TAction
-      Caption = 'Add'
       Hint = 'Add new topic'
       ImageIndex = 2
       OnExecute = actAddExecute
       ShortCut = 45
     end
     object actDel: TAction
-      Caption = 'actDel'
       Hint = 'Delete the selected topic'
       ImageIndex = 3
       OnExecute = actDelExecute
     end
     object actEdit: TAction
-      Caption = 'Edit'
       Hint = 'Edit the selected topic'
       ImageIndex = 4
       OnExecute = actEditExecute
     end
     object actClear: TAction
-      Caption = 'Clear'
       Hint = 'Delete all topics'
       ImageIndex = 5
       OnExecute = actClearExecute
@@ -826,9 +819,7 @@ object BrokerEditForm: TBrokerEditForm
     }
   end
   object SaveDialog: TSaveDialog
-    Title = 'Save file as'
     DefaultExt = '.json'
-    Filter = 'JSON files|*.json|All files|*.*'
     Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
     Left = 80
     Top = 264

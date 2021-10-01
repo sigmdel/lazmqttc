@@ -57,6 +57,11 @@ msgctxt "stringres.sfalse"
 msgid "false"
 msgstr "faux"
 
+#: stringres.sjsonfiles
+msgctxt "stringres.sjsonfiles"
+msgid "JSON files"
+msgstr "Fichers JSON"
+
 #: stringres.smessagenotsent
 msgctxt "stringres.smessagenotsent"
 msgid "Message not published"
@@ -71,6 +76,16 @@ msgstr "Message publié"
 msgctxt "stringres.smqtterrorformat"
 msgid "MQTT Error: %d"
 msgstr "Erreur MQTT : %d"
+
+#: stringres.smsgformatnotopic
+msgctxt "stringres.smsgformatwithtopic"
+msgid "%s%s"
+msgstr "%s%s"
+
+#: stringres.smsgformatwithtopic
+msgctxt "stringres.smsgformatwithtopic"
+msgid "%s[%s] - %s"
+msgstr "%s[%s] - %s"
 
 #: stringres.snoclienterror
 msgctxt "stringres.snoclienterror"
@@ -108,7 +123,7 @@ msgid ""
 "Security\n"
 "Encryption\n"
 "Publish Topic\n"
-"Subscribe Topics"
+"Subscribe Topics\n"
 msgstr ""
 "Serveur MQTT\n"
 "Sécurité\n"
@@ -118,18 +133,18 @@ msgstr ""
 
 #: stringres.sqos
 msgid "Quality of Service"
-msgstr "Qualité du serviced"
+msgstr "Qualité du service"
 
 #: stringres.sqoshint
 msgctxt "stringres.sqoshint"
 msgid ""
 "0 - At most once\n"
 "1 - At least once\n"
-"2 - Exactly once"
+"2 - Exactly once\n"
 msgstr ""
 "0 - Au plus un envoi\n"
 "1 - Au moins un envoi\n"
-"2 - Exactement un envoi"
+"2 - Exactement un envoi\n"
 
 #: stringres.sqostitle
 msgid "QoS"
@@ -139,11 +154,6 @@ msgstr "QdS"
 msgctxt "stringres.sretainremovedformat"
 msgid "Retain flag removed for topic %s"
 msgstr "Le sujet %s ne sera plus conservé"
-
-#: stringres.srxmsgformat
-msgctxt "stringres.srxmsgformat"
-msgid "[%s] - %s"
-msgstr "[%s] - %s"
 
 #: stringres.ssubscribecolumntitle
 msgctxt "stringres.ssubscribecolumntitle"
@@ -173,17 +183,9 @@ msgstr "(version %d.%d.%d)"
 msgid "&Accept"
 msgstr "&Valider"
 
-#: tbrokereditform.actadd.caption
-msgid "Add"
-msgstr "Ajouter"
-
 #: tbrokereditform.actadd.hint
 msgid "Add new topic"
 msgstr "Ajouter un sujet"
-
-#: tbrokereditform.actclear.caption
-msgid "Clear"
-msgstr "Tout éliminer"
 
 #: tbrokereditform.actclear.hint
 msgid "Delete all topics"
@@ -192,11 +194,6 @@ msgstr "Éliminer tous les sujets"
 #: tbrokereditform.actdel.hint
 msgid "Delete the selected topic"
 msgstr "Éliminer le sujet sélectionné"
-
-#: tbrokereditform.actedit.caption
-msgctxt "tbrokereditform.actedit.caption"
-msgid "Edit"
-msgstr "Modifier"
 
 #: tbrokereditform.actedit.hint
 msgid "Edit the selected topic"
@@ -229,7 +226,7 @@ msgstr "Sujet"
 
 #: tbrokereditform.label12.caption
 msgid "Quality of Service (QoS)"
-msgstr "Qualité du service (QdS"
+msgstr "Qualité du service (QdS)"
 
 #: tbrokereditform.label13.caption
 msgctxt "tbrokereditform.label13.caption"
@@ -285,6 +282,16 @@ msgstr "Ouvrir un fichier existant"
 msgid "Default MQTT Port: 1883"
 msgstr "Port MQTT par défaut : 1883"
 
+#: tbrokereditform.pubretaincheckbox.caption
+msgctxt "tbrokereditform.pubretaincheckbox.caption"
+msgid "(false)"
+msgstr "(faux)"
+
+#: tbrokereditform.reconnectbackoffcheckbox.caption
+msgctxt "tbrokereditform.reconnectbackoffcheckbox.caption"
+msgid "(false)"
+msgstr "(faux)"
+
 #: tbrokereditform.savebutton.caption
 msgid "&Save..."
 msgstr "&Sauvegarder..."
@@ -321,9 +328,24 @@ msgstr "Client MQTT"
 msgid "Show topics"
 msgstr "Montrer les sujets"
 
+#: tmainform.connectbutton.caption
+msgctxt "tmainform.connectbutton.caption"
+msgid "Disconnect"
+msgstr "Déconnecter"
+
+#: tmainform.copypubcheckbox.caption
+msgctxt "tmainform.copypubcheckbox.caption"
+msgid "Copy"
+msgstr "Copier"
+
+#: tmainform.copypubcheckbox.hint
+msgctxt "tmainform.copypubcheckbox.hint"
+msgid "Copy the message in the Messages window"
+msgstr "Copier dans Messages"
+
 #: tmainform.dividerbevel1.caption
-msgid "Received Messages"
-msgstr "Messages reçus"
+msgid "Messages"
+msgstr "Messages"
 
 #: tmainform.editbrokerbutton.caption
 msgctxt "tmainform.editbrokerbutton.caption"
@@ -360,6 +382,11 @@ msgstr "Publier"
 #: tmainform.quitbutton.caption
 msgid "Quit"
 msgstr "Exit"
+
+#: tmainform.retaincheckbox.caption
+msgctxt "tmainform.retaincheckbox.caption"
+msgid "(false)"
+msgstr "(faux)"
 
 #: tmainform.sourcelabel.caption
 msgid "Source"

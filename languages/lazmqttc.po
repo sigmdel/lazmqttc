@@ -51,6 +51,11 @@ msgctxt "stringres.sfalse"
 msgid "false"
 msgstr ""
 
+#: stringres.sjsonfiles
+msgctxt "stringres.sjsonfiles"
+msgid "JSON files"
+msgstr ""
+
 #: stringres.smessagenotsent
 msgctxt "stringres.smessagenotsent"
 msgid "Message not published"
@@ -64,6 +69,16 @@ msgstr ""
 #: stringres.smqtterrorformat
 msgctxt "stringres.smqtterrorformat"
 msgid "MQTT Error: %d"
+msgstr ""
+
+#: stringres.smsgformatnotopic
+msgctxt "stringres.smsgformatwithtopic"
+msgid "%s%s"
+msgstr ""
+
+#: stringres.smsgformatwithtopic
+msgctxt "stringres.smsgformatwithtopic"
+msgid "%s[%s] - %s"
 msgstr ""
 
 #: stringres.snoclienterror
@@ -102,7 +117,7 @@ msgid ""
 "Security\n"
 "Encryption\n"
 "Publish Topic\n"
-"Subscribe Topics"
+"Subscribe Topics\n"
 msgstr ""
 
 #: stringres.sqos
@@ -114,7 +129,7 @@ msgctxt "stringres.sqoshint"
 msgid ""
 "0 - At most once\n"
 "1 - At least once\n"
-"2 - Exactly once"
+"2 - Exactly once\n"
 msgstr ""
 
 #: stringres.sqostitle
@@ -124,11 +139,6 @@ msgstr ""
 #: stringres.sretainremovedformat
 msgctxt "stringres.sretainremovedformat"
 msgid "Retain flag removed for topic %s"
-msgstr ""
-
-#: stringres.srxmsgformat
-msgctxt "stringres.srxmsgformat"
-msgid "[%s] - %s"
 msgstr ""
 
 #: stringres.ssubscribecolumntitle
@@ -159,16 +169,8 @@ msgstr ""
 msgid "&Accept"
 msgstr ""
 
-#: tbrokereditform.actadd.caption
-msgid "Add"
-msgstr ""
-
 #: tbrokereditform.actadd.hint
 msgid "Add new topic"
-msgstr ""
-
-#: tbrokereditform.actclear.caption
-msgid "Clear"
 msgstr ""
 
 #: tbrokereditform.actclear.hint
@@ -177,11 +179,6 @@ msgstr ""
 
 #: tbrokereditform.actdel.hint
 msgid "Delete the selected topic"
-msgstr ""
-
-#: tbrokereditform.actedit.caption
-msgctxt "tbrokereditform.actedit.caption"
-msgid "Edit"
 msgstr ""
 
 #: tbrokereditform.actedit.hint
@@ -198,6 +195,10 @@ msgstr ""
 
 #: tbrokereditform.caption
 msgid "MQTT Broker Editor"
+msgstr ""
+
+#: tbrokereditform.hostedit.text
+msgid "HostEdit"
 msgstr ""
 
 #: tbrokereditform.label1.caption
@@ -263,20 +264,42 @@ msgstr ""
 msgid "&Load..."
 msgstr ""
 
-#: tbrokereditform.opendialog.title
-msgid "Open existing file"
+#: tbrokereditform.passwordedit.text
+msgid "PasswordEdit"
 msgstr ""
 
 #: tbrokereditform.portedit.hint
 msgid "Default MQTT Port: 1883"
 msgstr ""
 
+#: tbrokereditform.pubretaincheckbox.caption
+msgctxt "tbrokereditform.pubretaincheckbox.caption"
+msgid "(false)"
+msgstr ""
+
+#: tbrokereditform.pubtopicedit.text
+msgid "PubTopicEdit"
+msgstr ""
+
+#: tbrokereditform.qoscombobox.text
+msgid "0 - at most once"
+msgstr ""
+
+#: tbrokereditform.reconnectbackoffcheckbox.caption
+msgctxt "tbrokereditform.reconnectbackoffcheckbox.caption"
+msgid "(false)"
+msgstr ""
+
 #: tbrokereditform.savebutton.caption
 msgid "&Save..."
 msgstr ""
 
-#: tbrokereditform.savedialog.title
-msgid "Save file as"
+#: tbrokereditform.toolbar.caption
+msgid "ToolBar"
+msgstr ""
+
+#: tbrokereditform.useredit.text
+msgid "UserEdit"
 msgstr ""
 
 #: tform1.button1.caption
@@ -285,6 +308,10 @@ msgstr ""
 
 #: tform2.caption
 msgid "Confirmation"
+msgstr ""
+
+#: tform2.label1.caption
+msgid "Label1"
 msgstr ""
 
 #: tform2.nobutton.caption
@@ -307,13 +334,32 @@ msgstr ""
 msgid "Show topics"
 msgstr ""
 
+#: tmainform.connectbutton.caption
+msgctxt "tmainform.connectbutton.caption"
+msgid "Disconnect"
+msgstr ""
+
+#: tmainform.copypubcheckbox.caption
+msgctxt "tmainform.copypubcheckbox.caption"
+msgid "Copy"
+msgstr ""
+
+#: tmainform.copypubcheckbox.hint
+msgctxt "tmainform.copypubcheckbox.hint"
+msgid "Copy the message in the Messages window"
+msgstr ""
+
 #: tmainform.dividerbevel1.caption
-msgid "Received Messages"
+msgid "Messages"
 msgstr ""
 
 #: tmainform.editbrokerbutton.caption
 msgctxt "tmainform.editbrokerbutton.caption"
 msgid "Edit"
+msgstr ""
+
+#: tmainform.hostlabel.caption
+msgid "<host name>"
 msgstr ""
 
 #: tmainform.label1.caption
@@ -345,6 +391,11 @@ msgstr ""
 
 #: tmainform.quitbutton.caption
 msgid "Quit"
+msgstr ""
+
+#: tmainform.retaincheckbox.caption
+msgctxt "tmainform.retaincheckbox.caption"
+msgid "(false)"
 msgstr ""
 
 #: tmainform.sourcelabel.caption

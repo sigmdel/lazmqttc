@@ -384,7 +384,7 @@ object MainForm: TMainForm
       ParentFont = False
       OnClick = SourceLabelClick
     end
-    object SubscribedMemo: TMemo
+    object MessagesMemo: TMemo
       AnchorSideLeft.Control = BottomPanel
       AnchorSideTop.Control = DividerBevel1
       AnchorSideTop.Side = asrBottom

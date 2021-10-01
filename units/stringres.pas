@@ -37,6 +37,7 @@ resourcestring
   sQoSHint = '0 - At most once'#10'1 - At least once'#10'2 - Exactly once';
   cbsLoseChanges = 'Close without saving changes';
   cbsDeleteQuery = 'Delete <%s>';
+  sJSONFiles = 'JSON files';
 
   // topicsgrids
   sUseTitle = 'Use';
@@ -52,6 +53,7 @@ resourcestring
 var
   statusStr: array[TMQTTConnectionState] of string;
   falsetruestr: array[boolean] of string;
+  FileDialogFilter: string;
 
 implementation
 
@@ -63,5 +65,6 @@ initialization
   statusStr[mqttDisconnected] := mssDisconnected;
   falsetruestr[false] := sFalse;
   falsetruestr[true] := sTrue;
+  FileDialogFilter := sJSONFiles + '|*.json';
 end.
 

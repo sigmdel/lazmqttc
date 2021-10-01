@@ -119,8 +119,6 @@ uses
 const
   CONFIGFILENAME = 'default.json';
 
-
-
 { TBrokerEditForm }
 
 class function TBrokerEditForm.EditBroker(aBroker: TBroker): boolean;
@@ -258,6 +256,7 @@ begin
     aControl.SetFocus;
 end;
 
+
 procedure TBrokerEditForm.FormCreate(Sender: TObject);
 begin
   i18nFixup;
@@ -323,6 +322,7 @@ procedure TBrokerEditForm.LoadButtonClick(Sender: TObject);
 begin
   PasswordEdit.passwordchar := '#';
   PasswordEdit.ImageIndex := 0;
+  OpenDialog.Filter := FileDialogFilter;
   OpenDialog.Filename := configfile;
   if OpenDialog.Execute then begin
     FBroker.LoadFromFile(OpenDialog.FileName);
@@ -391,6 +391,7 @@ end;
 procedure TBrokerEditForm.SaveButtonClick(Sender: TObject);
 begin
   SaveDialog.Filename := configfile;
+  SaveDialog.Filter := FileDialogFilter;
   if SaveDialog.Execute then begin
     FBroker.SaveToFile(SaveDialog.filename);
     configfile := SaveDialog.Filename;
