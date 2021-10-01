@@ -48,6 +48,7 @@ type
     BottomPanel: TPanel;
     CheckBox1: TCheckBox;
     autoClearCheckBox: TCheckBox;
+    CopyPubCheckbox: TCheckBox;
     DividerBevel1: TDividerBevel;
     VersionLabel: TLabel;
     QuitButton: TButton;
@@ -76,6 +77,7 @@ type
     procedure ConnectButtonClick(Sender: TObject);
     procedure EditBrokerButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure MiddlePanelClick(Sender: TObject);
     procedure SourceLabelClick(Sender: TObject);
     procedure PayloadMemoEditingDone(Sender: TObject);
     procedure PublishButtonClick(Sender: TObject);
@@ -124,6 +126,8 @@ const
 var
   ShowTopics: boolean = true;
   FClearMessageMemo: boolean = false;
+  FPubMessageTopic: string = '';
+  FPubMessagePayload: string = '';
 
 type
   TThisMQTTConnection = class(TMQTTConnection)
@@ -143,6 +147,8 @@ var
 
 
 procedure TThisMQTTConnection.UpdateGUI;
+var
+  outs: string;
 begin
    with MainForm.SubscribedMemo do begin
      if FClearMessageMemo then begin
@@ -158,7 +164,16 @@ begin
          Lines.EndUpdate;
        end;
      end;
-     Lines.Add(FThisMessage);
+     if length(FPubMessageTopic) > 0 then begin
+       if ShowTopics then
+        outs := Format(srxMsgFormat, [FPubMessageTopic, FPubMessagePayload])
+      else
+        outs := FPubMessagePayload;
+       Lines.Add('TX: ' + outs);
+       FPubMessageTopic := '';
+       FPubMessagePayload := '';
+     end;
+     Lines.Add('RX: ' + FThisMessage);
      SelStart := Lines.Text.Length-1;
      SelLength := 1;
   end;
@@ -299,6 +314,11 @@ begin
   end;
 end;
 
+procedure TMainForm.MiddlePanelClick(Sender: TObject);
+begin
+
+end;
+
 procedure TMainForm.i18nFixup;
 begin
   QosComboBox.Items.Text := sQosHint;
@@ -332,9 +352,21 @@ begin
     FClearMessageMemo := autoClearCheckBox.checked;
     res := MqttClient.Publish(topic, PayloadMemo.Text,
       QoSComboBox.ItemIndex, RetainCheckBox.Checked);
+    (*
     if (res = 0) and (PayloadMemo.Text = '') then begin
       res := -1003;
       if RetainCheckBox.Checked then dec(res); // -1004
+    end;
+    *)
+    if (res = 0) then begin
+      if (PayloadMemo.Text = '') then begin
+        res := -1003;
+        if RetainCheckBox.Checked then dec(res); // -1004
+      end
+      else if CopyPubCheckBox.checked then begin
+        FPubMessageTopic := topic;
+        FPubMessagePayload := PayloadMemo.Text;
+      end;
     end;
   end;
 

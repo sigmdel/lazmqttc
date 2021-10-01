@@ -2,26 +2,27 @@ object MainForm: TMainForm
   Left = 332
   Height = 355
   Top = 250
-  Width = 575
+  Width = 597
   Caption = 'MQTT Client'
   ClientHeight = 355
-  ClientWidth = 575
+  ClientWidth = 597
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
+  ShowHint = True
   object TopPanel: TPanel
     AnchorSideTop.Control = Owner
     Left = 0
     Height = 39
     Top = 0
-    Width = 575
+    Width = 597
     Align = alTop
     Alignment = taRightJustify
     Anchors = [akTop]
     AutoSize = True
     BevelOuter = bvNone
     ClientHeight = 39
-    ClientWidth = 575
+    ClientWidth = 597
     TabOrder = 0
     object Label1: TLabel
       AnchorSideLeft.Control = EditBrokerButton
@@ -57,7 +58,7 @@ object MainForm: TMainForm
       AnchorSideTop.Control = EditBrokerButton
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = ConnectButton
-      Left = 481
+      Left = 503
       Height = 1
       Top = 18
       Width = 1
@@ -71,7 +72,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = TopPanel
       AnchorSideRight.Side = asrBottom
-      Left = 488
+      Left = 510
       Height = 30
       Top = 3
       Width = 81
@@ -92,7 +93,7 @@ object MainForm: TMainForm
       Left = 87
       Height = 14
       Top = 11
-      Width = 388
+      Width = 410
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Left = 6
       BorderSpacing.Right = 6
@@ -102,16 +103,18 @@ object MainForm: TMainForm
   end
   object MiddlePanel: TPanel
     AnchorSideRight.Control = TopPanel
+    AnchorSideRight.Side = asrBottom
     Left = 0
     Height = 118
     Top = 39
-    Width = 575
+    Width = 597
     Align = alTop
     Anchors = []
     BevelOuter = bvNone
     ClientHeight = 118
-    ClientWidth = 575
+    ClientWidth = 597
     TabOrder = 1
+    OnClick = MiddlePanelClick
     object Label3: TLabel
       AnchorSideLeft.Control = MiddlePanel
       AnchorSideTop.Control = PublishTopicEdit
@@ -132,7 +135,7 @@ object MainForm: TMainForm
       Left = 61
       Height = 27
       Top = 6
-      Width = 508
+      Width = 530
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Top = 6
       BorderSpacing.Right = 6
@@ -150,7 +153,7 @@ object MainForm: TMainForm
       Left = 61
       Height = 41
       Top = 39
-      Width = 508
+      Width = 530
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Left = 6
       BorderSpacing.Top = 6
@@ -174,11 +177,10 @@ object MainForm: TMainForm
       AnchorSideLeft.Control = QoSComboBox
       AnchorSideTop.Control = QoSComboBox
       AnchorSideTop.Side = asrCenter
-      AnchorSideRight.Control = MiddlePanel
-      AnchorSideRight.Side = asrBottom
+      AnchorSideRight.Control = CopyPubCheckbox
       AnchorSideBottom.Control = MiddlePanel
       AnchorSideBottom.Side = asrBottom
-      Left = 510
+      Left = 469
       Height = 30
       Top = 85
       Width = 59
@@ -249,6 +251,22 @@ object MainForm: TMainForm
       OnChange = RetainCheckBoxChange
       TabOrder = 3
     end
+    object CopyPubCheckbox: TCheckBox
+      AnchorSideTop.Control = RetainCheckBox
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = MiddlePanel
+      AnchorSideRight.Side = asrBottom
+      Left = 534
+      Height = 23
+      Hint = 'Copy the message in the Messages window'
+      Top = 89
+      Width = 57
+      Alignment = taLeftJustify
+      Anchors = [akTop, akRight]
+      BorderSpacing.Right = 6
+      Caption = 'Copy'
+      TabOrder = 5
+    end
   end
   object Splitter1: TSplitter
     AnchorSideRight.Control = TopPanel
@@ -256,7 +274,7 @@ object MainForm: TMainForm
     Left = 0
     Height = 8
     Top = 157
-    Width = 575
+    Width = 597
     Align = alTop
     ResizeAnchor = akTop
   end
@@ -264,7 +282,7 @@ object MainForm: TMainForm
     Left = 6
     Height = 61
     Top = 165
-    Width = 563
+    Width = 585
     Align = alTop
     Anchors = []
     BorderSpacing.Left = 6
@@ -279,7 +297,7 @@ object MainForm: TMainForm
     Left = 0
     Height = 5
     Top = 226
-    Width = 575
+    Width = 597
     Align = alTop
     ResizeAnchor = akTop
   end
@@ -287,11 +305,11 @@ object MainForm: TMainForm
     Left = 0
     Height = 124
     Top = 231
-    Width = 575
+    Width = 597
     Align = alClient
     BevelOuter = bvNone
     ClientHeight = 124
-    ClientWidth = 575
+    ClientWidth = 597
     TabOrder = 5
     object QuitButton: TButton
       AnchorSideTop.Control = BottomPanel
@@ -300,7 +318,7 @@ object MainForm: TMainForm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = BottomPanel
       AnchorSideBottom.Side = asrBottom
-      Left = 494
+      Left = 516
       Height = 25
       Top = 94
       Width = 75
@@ -339,7 +357,7 @@ object MainForm: TMainForm
       Left = 222
       Height = 1
       Top = 105
-      Width = 180
+      Width = 202
       Alignment = taCenter
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Left = 24
@@ -351,7 +369,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = QuitButton
       Cursor = crHandPoint
-      Left = 408
+      Left = 430
       Height = 22
       Top = 95
       Width = 62
@@ -376,7 +394,7 @@ object MainForm: TMainForm
       Left = 6
       Height = 70
       Top = 18
-      Width = 563
+      Width = 585
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Left = 6
       BorderSpacing.Top = 2
@@ -396,8 +414,8 @@ object MainForm: TMainForm
       Left = 5
       Height = 16
       Top = 0
-      Width = 564
-      Caption = 'Received Messages'
+      Width = 586
+      Caption = 'Messages'
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Left = 5
       BorderSpacing.Right = 6
