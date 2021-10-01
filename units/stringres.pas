@@ -15,7 +15,8 @@ resourcestring
   mssDisconnected = 'Disconnected';
   sFalse = 'false';
   sTrue = 'true';
-  srxMsgFormat = '[%s] - %s';
+  sMsgFormatWithTopic = '%s[%s] - %s';
+  sMsgFormatNoTopic = '%s%s';
   sConnect = 'Connect';
   sDisconnect = 'Disconnect';
   sVersionFormat = '(version %d.%d.%d)';

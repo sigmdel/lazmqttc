@@ -120,7 +120,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="14">
+    <Units Count="15">
       <Unit0>
         <Filename Value="lazmqttc.pas"/>
         <IsPartOfProject Value="True"/>
@@ -158,7 +158,9 @@
       <Unit7>
         <Filename Value="forms/editsubtopic.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="EditSubTopicForm"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
       </Unit7>
       <Unit8>
         <Filename Value="forms/editsubtopic.lfm"/>
@@ -190,6 +192,10 @@
         <Filename Value="units/pwd.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit13>
+      <Unit14>
+        <Filename Value="fixup.txt.bak"/>
+        <IsPartOfProject Value="True"/>
+      </Unit14>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

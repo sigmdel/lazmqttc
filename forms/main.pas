@@ -37,8 +37,13 @@ uses
   Grids, Buttons, ComCtrls, DefaultTranslator, DividerBevel,  brokerunit, mqttclass,
   topicgrids, fileinfo;
 
+// Move these to application options
 const
-  SubscribedMemoSize = 2500; // maximum number of lines in subscribed memo
+  SubscribedMemoSize = 2500;    // maximum number of lines in subscribed memo
+  AutoConnectOnPublish = true;  // connect to broker if needed when Publish is pressed
+  AutoConnectDelay = 5000;      // five seconds
+  PubMsgHeader = 'TX: ';        // start of published messages in Messages box
+  RcvMsgHeader = 'RX: ';        // start of received messages in Messages box
 
 type
 
@@ -166,14 +171,14 @@ begin
      end;
      if length(FPubMessageTopic) > 0 then begin
        if ShowTopics then
-        outs := Format(srxMsgFormat, [FPubMessageTopic, FPubMessagePayload])
+        outs := Format(sMsgFormatWithTopic, [PubMsgHeader, FPubMessageTopic, FPubMessagePayload])
       else
-        outs := FPubMessagePayload;
-       Lines.Add('TX: ' + outs);
+        outs := Format(sMsgFormatNoTopic, [PubMsgHeader, FPubMessagePayload]);
+       Lines.Add(outs);
        FPubMessageTopic := '';
        FPubMessagePayload := '';
      end;
-     Lines.Add('RX: ' + FThisMessage);
+     Lines.Add(FThisMessage);
      SelStart := Lines.Text.Length-1;
      SelLength := 1;
   end;
@@ -193,9 +198,9 @@ begin
         Move(payload^,msg[1],payloadlen);
       end;
       if ShowTopics then
-        FThisMessage := Format(srxMsgFormat, [topic, msg])
+        FThisMessage := Format(sMsgFormatWithTopic, [RcvMsgHeader, topic, msg])
       else
-        FThisMessage := msg;
+        FThisMessage := Format(sMsgFormatWithTopic, [RcvMsgHeader, msg]);
       Synchronize(@UpdateGui);
    end;
 end;
@@ -340,32 +345,41 @@ procedure TMainForm.PublishButtonClick(Sender: TObject);
 var
   res: integer;
   topic, msg: string;
+  ticks: QWord;
 begin
   topic := trim(PublishTopicEdit.Text);
-  if not assigned(MqttClient) then
-    res := -1000
-  else if MQttClient.State <> mqttConnected then
-    res := -1001
-  else if topic = '' then
+  res := 0; // assume connected and so on
+
+  if topic = '' then
     res := -1002
-  else begin
+  else if (not assigned(MqttClient) or (MQttClient.State <> mqttConnected))
+    and AutoConnectOnPublish then begin
+    ConnectBroker(Broker);
+    ticks := gettickcount64;
+    while assigned(MqttClient)
+      and (MQttClient.State <> mqttConnected)
+      and (gettickcount64 - ticks < AutoConnectDelay) do begin
+      sleep(2);
+      application.ProcessMessages;
+    end;
+    if not assigned(MqttClient) then
+      res := -1000
+    else if MQttClient.state <> mqttConnected then
+      res := -1001;
+  end;
+
+  if res = 0 then begin
     FClearMessageMemo := autoClearCheckBox.checked;
     res := MqttClient.Publish(topic, PayloadMemo.Text,
       QoSComboBox.ItemIndex, RetainCheckBox.Checked);
-    (*
-    if (res = 0) and (PayloadMemo.Text = '') then begin
-      res := -1003;
-      if RetainCheckBox.Checked then dec(res); // -1004
-    end;
-    *)
     if (res = 0) then begin
+      if CopyPubCheckBox.checked then begin
+        FPubMessageTopic := topic;
+        FPubMessagePayload := PayloadMemo.Text;
+      end;
       if (PayloadMemo.Text = '') then begin
         res := -1003;
         if RetainCheckBox.Checked then dec(res); // -1004
-      end
-      else if CopyPubCheckBox.checked then begin
-        FPubMessageTopic := topic;
-        FPubMessagePayload := PayloadMemo.Text;
       end;
     end;
   end;
@@ -393,6 +407,7 @@ begin
   ShowPublishResult(msg, res = 0);
   RetainCheckBox.Checked := false;
 end;
+
 
 procedure TMainForm.QoSComboBoxChange(Sender: TObject);
 begin
