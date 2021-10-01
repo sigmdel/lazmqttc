@@ -1,7 +1,17 @@
 
 # Change Log
 
-## 0.3.3 (current)
+## 0.3.4 (current)
+
+- Bumped up to version 0.3.4
+- Updated translations
+- If needed, automatically connects to a broker when the Publish button is pressed
+- Published topic can optionaly be added to the Messages window 
+- Added a temporary work directory in .hgignore
+
+
+
+## 0.3.3 (94e0e89)
 
 - Bumped up the version to 0.3.3
 - Fixed errors in instructions about the `lazmqttc.desktop file`
@@ -9,7 +19,6 @@
 - Added some missing translations in `lazmqtt.fr.po` and missing step in procedure `TBrokerEditForm.i18nFixup` (formally `i10nFixup`)
 - Updated the PO files
 - Added encryption of MQTT broker passwords in definition files
-
 
 
 ## 0.3.2 (b3e2325)
