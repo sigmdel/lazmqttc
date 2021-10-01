@@ -59,7 +59,7 @@ type
     QuitButton: TButton;
     SourceLabel: TLabel;
     Splitter2: TSplitter;
-    SubscribedMemo: TMemo;
+    MessagesMemo: TMemo;
     SubTopicsPanel: TPanel;
     RetainCheckBox: TCheckBox;
     QoSComboBox: TComboBox;
@@ -155,7 +155,7 @@ procedure TThisMQTTConnection.UpdateGUI;
 var
   outs: string;
 begin
-   with MainForm.SubscribedMemo do begin
+   with MainForm.MessagesMemo do begin
      if FClearMessageMemo then begin
        Clear;
        FClearMessageMemo := false;
@@ -434,7 +434,7 @@ begin
     TopicsGrid.Invalidate;
     if TopicsGrid.RowCount > 1 then
       TopicsGrid.Row := 1;
-    SubscribedMemo.Clear;
+    MessagesMemo.Clear;
   end;
 end;
 
