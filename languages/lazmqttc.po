@@ -197,9 +197,6 @@ msgstr ""
 msgid "MQTT Broker Editor"
 msgstr ""
 
-#: tbrokereditform.hostedit.text
-msgid "HostEdit"
-msgstr ""
 
 #: tbrokereditform.label1.caption
 msgid "Keep Alive Interval"
@@ -264,8 +261,8 @@ msgstr ""
 msgid "&Load..."
 msgstr ""
 
-#: tbrokereditform.passwordedit.text
-msgid "PasswordEdit"
+#: tbrokereditform.opendialog.title
+msgid "Open existing file"
 msgstr ""
 
 #: tbrokereditform.portedit.hint
@@ -277,14 +274,6 @@ msgctxt "tbrokereditform.pubretaincheckbox.caption"
 msgid "(false)"
 msgstr ""
 
-#: tbrokereditform.pubtopicedit.text
-msgid "PubTopicEdit"
-msgstr ""
-
-#: tbrokereditform.qoscombobox.text
-msgid "0 - at most once"
-msgstr ""
-
 #: tbrokereditform.reconnectbackoffcheckbox.caption
 msgctxt "tbrokereditform.reconnectbackoffcheckbox.caption"
 msgid "(false)"
@@ -294,12 +283,8 @@ msgstr ""
 msgid "&Save..."
 msgstr ""
 
-#: tbrokereditform.toolbar.caption
-msgid "ToolBar"
-msgstr ""
-
-#: tbrokereditform.useredit.text
-msgid "UserEdit"
+#: tbrokereditform.savedialog.title
+msgid "Save file as"
 msgstr ""
 
 #: tform1.button1.caption
@@ -308,10 +293,6 @@ msgstr ""
 
 #: tform2.caption
 msgid "Confirmation"
-msgstr ""
-
-#: tform2.label1.caption
-msgid "Label1"
 msgstr ""
 
 #: tform2.nobutton.caption
@@ -358,10 +339,6 @@ msgctxt "tmainform.editbrokerbutton.caption"
 msgid "Edit"
 msgstr ""
 
-#: tmainform.hostlabel.caption
-msgid "<host name>"
-msgstr ""
-
 #: tmainform.label1.caption
 msgid "Broker:"
 msgstr ""
@@ -401,4 +378,3 @@ msgstr ""
 #: tmainform.sourcelabel.caption
 msgid "Source"
 msgstr ""
-
