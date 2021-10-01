@@ -108,7 +108,7 @@ Details about installation of an application in Windows 10 are unfortunately not
 
 ## 5. Broker Definitions 
 
-MQTT broker definitions can be retrieved, saved, edited or created by clicking on the **` Edit `** button at the top of the main program window. Editing the current MQTT definition is the only whay to add, remove or change the list of subscribed topics. 
+MQTT broker definitions can be retrieved, saved, edited or created by clicking on the **` Edit `** button at the top of the main program window. Editing the current MQTT definition is the only way to add, remove or change the list of subscribed topics. 
 
 In Linux, broker definition files are saved in the `~/.config/sigmdel/lazmqttc` where `~` is the user home directory. So fully expanded the directory is
 <pre>  /home/&lt;<i>user</i>&gt;/.config/sigmdel/lazmqttc</pre>
@@ -181,6 +181,22 @@ The choice of language is done automatically based on the system locale when the
 Initially this utility was quickly cobbled to fulfill an immediate need: wrangling a number of IoT devices running Tasmota firmware mostly to get their IP address. Since then, an attempt has been made to combine the important features of the mosquitto "pub and sub clients" into a single application. At the same time, some attention has been given to cleaning up the code, but improvements are certainly possible. All suggestions welcome.
 
 There are aspects of the MQTT protocol that are not implemented including the Last Will and Testament feature and clean sessions.
+
+Version 0.3.4 brings two changes:
+  1. If the client is not connected to the MQTT broker when the ```Publish``` button is pressed, then it will attempt to connect. 
+  2. Published messages can now be added to list of ```Messages``` window which now looks more like a "chat". The published messages have a "TX: " prefix, received messages have a "RX: " prefix. This behaviour is controlled by a ```Copy``` checkbox beside the ```Publish``` button.
+
+Connection to a broker is asynchronous. If an attempt to connect to a broker is made after pushing on the publish button, then the application will wait at most 5 seconds for the connection. The automation connection, the connection delay, as well as the message prefixes are  currently defined as constants at the start of the implementation of ```main.pas```.
+
+```  
+// Move these to application options
+  SubscribedMemoSize = 2500;    // maximum number of lines in subscribed memo
+  AutoConnectOnPublish = true;  // connect to broker if needed when Publish is pressed
+  AutoConnectDelay = 5000;      // five seconds
+  PubMsgHeader = 'TX: ';        // start of published messages in Messages box
+  RcvMsgHeader = 'RX: ';        // start of received messages in Messages box           
+```  
+The next improvement should be to add these options to an application configuration file and to add a form to edit them.
 
 ## 8. Acknowledgment
 
