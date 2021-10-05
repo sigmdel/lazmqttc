@@ -121,7 +121,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="18">
+    <Units Count="19">
       <Unit0>
         <Filename Value="lazmqttc.pas"/>
         <IsPartOfProject Value="True"/>
@@ -212,6 +212,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit17>
+      <Unit18>
+        <Filename Value="units/brokerunit.inc"/>
+        <IsPartOfProject Value="True"/>
+      </Unit18>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
