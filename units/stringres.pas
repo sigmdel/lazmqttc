@@ -19,7 +19,7 @@ resourcestring
   sMsgFormatNoTopic = '%s%s';
   sConnect = 'Connect';
   sDisconnect = 'Disconnect';
-  sVersionFormat = '(version %d.%d.%d)';
+  sAppCaption = '%s (ver. %d.%d.%d)';
   sSubscribeColumnTitle = 'Subscribe Topics';
 
   sNoClientError = 'The MQTT client has not been created';
