@@ -1,16 +1,15 @@
 {"version":1,"strings":[
 {"hash":51080018,"name":"toptionseditform.caption","sourcebytes":[79,112,116,105,111,110,115,32,69,100,105,116,111,114],"value":"Options Editor"},
-{"hash":56062910,"name":"toptionseditform.loadbutton.caption","sourcebytes":[38,76,111,97,100,46,46,46],"value":"&Load..."},
 {"hash":175742036,"name":"toptionseditform.acceptbutton.caption","sourcebytes":[38,65,99,99,101,112,116],"value":"&Accept"},
 {"hash":177752476,"name":"toptionseditform.cancelbutton.caption","sourcebytes":[38,67,97,110,99,101,108],"value":"&Cancel"},
-{"hash":160203710,"name":"toptionseditform.savebutton.caption","sourcebytes":[38,83,97,118,101,46,46,46],"value":"&Save..."},
-{"hash":255480953,"name":"toptionseditform.label1.caption","sourcebytes":[65,117,116,111,109,97,116,105,99,32,99,111,110,110,101,99,116,105,111,110,32,100,101,108,97,121,32,40,115,101,99,111,110,100,115,41],"value":"Automatic connection delay (seconds)"},
-{"hash":264919735,"name":"toptionseditform.checkbox1.caption","sourcebytes":[65,117,116,111,109,97,116,105,99,32,99,111,110,110,101,99,116,105,111,110,32,116,111,32,98,114,111,107,101,114,32,119,104,101,110,32,112,117,98,108,105,115,104,105,110,103],"value":"Automatic connection to broker when publishing"},
+{"hash":45664708,"name":"toptionseditform.resetbutton.caption","sourcebytes":[38,82,101,115,101,116],"value":"&Reset"},
+{"hash":189190025,"name":"toptionseditform.label1.caption","sourcebytes":[68,101,108,97,121,32,119,97,105,116,105,110,103,32,102,111,114,32,99,111,110,110,101,99,116,105,111,110,32,40,115,101,99,111,110,100,115,41],"value":"Delay waiting for connection (seconds)"},
+{"hash":206017268,"name":"toptionseditform.autoconnectcheckbox.caption","sourcebytes":[69,110,97,98,108,101,100],"value":"Enabled"},
 {"hash":146423418,"name":"toptionseditform.label2.caption","sourcebytes":[80,117,98,108,105,115,104,32,109,101,115,115,97,103,101,32,104,101,97,100,101,114,32,105,110,32,77,101,115,115,97,103,101,115,58],"value":"Publish message header in Messages:"},
-{"hash":4960369,"name":"toptionseditform.edit1.text","sourcebytes":[69,100,105,116,49],"value":"Edit1"},
-{"hash":125114019,"name":"toptionseditform.checkbox2.caption","sourcebytes":[67,111,112,121,32,112,117,98,108,105,115,104,32,109,101,115,115,97,103,101,32,116,111,32,77,101,115,115,97,103,101,115],"value":"Copy publish message to Messages"},
-{"hash":181337923,"name":"toptionseditform.checkbox3.caption","sourcebytes":[83,104,111,119,32,109,101,115,115,97,103,101,32,116,111,112,105,99,115,32,105,110,32,77,101,115,115,97,103,101,115],"value":"Show message topics in Messages"},
+{"hash":39885155,"name":"toptionseditform.showpublishedcheckbox.caption","sourcebytes":[83,104,111,119,32,112,117,98,108,105,115,104,101,100,32,109,101,115,115,97,103,101,115],"value":"Show published messages"},
+{"hash":50955699,"name":"toptionseditform.showtopicscheckbox.caption","sourcebytes":[83,104,111,119,32,109,101,115,115,97,103,101,32,116,111,112,105,99,115],"value":"Show message topics"},
 {"hash":23698250,"name":"toptionseditform.label3.caption","sourcebytes":[82,101,99,101,105,118,101,100,32,109,101,115,115,97,103,101,32,104,101,97,100,101,114,32,105,110,32,77,101,115,115,97,103,101,115,58],"value":"Received message header in Messages:"},
-{"hash":4960370,"name":"toptionseditform.edit2.text","sourcebytes":[69,100,105,116,50],"value":"Edit2"},
-{"hash":118026016,"name":"toptionseditform.label4.caption","sourcebytes":[77,97,120,105,109,117,109,32,110,117,109,98,101,114,32,111,102,32,77,101,115,115,97,103,101,115,32],"value":"Maximum number of Messages "}
+{"hash":248557968,"name":"toptionseditform.label4.caption","sourcebytes":[77,97,120,105,109,117,109,32,110,117,109,98,101,114,32,111,102,32,108,111,103,103,101,100,32,109,101,115,115,97,103,101,115,32],"value":"Maximum number of logged messages "},
+{"hash":35660453,"name":"toptionseditform.label5.caption","sourcebytes":[65,117,116,111,109,97,116,105,99,32,99,111,110,110,101,99,116,105,111,110,32,116,111,32,116,104,101,32,98,114,111,107,101,114,32,111,110,32,112,117,98,108,105,115,104,105,110,103,32,97,32,109,101,115,115,97,103,101],"value":"Automatic connection to the broker on publishing a message"},
+{"hash":222938871,"name":"toptionseditform.label6.caption","sourcebytes":[77,101,115,115,97,103,101,115,32,119,105,110,100,111,119],"value":"Messages window"}
 ]}

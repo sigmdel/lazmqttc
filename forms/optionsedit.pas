@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
-  Spin, EditBtn, ActnList, ComCtrls, optionsunit;
+  Spin, ComCtrls, optionsunit;
 
 type
 
@@ -14,35 +14,34 @@ type
 
   TOptionsEditForm = class(TForm)
     AcceptButton: TButton;
+    Bevel1: TBevel;
     CancelButton: TButton;
-    CheckBox1: TCheckBox;
-    CheckBox2: TCheckBox;
-    CheckBox3: TCheckBox;
-    Edit1: TEdit;
-    Edit2: TEdit;
+    AutoConnectCheckBox: TCheckBox;
+    ShowPublishedCheckBox: TCheckBox;
+    ShowTopicsCheckBox: TCheckBox;
+    PubHeaderEdit: TEdit;
+    SubHeaderEdit: TEdit;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
-    LoadButton: TButton;
-    OpenDialog: TOpenDialog;
-    SaveDialog: TSaveDialog;
+    Label5: TLabel;
+    Label6: TLabel;
     Panel1: TPanel;
-    SaveButton: TButton;
-    SpinEdit1: TSpinEdit;
-    SpinEdit2: TSpinEdit;
+    ResetButton: TButton;
+    AutoConnectDelayEdit: TSpinEdit;
+    MaxLinesEdit: TSpinEdit;
     procedure AcceptButtonClick(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure LoadButtonClick(Sender: TObject);
-    procedure SaveButtonClick(Sender: TObject);
+    procedure ResetButtonClick(Sender: TObject);
   private
     FOptions: TOptions;
     FSource: TOptions;
-    FCheckModified: boolean;
     procedure i18nFixup;
+    procedure UpdateOptions;
     procedure UpdateView;
   public
     class function EditOptions(aOptions: TOptions): boolean;
@@ -75,7 +74,7 @@ end;
 
 procedure TOptionsEditForm.AcceptButtonClick(Sender: TObject);
 begin
-  FCheckModified := false;
+  UpdateOptions;
   if FOptions.isEqual(FSource) then begin
     ModalResult := mrNone;
     close;
@@ -85,14 +84,6 @@ begin
     ModalResult := mrOk;
   end;
 end;
-
-(*
-procedure TOptionsEditForm.AutoReconnectCheckBoxChange(Sender: TObject);
-begin
-  FBroker.AutoReconnect := AutoReconnectCheckBox.Checked;
-  AutoReconnectCheckBox.Caption := Format('(%s)', [falsetruestr[FBroker.AutoReconnect]]);
-end;
-*)
 
 procedure TOptionsEditForm.CancelButtonClick(Sender: TObject);
 begin
@@ -107,24 +98,25 @@ begin
   // an attempt to close the form will be made without calling the EditingDone
   // handler. Switching the active control before checking for changes
   // will result in EditingDone being called.
-  (*
+
   aControl := ActiveControl;
+  (*
   if assigned(aControl) then
-    ListBox1.SetFocus;
-  if FCheckModified and not FBroker.isEqual(FSource) then
+    if aControl = SubHeaderEdit then
+      PubHeaderEdit.SetFocus
+    else
+      SubHeaderEdit.SetFocus; *)
+  UpdateOptions;
+  if not FOptions.isEqual(FSource) then
     CanClose := ConfirmAction(cbsLoseChanges);
   if not CanClose and assigned(aControl) then
     aControl.SetFocus;
-  *)
 end;
 
 procedure TOptionsEditForm.FormCreate(Sender: TObject);
 begin
   i18nFixup;
-  FCheckModified := true;
   FOptions := TOptions.create;
-  OpenDialog.Filename := optionsfile;
-  SaveDialog.Filename := optionsfile;
 end;
 
 procedure TOptionsEditForm.FormDestroy(Sender: TObject);
@@ -143,56 +135,36 @@ begin
   *)
 end;
 
-
-procedure TOptionsEditForm.LoadButtonClick(Sender: TObject);
+procedure TOptionsEditForm.ResetButtonClick(Sender: TObject);
 begin
-  OpenDialog.Filter := FileDialogFilter;
-  OpenDialog.Filename := optionsfile;
-  if OpenDialog.Execute then begin
-    FOptions.LoadFromFile(OpenDialog.FileName);
-    UpdateView;
-    optionsfile := OpenDialog.Filename;
-  end;
+  FOptions.Clear;
+  UpdateView;
 end;
 
-
-procedure TOptionsEditForm.SaveButtonClick(Sender: TObject);
+procedure TOptionsEditForm.UpdateOptions;
 begin
-  SaveDialog.Filename := configfile;
-  SaveDialog.Filter := FileDialogFilter;
-  if SaveDialog.Execute then begin
-    FOptions.SaveToFile(SaveDialog.filename);
-    optionsfile := SaveDialog.Filename;
+  with FOptions do begin
+    MessagesMaxLines     := MaxLinesEdit.value;
+    AutoconnectOnPublish := AutoConnectCheckBox.checked;
+    AutoconnectDelay     := AutoConnectDelayEdit.value;
+    PubMsgHeader         := PubHeaderEdit.Text;
+    SubMsgHeader         := SubHeaderEdit.Text;
+    CopyPubMessages      := ShowPublishedCheckBox.checked;
+    ShowTopics           := ShowTopicsCheckBox.checked;
   end;
 end;
-
 
 procedure TOptionsEditForm.UpdateView;
 begin
-  (*
-  with FBroker do begin
-    HostEdit.Text := Host;
-    PortEdit.Value := Port;
-    KeepAlivesEdit.Value := KeepAlives;
-    ReconnectDelayEdit.Value := ReconnectDelay;
-    ReconnectBackoffCheckBox.Checked := ReconnectBackoff;
-    AutoReconnectCheckBox.Checked := AutoReconnect;
-    UserEdit.Text := User;
-    PasswordEdit.Text := Password;
-    SSLCheckBox.Checked := SSL;
-    SSLCertMemo.Text := SSLCert;
-    PubTopicEdit.Text := PubTopic;
-    PayloadMemo.Text := PubPayload;
-    QoSComboBox.ItemIndex := PubQoS;
-    PubRetainCheckBox.Checked := PubRetain;
-    TopicsGrid.Broker := FBroker;
-    TopicsGrid.UpdateGridSize;
-    TopicsGrid.Invalidate;
-    if TopicsGrid.RowCount > 1 then
-      TopicsGrid.Row := 1;
-    Change;
+  with FOptions do begin
+    MaxLinesEdit.value := MessagesMaxLines;
+    AutoConnectCheckBox.checked := AutoconnectOnPublish;
+    AutoConnectDelayEdit.value := AutoconnectDelay;
+    PubHeaderEdit.Text := PubMsgHeader;
+    SubHeaderEdit.Text := SubMsgHeader;
+    ShowPublishedCheckBox.checked := CopyPubMessages;
+    ShowTopicsCheckBox.checked := ShowTopics;
   end;
-  *)
 end;
 
 end.

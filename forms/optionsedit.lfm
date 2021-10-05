@@ -1,11 +1,11 @@
 object OptionsEditForm: TOptionsEditForm
   Left = 425
-  Height = 361
+  Height = 337
   Top = 250
-  Width = 460
+  Width = 420
   Caption = 'Options Editor'
-  ClientHeight = 361
-  ClientWidth = 460
+  ClientHeight = 337
+  ClientWidth = 420
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -13,29 +13,17 @@ object OptionsEditForm: TOptionsEditForm
   object Panel1: TPanel
     Left = 0
     Height = 42
-    Top = 319
-    Width = 460
+    Top = 295
+    Width = 420
     Align = alBottom
     Anchors = []
     AutoSize = True
     BevelOuter = bvNone
     ClientHeight = 42
-    ClientWidth = 460
+    ClientWidth = 420
     TabOrder = 0
-    object LoadButton: TButton
-      Left = 63
-      Height = 30
-      Top = 6
-      Width = 80
-      Align = alLeft
-      BorderSpacing.Top = 6
-      BorderSpacing.Bottom = 6
-      Caption = '&Load...'
-      OnClick = LoadButtonClick
-      TabOrder = 0
-    end
     object AcceptButton: TButton
-      Left = 399
+      Left = 359
       Height = 30
       Top = 6
       Width = 55
@@ -44,125 +32,197 @@ object OptionsEditForm: TOptionsEditForm
       BorderSpacing.Around = 6
       Caption = '&Accept'
       OnClick = AcceptButtonClick
-      TabOrder = 1
+      TabOrder = 0
     end
     object CancelButton: TButton
-      Left = 313
+      Left = 299
       Height = 30
       Top = 6
-      Width = 80
+      Width = 54
       Align = alRight
+      AutoSize = True
       BorderSpacing.Top = 6
       BorderSpacing.Bottom = 6
       Caption = '&Cancel'
       OnClick = CancelButtonClick
-      TabOrder = 2
+      TabOrder = 1
     end
-    object SaveButton: TButton
+    object ResetButton: TButton
       Left = 6
       Height = 30
       Top = 6
-      Width = 51
+      Width = 47
       Align = alLeft
       AutoSize = True
       BorderSpacing.Around = 6
-      Caption = '&Save...'
-      OnClick = SaveButtonClick
-      TabOrder = 3
+      Caption = '&Reset'
+      OnClick = ResetButtonClick
+      TabOrder = 2
     end
   end
   object Label1: TLabel
-    Left = 40
+    AnchorSideLeft.Control = AutoConnectCheckBox
+    AnchorSideTop.Control = AutoConnectDelayEdit
+    AnchorSideTop.Side = asrCenter
+    Left = 12
     Height = 16
-    Top = 64
-    Width = 228
-    Caption = 'Automatic connection delay (seconds)'
+    Top = 65
+    Width = 233
+    Caption = 'Delay waiting for connection (seconds)'
   end
-  object SpinEdit1: TSpinEdit
-    Left = 288
+  object AutoConnectDelayEdit: TSpinEdit
+    AnchorSideLeft.Control = Label1
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = AutoConnectCheckBox
+    AnchorSideTop.Side = asrBottom
+    Left = 257
     Height = 27
-    Top = 56
+    Top = 60
     Width = 138
+    BorderSpacing.Left = 12
+    BorderSpacing.Top = 6
     TabOrder = 1
   end
-  object CheckBox1: TCheckBox
-    Left = 16
+  object AutoConnectCheckBox: TCheckBox
+    AnchorSideLeft.Control = Label5
+    AnchorSideTop.Control = Label5
+    AnchorSideTop.Side = asrBottom
+    Left = 12
     Height = 23
-    Top = 24
-    Width = 320
-    Caption = 'Automatic connection to broker when publishing'
+    Top = 31
+    Width = 76
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 8
+    Caption = 'Enabled'
     TabOrder = 2
   end
   object Label2: TLabel
-    Left = 32
+    AnchorSideLeft.Control = ShowTopicsCheckBox
+    AnchorSideTop.Control = PubHeaderEdit
+    AnchorSideTop.Side = asrCenter
+    Left = 12
     Height = 16
-    Top = 216
+    Top = 227
     Width = 224
     Caption = 'Publish message header in Messages:'
   end
-  object Edit1: TEdit
-    Left = 272
+  object PubHeaderEdit: TEdit
+    AnchorSideLeft.Control = MaxLinesEdit
+    AnchorSideTop.Control = ShowTopicsCheckBox
+    AnchorSideTop.Side = asrBottom
+    Left = 257
     Height = 27
-    Top = 208
+    Top = 222
     Width = 80
+    BorderSpacing.Top = 6
     TabOrder = 3
-    Text = 'Edit1'
   end
-  object CheckBox2: TCheckBox
-    Left = 24
+  object ShowPublishedCheckBox: TCheckBox
+    AnchorSideLeft.Control = Label4
+    AnchorSideTop.Control = MaxLinesEdit
+    AnchorSideTop.Side = asrBottom
+    Left = 12
     Height = 23
-    Top = 144
-    Width = 238
-    Caption = 'Copy publish message to Messages'
+    Top = 164
+    Width = 183
+    BorderSpacing.Top = 6
+    Caption = 'Show published messages'
     TabOrder = 4
   end
-  object CheckBox3: TCheckBox
-    Left = 24
+  object ShowTopicsCheckBox: TCheckBox
+    AnchorSideLeft.Control = ShowPublishedCheckBox
+    AnchorSideTop.Control = ShowPublishedCheckBox
+    AnchorSideTop.Side = asrBottom
+    Left = 12
     Height = 23
-    Top = 176
-    Width = 229
-    Caption = 'Show message topics in Messages'
+    Top = 193
+    Width = 153
+    BorderSpacing.Top = 6
+    Caption = 'Show message topics'
     TabOrder = 5
   end
   object Label3: TLabel
-    Left = 30
+    AnchorSideLeft.Control = Label2
+    AnchorSideTop.Control = SubHeaderEdit
+    AnchorSideTop.Side = asrCenter
+    Left = 12
     Height = 16
-    Top = 256
+    Top = 260
     Width = 232
     Caption = 'Received message header in Messages:'
   end
-  object Edit2: TEdit
-    Left = 272
+  object SubHeaderEdit: TEdit
+    AnchorSideLeft.Control = PubHeaderEdit
+    AnchorSideTop.Control = PubHeaderEdit
+    AnchorSideTop.Side = asrBottom
+    Left = 257
     Height = 27
-    Top = 248
+    Top = 255
     Width = 80
+    BorderSpacing.Top = 6
     TabOrder = 6
-    Text = 'Edit2'
   end
   object Label4: TLabel
-    Left = 24
+    AnchorSideLeft.Control = Label1
+    AnchorSideTop.Control = MaxLinesEdit
+    AnchorSideTop.Side = asrCenter
+    Left = 12
     Height = 16
-    Top = 120
-    Width = 190
-    Caption = 'Maximum number of Messages '
+    Top = 136
+    Width = 235
+    Caption = 'Maximum number of logged messages '
   end
-  object SpinEdit2: TSpinEdit
-    Left = 288
+  object MaxLinesEdit: TSpinEdit
+    AnchorSideLeft.Control = AutoConnectDelayEdit
+    AnchorSideTop.Control = Label6
+    AnchorSideTop.Side = asrBottom
+    Left = 257
     Height = 27
-    Top = 112
+    Top = 131
     Width = 138
+    BorderSpacing.Top = 6
     TabOrder = 7
   end
-  object OpenDialog: TOpenDialog
-    DefaultExt = '.json'
-    Options = [ofFileMustExist, ofEnableSizing, ofViewDetail]
-    Left = 344
-    Top = 152
+  object Bevel1: TBevel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = AutoConnectDelayEdit
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 6
+    Height = 6
+    Top = 95
+    Width = 408
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 8
+    BorderSpacing.Right = 6
+    Shape = bsTopLine
   end
-  object SaveDialog: TSaveDialog
-    DefaultExt = '.json'
-    Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
-    Left = 288
-    Top = 168
+  object Label5: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    Left = 6
+    Height = 16
+    Top = 7
+    Width = 383
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 7
+    Caption = 'Automatic connection to the broker on publishing a message'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label6: TLabel
+    AnchorSideLeft.Control = Label5
+    AnchorSideTop.Control = Bevel1
+    AnchorSideTop.Side = asrBottom
+    Left = 6
+    Height = 16
+    Top = 109
+    Width = 112
+    BorderSpacing.Top = 8
+    Caption = 'Messages window'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
 end
