@@ -1,0 +1,11 @@
+{"version":1,"strings":[
+{"hash":144848850,"name":"teditsubtopicform.caption","sourcebytes":[83,117,98,115,99,114,105,98,101,32,84,111,112,105,99,32,69,100,105,116,111,114],"value":"Subscribe Topic Editor"},
+{"hash":75078772,"name":"teditsubtopicform.button1.caption","sourcebytes":[65,99,99,101,112,116],"value":"Accept"},
+{"hash":77089212,"name":"teditsubtopicform.button2.caption","sourcebytes":[67,97,110,99,101,108],"value":"Cancel"},
+{"hash":95842154,"name":"teditsubtopicform.label1.caption","sourcebytes":[84,111,112,105,99,58],"value":"Topic:"},
+{"hash":116908644,"name":"teditsubtopicform.topicedit.text","sourcebytes":[84,111,112,105,99,69,100,105,116],"value":"TopicEdit"},
+{"hash":229050826,"name":"teditsubtopicform.label2.caption","sourcebytes":[81,117,97,108,105,116,121,32,111,102,32,83,101,114,118,105,99,101,32,40,81,111,83,41,58],"value":"Quality of Service (QoS):"},
+{"hash":249828869,"name":"teditsubtopicform.qoscombobox.text","sourcebytes":[48,32,45,32,65,116,32,109,111,115,116,32,111,110,99,101],"value":"0 - At most once"},
+{"hash":27226425,"name":"teditsubtopicform.usecheckbox.caption","sourcebytes":[40,115,117,98,115,99,114,105,98,101,32,116,111,32,116,104,105,115,32,116,111,112,105,99,41],"value":"(subscribe to this topic)"},
+{"hash":23701,"name":"teditsubtopicform.label3.caption","sourcebytes":[85,115,101],"value":"Use"}
+]}

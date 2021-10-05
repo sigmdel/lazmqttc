@@ -8,42 +8,40 @@ msgstr ""
 "Language: fr_FR\n"
 
 #: stringres.cbsdeletequery
-msgctxt "stringres.cbsdeletequery"
+#, object-pascal-format
 msgid "Delete <%s>"
 msgstr "Éliminer <%s>"
 
 #: stringres.cbslosechanges
-msgctxt "stringres.cbslosechanges"
 msgid "Close without saving changes"
 msgstr "Fermer sans sauvegarder les modifications"
 
 #: stringres.mssconnected
-msgctxt "stringres.mssconnected"
 msgid "Connected"
 msgstr "Connecté"
 
 #: stringres.mssconnecting
-msgctxt "stringres.mssconnecting"
 msgid "Attempting to connect"
 msgstr "Connexion en cours"
 
 #: stringres.mssdisconnected
-msgctxt "stringres.mssdisconnected"
 msgid "Disconnected"
 msgstr "Déconnecté"
 
 #: stringres.mssnoclient
-msgctxt "stringres.mssnoclient"
 msgid "No MQTT Client"
 msgstr "Pas de client MQTT"
 
 #: stringres.mssreconnecting
-msgctxt "stringres.mssreconnecting"
 msgid "Attempting to reconnect"
 msgstr "Reconnexion en cours"
 
+#: stringres.sappcaption
+#, object-pascal-format
+msgid "%s (ver. %d.%d.%d)"
+msgstr "%s (ver. %d.%d.%d)"
+
 #: stringres.sconnect
-msgctxt "stringres.sconnect"
 msgid "Connect"
 msgstr "Connecter"
 
@@ -53,42 +51,37 @@ msgid "Disconnect"
 msgstr "Déconnecter"
 
 #: stringres.sfalse
-msgctxt "stringres.sfalse"
 msgid "false"
 msgstr "faux"
 
 #: stringres.sjsonfiles
-msgctxt "stringres.sjsonfiles"
 msgid "JSON files"
 msgstr "Fichers JSON"
 
 #: stringres.smessagenotsent
-msgctxt "stringres.smessagenotsent"
 msgid "Message not published"
 msgstr "Message non publié"
 
 #: stringres.smessagesent
-msgctxt "stringres.smessagesent"
 msgid "Message published"
 msgstr "Message publié"
 
 #: stringres.smqtterrorformat
-msgctxt "stringres.smqtterrorformat"
+#, object-pascal-format
 msgid "MQTT Error: %d"
 msgstr "Erreur MQTT : %d"
 
 #: stringres.smsgformatnotopic
-msgctxt "stringres.smsgformatwithtopic"
+#, object-pascal-format
 msgid "%s%s"
 msgstr "%s%s"
 
 #: stringres.smsgformatwithtopic
-msgctxt "stringres.smsgformatwithtopic"
+#, object-pascal-format
 msgid "%s[%s] - %s"
 msgstr "%s[%s] - %s"
 
 #: stringres.snoclienterror
-msgctxt "stringres.snoclienterror"
 msgid "The MQTT client has not been created"
 msgstr "Le client MQTT n'a pas été crée"
 
@@ -97,50 +90,44 @@ msgid "Password encryption key is empty - program halted"
 msgstr "Programme arrêter car la clé de chiffrement du mot de passe est vide"
 
 #: stringres.snopayloadwarning
-msgctxt "stringres.snopayloadwarning"
 msgid "OK but the message had no payload"
 msgstr "OK, mais le message était vide"
 
 #: stringres.snotconnectederror
-msgctxt "stringres.snotconnectederror"
 msgid "The MQTT client is not connected"
 msgstr "Le client MQTT n'est pas connecté"
 
 #: stringres.snotopicerror
-msgctxt "stringres.snotopicerror"
 msgid "A topic must be specified"
 msgstr "Un sujet doit être défini"
 
 #: stringres.sok
-msgctxt "stringres.sok"
 msgid "OK"
 msgstr "Ok"
 
 #: stringres.spagenames
-msgctxt "stringres.spangenames"
 msgid ""
 "Broker\n"
 "Security\n"
 "Encryption\n"
 "Publish Topic\n"
-"Subscribe Topics\n"
+"Subscribe Topics"
 msgstr ""
 "Serveur MQTT\n"
 "Sécurité\n"
 "Chiffrement\n"
-"Sujet de publication\n"
-"Sujets de souscription\n"
+"Sujet à publier\n"
+"Sujets à souscrire\n"
 
 #: stringres.sqos
 msgid "Quality of Service"
 msgstr "Qualité du service"
 
 #: stringres.sqoshint
-msgctxt "stringres.sqoshint"
 msgid ""
 "0 - At most once\n"
 "1 - At least once\n"
-"2 - Exactly once\n"
+"2 - Exactly once"
 msgstr ""
 "0 - Au plus un envoi\n"
 "1 - Au moins un envoi\n"
@@ -151,14 +138,13 @@ msgid "QoS"
 msgstr "QdS"
 
 #: stringres.sretainremovedformat
-msgctxt "stringres.sretainremovedformat"
+#, object-pascal-format
 msgid "Retain flag removed for topic %s"
 msgstr "Le sujet %s ne sera plus conservé"
 
 #: stringres.ssubscribecolumntitle
-msgctxt "stringres.ssubscribecolumntitle"
 msgid "Subscribe Topics"
-msgstr "Sujets souscris"
+msgstr "Sujets souscrits"
 
 #: stringres.stopictitle
 msgctxt "stringres.stopictitle"
@@ -166,20 +152,16 @@ msgid "Topic"
 msgstr "Sujet"
 
 #: stringres.strue
-msgctxt "stringres.strue"
 msgid "true"
 msgstr "vrai"
 
 #: stringres.susetitle
+msgctxt "stringres.susetitle"
 msgid "Use"
 msgstr "Act."
 
-#: stringres.sversionformat
-msgctxt "stringres.sversionformat"
-msgid "(version %d.%d.%d)"
-msgstr "(version %d.%d.%d)"
-
 #: tbrokereditform.acceptbutton.caption
+msgctxt "tbrokereditform.acceptbutton.caption"
 msgid "&Accept"
 msgstr "&Valider"
 
@@ -204,12 +186,14 @@ msgid "(true)"
 msgstr "(vrai)"
 
 #: tbrokereditform.cancelbutton.caption
+msgctxt "tbrokereditform.cancelbutton.caption"
 msgid "&Cancel"
 msgstr "&Annuler"
 
 #: tbrokereditform.caption
+msgctxt "tbrokereditform.caption"
 msgid "MQTT Broker Editor"
-msgstr "Editeur de l'agent MQTT"
+msgstr "Editeur du serveur MQTT"
 
 #: tbrokereditform.label1.caption
 msgid "Keep Alive Interval"
@@ -271,12 +255,9 @@ msgid "SSL Certificate"
 msgstr "Certificat SSL"
 
 #: tbrokereditform.loadbutton.caption
+msgctxt "tbrokereditform.loadbutton.caption"
 msgid "&Load..."
 msgstr "&Charger..."
-
-#: tbrokereditform.opendialog.title
-msgid "Open existing file"
-msgstr "Ouvrir un fichier existant"
 
 #: tbrokereditform.portedit.hint
 msgid "Default MQTT Port: 1883"
@@ -293,12 +274,38 @@ msgid "(false)"
 msgstr "(faux)"
 
 #: tbrokereditform.savebutton.caption
+msgctxt "tbrokereditform.savebutton.caption"
 msgid "&Save..."
 msgstr "&Sauvegarder..."
 
-#: tbrokereditform.savedialog.title
-msgid "Save file as"
-msgstr "Enregistrer sous"
+#: teditsubtopicform.button1.caption
+msgid "Accept"
+msgstr "Accepter"
+
+#: teditsubtopicform.button2.caption
+msgid "Cancel"
+msgstr "Annuler"
+
+#: teditsubtopicform.caption
+msgid "Subscribe Topic Editor"
+msgstr "Editeur des messages souscris"
+
+#: teditsubtopicform.label1.caption
+msgid "Topic:"
+msgstr "Sujet"
+
+#: teditsubtopicform.label2.caption
+msgid "Quality of Service (QoS):"
+msgstr "Qualité du service (QdS)"
+
+#: teditsubtopicform.label3.caption
+msgctxt "teditsubtopicform.label3.caption"
+msgid "Use"
+msgstr "Act."
+
+#: teditsubtopicform.usecheckbox.caption
+msgid "(subscribe to this topic)"
+msgstr "(se souscrire à ce sujet)"
 
 #: tform1.button1.caption
 msgid "&Close"
@@ -320,13 +327,13 @@ msgstr "&Oui"
 msgid "Auto clear"
 msgstr "Auto effacement"
 
+#: tmainform.button1.caption
+msgid "Options"
+msgstr "Paramètres"
+
 #: tmainform.caption
 msgid "MQTT Client"
 msgstr "Client MQTT"
-
-#: tmainform.checkbox1.caption
-msgid "Show topics"
-msgstr "Montrer les sujets"
 
 #: tmainform.connectbutton.caption
 msgctxt "tmainform.connectbutton.caption"
@@ -334,23 +341,22 @@ msgid "Disconnect"
 msgstr "Déconnecter"
 
 #: tmainform.copypubcheckbox.caption
-msgctxt "tmainform.copypubcheckbox.caption"
 msgid "Copy"
 msgstr "Copier"
 
 #: tmainform.copypubcheckbox.hint
-msgctxt "tmainform.copypubcheckbox.hint"
 msgid "Copy the message in the Messages window"
 msgstr "Copier dans Messages"
 
 #: tmainform.dividerbevel1.caption
+msgctxt "tmainform.dividerbevel1.caption"
 msgid "Messages"
 msgstr "Messages"
 
 #: tmainform.editbrokerbutton.caption
-msgctxt "tmainform.editbrokerbutton.caption"
 msgid "Edit"
 msgstr "Modifier"
+
 
 #: tmainform.label1.caption
 msgid "Broker:"
@@ -388,7 +394,75 @@ msgctxt "tmainform.retaincheckbox.caption"
 msgid "(false)"
 msgstr "(faux)"
 
+#: tmainform.showtopicscheckbox.caption
+msgctxt "tmainform.showtopicscheckbox.caption"
+msgid "Show topics"
+msgstr "Montrer les sujets"
+
 #: tmainform.sourcelabel.caption
 msgid "Source"
 msgstr "Source"
+
+#: toptionseditform.acceptbutton.caption
+msgctxt "toptionseditform.acceptbutton.caption"
+msgid "&Accept"
+msgstr "&Valider"
+
+#: toptionseditform.autoclearcheckbox.caption
+msgctxt "toptionseditform.autoclearcheckbox.caption"
+msgid "Auto clear previous messages on publishing a message"
+msgstr "Effacer anciens messages sur publication d'un message"
+
+#: toptionseditform.autoconnectcheckbox.caption
+msgctxt "toptionseditform.autoconnectcheckbox.caption"
+msgid "Enabled"
+msgstr "Activé"
+
+#: toptionseditform.cancelbutton.caption
+msgctxt "toptionseditform.cancelbutton.caption"
+msgid "&Cancel"
+msgstr "&Annuler"
+
+#: toptionseditform.caption
+msgctxt "toptionseditform.caption"
+msgid "Options Editor"
+msgstr "Paramètres"
+
+#: toptionseditform.label1.caption
+msgid "Delay waiting for connection (seconds)"
+msgstr "Délais en attente de la connexion (secondes)"
+
+#: toptionseditform.label2.caption
+msgid "Publish message header"
+msgstr "Préfixe des menssage publiés"
+
+#: toptionseditform.label3.caption
+msgid "Received message header"
+msgstr "Préfixe des messages reçus"
+
+#: toptionseditform.label4.caption
+msgid "Maximum number of logged messages "
+msgstr "Nombre maximum de messages affichés"
+
+#: toptionseditform.label5.caption
+msgid "Automatic connection to the broker on publishing a message"
+msgstr "Connexion automatique au serveur à l'envoi d'un message"
+
+#: toptionseditform.label6.caption
+msgctxt "toptionseditform.label6.caption"
+msgid "Messages"
+msgstr "Messages"
+
+#: toptionseditform.resetbutton.caption
+msgctxt "toptionseditform.resetbutton.caption"
+msgid "&Reset"
+msgstr "&Réinitialiser"
+
+#: toptionseditform.showpublishedcheckbox.caption
+msgid "Show published messages"
+msgstr "Montrer les messages publiés"
+
+#: toptionseditform.showtopicscheckbox.caption
+msgid "Show message topics"
+msgstr "Montrer les sujets des messages"
 
