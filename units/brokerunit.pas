@@ -58,7 +58,7 @@ Type
       { Creates a default MQTT broker class, see brokerunit.inc for it's definition }
     Constructor Create;
 
-      { Creates an MQTT broker that is an exact dopy of aBroker }
+      { Creates an MQTT broker that is an exact copy of aBroker }
     Constructor CreateFrom(aBroker: TBroker);
 
       { Creates an MQTT broker from a JSON definition. See LoadFromJSON and LoadFromFile }

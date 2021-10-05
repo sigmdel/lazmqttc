@@ -27,7 +27,7 @@ function Decrypt(value: string; encoded: boolean = true; const aKey: string = ''
 implementation
 
 uses
-  SysUtils, Classes, base64, BlowFish;
+  SysUtils, Classes, base64, BlowFish, startup;
 
 function Encrypt(value: string;  encode: boolean; const aKey: string): string;
 var

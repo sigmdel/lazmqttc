@@ -106,18 +106,15 @@ type
     class function EditBroker(aBroker: TBroker): boolean;
   end;
 
-var
-  configfile: string; // see initialization
+
 
 implementation
 
 {$R *.lfm}
 
 uses
-  stringres, editsubtopic, verify;
+  stringres, startup, editsubtopic, verify;
 
-const
-  CONFIGFILENAME = 'default.json';
 
 { TBrokerEditForm }
 
@@ -439,22 +436,6 @@ begin
   end;
 end;
 
-function Vendor: string;
-begin
-  result := 'sigmdel';
-end;
-
-function  GetAppName: string;
-begin
-  result := changefileext(extractfilename(paramstr(0)), '');
-end;
-
-initialization
-  OnGetVendorName := @Vendor;
-  OnGetApplicationName := @GetAppName;
-  configfile := GetAppConfigDir(false);
-  ForceDirectories(configfile);   // create config directory, report error if false ?
-  configfile := IncludeTrailingPathDelimiter(configfile) + CONFIGFILENAME;
 end.
 
 
