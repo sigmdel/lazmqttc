@@ -37,6 +37,7 @@ uses
   Grids, Buttons, ComCtrls, DefaultTranslator, DividerBevel,  brokerunit, optionsunit,
   mqttclass, topicgrids, fileinfo;
 
+(*
 // Move these to application options
 const
   MessagesLineSize = 2500;      // maximum number of lines in Messages memo
@@ -44,6 +45,7 @@ const
   AutoConnectDelay = 5000;      // five seconds
   PubMsgHeader = 'TX: ';        // start of published messages in Messages box
   RcvMsgHeader = 'RX: ';        // start of received messages in Messages box
+*)
 
 type
 
@@ -52,7 +54,7 @@ type
   TMainForm = class(TForm)
     BottomPanel: TPanel;
     Button1: TButton;
-    CheckBox1: TCheckBox;
+    ShowTopicsCheckBox: TCheckBox;
     autoClearCheckBox: TCheckBox;
     CopyPubCheckbox: TCheckBox;
     DividerBevel1: TDividerBevel;
@@ -79,7 +81,7 @@ type
     Splitter1: TSplitter;
     TopPanel: TPanel;
     procedure Button1Click(Sender: TObject);
-    procedure CheckBox1Change(Sender: TObject);
+    procedure ShowTopicsCheckBoxChange(Sender: TObject);
     procedure ConnectButtonClick(Sender: TObject);
     procedure EditBrokerButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -101,6 +103,7 @@ type
     procedure RefreshGui;
     function ConnectBroker(aBroker: TBroker): boolean;
     procedure UpdateConnectionState;
+    procedure UpdateFromOptions;
     procedure AppIdle(Sender: TObject; var Done: Boolean);
   public
     TopicsGrid: TSubTopicsGrid;
@@ -116,7 +119,7 @@ implementation
 {$R *.lfm}
 
 uses
-  LCLIntf, stringres, brokeredit, optionsedit, mosquitto, pwd, report;
+  LCLIntf, stringres, startup, brokeredit, optionsedit, mosquitto, pwd, report;
 
 
 // mosquitto library log level
@@ -129,11 +132,12 @@ const
   //MOSQ_LOG = MOSQ_LOG_NONE;
   {$ENDIF}
 
+  { Global variables for MQTTClient that does not know about MainForm components }
 var
-  ShowTopics: boolean = true;
-  FClearMessageMemo: boolean = false;
-  FPubMessageTopic: string = '';
-  FPubMessagePayload: string = '';
+  gvShowTopics: boolean = true;        // reflects ShowTopicsCheckbox.checked
+  gvClearMessageMemo: boolean = false; // set to autoClearCheckBox.checked on publishing a message
+  gvPubMessageTopic: string = '';      // if non empty, then published message to add to Messages
+  gvPubMessagePayload: string = '';    // payload of shown published message
 
 type
   TThisMQTTConnection = class(TMQTTConnection)
@@ -157,27 +161,27 @@ var
   outs: string;
 begin
    with MainForm.MessagesMemo do begin
-     if FClearMessageMemo then begin
+     if gvClearMessageMemo then begin
        Clear;
-       FClearMessageMemo := false;
+       gvClearMessageMemo := false;
      end
      else begin
        Lines.BeginUpdate;
        try
-         while Lines.Count > MessagesLineSize do
+         while Lines.Count > Options.MessagesMaxLines do
             Lines.Delete(0);
        finally
          Lines.EndUpdate;
        end;
      end;
-     if length(FPubMessageTopic) > 0 then begin
-       if ShowTopics then
-        outs := Format(sMsgFormatWithTopic, [PubMsgHeader, FPubMessageTopic, FPubMessagePayload])
+     if length(gvPubMessageTopic) > 0 then begin
+       if gvShowTopics then
+        outs := Format(sMsgFormatWithTopic, [Options.PubMsgHeader, gvPubMessageTopic, gvPubMessagePayload])
       else
-        outs := Format(sMsgFormatNoTopic, [PubMsgHeader, FPubMessagePayload]);
+        outs := Format(sMsgFormatNoTopic, [Options.PubMsgHeader, gvPubMessagePayload]);
        Lines.Add(outs);
-       FPubMessageTopic := '';
-       FPubMessagePayload := '';
+       gvPubMessageTopic := '';
+       gvPubMessagePayload := '';
      end;
      Lines.Add(FThisMessage);
      SelStart := Lines.Text.Length-1;
@@ -198,10 +202,10 @@ begin
         SetLength(msg,payloadlen);
         Move(payload^,msg[1],payloadlen);
       end;
-      if ShowTopics then
-        FThisMessage := Format(sMsgFormatWithTopic, [RcvMsgHeader, topic, msg])
+      if gvShowTopics then
+        FThisMessage := Format(sMsgFormatWithTopic, [Options.SubMsgHeader, topic, msg])
       else
-        FThisMessage := Format(sMsgFormatWithTopic, [RcvMsgHeader, msg]);
+        FThisMessage := Format(sMsgFormatNoTopic, [Options.SubMsgHeader, msg]);
       Synchronize(@UpdateGui);
    end;
 end;
@@ -262,16 +266,16 @@ begin
     freeandnil(MqttClient);
 end;
 
-procedure TMainForm.CheckBox1Change(Sender: TObject);
+procedure TMainForm.ShowTopicsCheckBoxChange(Sender: TObject);
 begin
-  ShowTopics := CheckBox1.Checked;
+  gvShowTopics := ShowTopicsCheckBox.Checked;
 end;
 
 procedure TMainForm.Button1Click(Sender: TObject);
 begin
   if TOptionsEditForm.EditOptions(Options) then begin
-    //freeandnil(MqttClient);
-    //RefreshGUI;
+    Options.SaveToFile(optionsfile);
+    UpdateFromOptions;
   end;
 end;
 
@@ -325,6 +329,8 @@ begin
     ShowPublishResult(sNoEncryptionKey, false);
     halt;
   end;
+  Options.LoadFromFile(optionsfile);
+  UpdateFromOptions;
 end;
 
 procedure TMainForm.MiddlePanelClick(Sender: TObject);
@@ -354,21 +360,29 @@ var
   res: integer;
   topic, msg: string;
   ticks: QWord;
+  delay: QWord;
 begin
   topic := trim(PublishTopicEdit.Text);
   res := 0; // assume connected and so on
 
   if topic = '' then
     res := -1002
-  else if (not assigned(MqttClient) or (MQttClient.State <> mqttConnected))
-    and AutoConnectOnPublish then begin
-    ConnectBroker(Broker);
-    ticks := gettickcount64;
-    while assigned(MqttClient)
-      and (MQttClient.State <> mqttConnected)
-      and (gettickcount64 - ticks < AutoConnectDelay) do begin
-      sleep(2);
-      application.ProcessMessages;
+  else begin
+    if (not assigned(MqttClient) or (MQttClient.State <> mqttConnected))
+      and Options.AutoConnectOnPublish then begin
+      // attempt to automatically connect to the broker
+      ConnectBroker(Broker);
+      // wait until connected or the autoconnect delay has timed out
+      ticks := gettickcount64;
+      // ticks are milliseconds, Options.AutoConnectDelay is seconds
+      delay := Options.AutoConnectDelay*1000;
+      while assigned(MqttClient)
+        and (MQttClient.State <> mqttConnected)
+        and (gettickcount64 - ticks < delay) do begin
+        sleep(2);
+        application.ProcessMessages;
+      end;
+      // continue
     end;
     if not assigned(MqttClient) then
       res := -1000
@@ -377,13 +391,14 @@ begin
   end;
 
   if res = 0 then begin
-    FClearMessageMemo := autoClearCheckBox.checked;
+    // connected to the broker, publish message to it
+    gvClearMessageMemo := autoClearCheckBox.checked;
     res := MqttClient.Publish(topic, PayloadMemo.Text,
       QoSComboBox.ItemIndex, RetainCheckBox.Checked);
     if (res = 0) then begin
       if CopyPubCheckBox.checked then begin
-        FPubMessageTopic := topic;
-        FPubMessagePayload := PayloadMemo.Text;
+        gvPubMessageTopic := topic;
+        gvPubMessagePayload := PayloadMemo.Text;
       end;
       if (PayloadMemo.Text = '') then begin
         res := -1003;
@@ -411,7 +426,7 @@ begin
   else
     msg := sOk;
   if res <> 0 then
-    FClearMessageMemo := false;
+    gvClearMessageMemo := false;
   ShowPublishResult(msg, res = 0);
   RetainCheckBox.Checked := false;
 end;
@@ -515,6 +530,13 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TMainForm.UpdateFromOptions;
+begin
+  CopyPubCheckbox.Checked := Options.CopyPubMessages;
+  ShowTopicsCheckbox.Checked := Options.ShowTopics;
+  gvShowTopics := Options.ShowTopics;
 end;
 
 end.
