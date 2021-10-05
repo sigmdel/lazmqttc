@@ -4,7 +4,7 @@ interface
 
 uses SysUtils, Classes, fpJSON;
 
-{$i options.inc} // Get the default values for TBroker.Init
+{$i options.inc} // Get the default values for TOptions.Init
 
 Type
   
@@ -22,7 +22,7 @@ Type
   Protected
     Procedure Init;
   Public
-      { Creates a default MQTT broker class, see brokerunit.inc for it's definition }
+      { Creates a default TOptions class, see options.inc for it's definition }
     Constructor Create;
 
       { Creates a TOptions that is an exact copy of aOptions }
@@ -33,6 +33,9 @@ Type
 
       { Deep copy of aOptions's definition }
     Procedure Assign(aOptions: TOptions); virtual;
+
+      { Restores default values }
+    Procedure Clear; virtual;
 
       { Returns true if aOptions has exactly the values for all fields }
     Function isEqual(aOptions: TOptions): boolean; virtual;
@@ -68,17 +71,6 @@ var
 
 implementation
 
-procedure TOptions.Init;
-begin
-  FMessagesMaxLines := DEFAULT_MESSAGES_MAXLINES;
-  FAutoconnectOnPublish := DEFAULT_AUTOCONNECT_ONPUBLISH;
-  FAutoconnectDelay := DEFAULT_AUTOCONNECT_DELAY;
-  FPubMsgHeader := DEFAULT_PUBMSG_HEADER;
-  FSubMsgHeader := DEFAULT_SUBMSG_HEADER;
-  FCopyPubMessages := DEFAULT_COPY_PUBMESSAGES;
-  FShowTopics := DEFAULT_SHOW_TOPICS;
-end;
-
 constructor TOptions.Create;
 begin
   inherited Create();
@@ -106,6 +98,22 @@ begin
   FSubMsgHeader := aOptions.SubMsgHeader;
   FCopyPubMessages := aOptions.CopyPubMessages;
   FShowTopics := aOptions.ShowTopics;
+end;
+
+procedure TOptions.Clear;
+begin
+  init();
+end;
+
+procedure TOptions.Init;
+begin
+  FMessagesMaxLines := DEFAULT_MESSAGES_MAXLINES;
+  FAutoconnectOnPublish := DEFAULT_AUTOCONNECT_ONPUBLISH;
+  FAutoconnectDelay := DEFAULT_AUTOCONNECT_DELAY;
+  FPubMsgHeader := DEFAULT_PUBMSG_HEADER;
+  FSubMsgHeader := DEFAULT_SUBMSG_HEADER;
+  FCopyPubMessages := DEFAULT_COPY_PUBMESSAGES;
+  FShowTopics := DEFAULT_SHOW_TOPICS;
 end;
 
 function TOptions.isEqual(aOptions: TOptions): boolean;
