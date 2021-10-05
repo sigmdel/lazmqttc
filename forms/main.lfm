@@ -309,11 +309,12 @@ object MainForm: TMainForm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = BottomPanel
       AnchorSideBottom.Side = asrBottom
-      Left = 516
-      Height = 25
-      Top = 94
-      Width = 75
+      Left = 551
+      Height = 30
+      Top = 89
+      Width = 40
       Anchors = [akRight, akBottom]
+      AutoSize = True
       BorderSpacing.Top = 4
       BorderSpacing.Right = 6
       BorderSpacing.Bottom = 5
@@ -329,7 +330,7 @@ object MainForm: TMainForm
       AnchorSideBottom.Side = asrCenter
       Left = 6
       Height = 23
-      Top = 94
+      Top = 92
       Width = 98
       Anchors = [akLeft, akBottom]
       BorderSpacing.Left = 6
@@ -342,11 +343,11 @@ object MainForm: TMainForm
     object SourceLabel: TLabel
       AnchorSideTop.Control = QuitButton
       AnchorSideTop.Side = asrCenter
-      AnchorSideRight.Control = QuitButton
+      AnchorSideRight.Control = Button1
       Cursor = crHandPoint
-      Left = 430
+      Left = 397
       Height = 22
-      Top = 95
+      Top = 93
       Width = 62
       Alignment = taRightJustify
       Anchors = [akTop, akRight]
@@ -366,7 +367,7 @@ object MainForm: TMainForm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = QuitButton
       Left = 6
-      Height = 70
+      Height = 65
       Top = 18
       Width = 585
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -402,21 +403,24 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       Left = 110
       Height = 23
-      Top = 94
+      Top = 92
       Width = 88
       BorderSpacing.Left = 6
       Caption = 'Auto clear'
       TabOrder = 3
     end
     object Button1: TButton
-      AnchorSideLeft.Control = BottomPanel
       AnchorSideLeft.Side = asrCenter
       AnchorSideTop.Control = QuitButton
       AnchorSideTop.Side = asrCenter
-      Left = 261
-      Height = 25
-      Top = 94
-      Width = 75
+      AnchorSideRight.Control = QuitButton
+      Left = 483
+      Height = 30
+      Top = 89
+      Width = 62
+      Anchors = [akTop, akRight]
+      AutoSize = True
+      BorderSpacing.Right = 6
       Caption = 'Options'
       OnClick = Button1Click
       TabOrder = 4
