@@ -1,10 +1,10 @@
 object OptionsEditForm: TOptionsEditForm
   Left = 425
-  Height = 337
+  Height = 368
   Top = 250
   Width = 420
   Caption = 'Options Editor'
-  ClientHeight = 337
+  ClientHeight = 368
   ClientWidth = 420
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
@@ -13,7 +13,7 @@ object OptionsEditForm: TOptionsEditForm
   object Panel1: TPanel
     Left = 0
     Height = 42
-    Top = 295
+    Top = 326
     Width = 420
     Align = alBottom
     Anchors = []
@@ -102,17 +102,17 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Side = asrCenter
     Left = 12
     Height = 16
-    Top = 227
-    Width = 224
-    Caption = 'Publish message header in Messages:'
+    Top = 291
+    Width = 145
+    Caption = 'Publish message header'
   end
   object PubHeaderEdit: TEdit
-    AnchorSideLeft.Control = MaxLinesEdit
-    AnchorSideTop.Control = ShowTopicsCheckBox
+    AnchorSideLeft.Control = SubHeaderEdit
+    AnchorSideTop.Control = SubHeaderEdit
     AnchorSideTop.Side = asrBottom
-    Left = 257
+    Left = 183
     Height = 27
-    Top = 222
+    Top = 286
     Width = 80
     BorderSpacing.Top = 6
     TabOrder = 3
@@ -123,7 +123,7 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Side = asrBottom
     Left = 12
     Height = 23
-    Top = 164
+    Top = 195
     Width = 183
     BorderSpacing.Top = 6
     Caption = 'Show published messages'
@@ -135,7 +135,7 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Side = asrBottom
     Left = 12
     Height = 23
-    Top = 193
+    Top = 224
     Width = 153
     BorderSpacing.Top = 6
     Caption = 'Show message topics'
@@ -147,18 +147,20 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Side = asrCenter
     Left = 12
     Height = 16
-    Top = 260
-    Width = 232
-    Caption = 'Received message header in Messages:'
+    Top = 258
+    Width = 153
+    Caption = 'Received message header'
   end
   object SubHeaderEdit: TEdit
-    AnchorSideLeft.Control = PubHeaderEdit
-    AnchorSideTop.Control = PubHeaderEdit
+    AnchorSideLeft.Control = Label3
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = ShowTopicsCheckBox
     AnchorSideTop.Side = asrBottom
-    Left = 257
+    Left = 183
     Height = 27
-    Top = 255
+    Top = 253
     Width = 80
+    BorderSpacing.Left = 18
     BorderSpacing.Top = 6
     TabOrder = 6
   end
@@ -168,17 +170,17 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Side = asrCenter
     Left = 12
     Height = 16
-    Top = 136
+    Top = 167
     Width = 235
     Caption = 'Maximum number of logged messages '
   end
   object MaxLinesEdit: TSpinEdit
     AnchorSideLeft.Control = AutoConnectDelayEdit
-    AnchorSideTop.Control = Label6
+    AnchorSideTop.Control = AutoClearCheckBox
     AnchorSideTop.Side = asrBottom
     Left = 257
     Height = 27
-    Top = 131
+    Top = 162
     Width = 138
     BorderSpacing.Top = 6
     TabOrder = 7
@@ -224,5 +226,17 @@ object OptionsEditForm: TOptionsEditForm
     Caption = 'Messages window'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object AutoClearCheckBox: TCheckBox
+    AnchorSideLeft.Control = Label1
+    AnchorSideTop.Control = Label6
+    AnchorSideTop.Side = asrBottom
+    Left = 12
+    Height = 23
+    Top = 133
+    Width = 355
+    BorderSpacing.Top = 8
+    Caption = 'Auto clear previous messages on publishing a message'
+    TabOrder = 8
   end
 end

@@ -535,6 +535,7 @@ end;
 procedure TMainForm.UpdateFromOptions;
 begin
   CopyPubCheckbox.Checked := Options.CopyPubMessages;
+  autoClearCheckBox.Checked := Options.AutoClearOnPublish;
   ShowTopicsCheckbox.Checked := Options.ShowTopics;
   gvShowTopics := Options.ShowTopics;
 end;

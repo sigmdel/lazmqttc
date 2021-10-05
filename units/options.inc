@@ -1,6 +1,7 @@
 // Default values for TOptions.Init
 
 const
+  DEFAULT_AUTOCLEAR_ONPUBLISH = false;
   DEFAULT_AUTOCONNECT_ONPUBLISH = true;
   DEFAULT_AUTOCONNECT_DELAY = 5; // seconds
   DEFAULT_PUBMSG_HEADER = 'TX: ';

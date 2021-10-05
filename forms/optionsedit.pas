@@ -17,6 +17,7 @@ type
     Bevel1: TBevel;
     CancelButton: TButton;
     AutoConnectCheckBox: TCheckBox;
+    AutoClearCheckBox: TCheckBox;
     ShowPublishedCheckBox: TCheckBox;
     ShowTopicsCheckBox: TCheckBox;
     PubHeaderEdit: TEdit;
@@ -124,15 +125,9 @@ begin
   FOptions.free;
 end;
 
-
 procedure TOptionsEditForm.i18nFixup;
 begin
-  (*
-  ListBox1.Items.Text := sPageNames;
-  ListBox1.ItemIndex := 0;
-  QosComboBox.Items.Text := sQosHint;
-  QosComboBox.ItemIndex := 0;
-  *)
+  (* Nothing to do *)
 end;
 
 procedure TOptionsEditForm.ResetButtonClick(Sender: TObject);
@@ -145,6 +140,7 @@ procedure TOptionsEditForm.UpdateOptions;
 begin
   with FOptions do begin
     MessagesMaxLines     := MaxLinesEdit.value;
+    AutoclearOnPublish   := AutoClearCheckBox.checked;
     AutoconnectOnPublish := AutoConnectCheckBox.checked;
     AutoconnectDelay     := AutoConnectDelayEdit.value;
     PubMsgHeader         := PubHeaderEdit.Text;
@@ -158,6 +154,7 @@ procedure TOptionsEditForm.UpdateView;
 begin
   with FOptions do begin
     MaxLinesEdit.value := MessagesMaxLines;
+    AutoClearCheckBox.checked := AutoclearOnPublish;
     AutoConnectCheckBox.checked := AutoconnectOnPublish;
     AutoConnectDelayEdit.value := AutoconnectDelay;
     PubHeaderEdit.Text := PubMsgHeader;

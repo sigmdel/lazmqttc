@@ -13,6 +13,7 @@ Type
   TOptions = class(TObject)
   Private
     FMessagesMaxLines: Integer;
+    FAutoClearOnPublish : boolean;
     FAutoconnectOnPublish : Boolean;
     FAutoconnectDelay : Integer;
     FPubMsgHeader : String;
@@ -58,6 +59,7 @@ Type
     Procedure SaveToJSON(AJSON : TJSONObject); overload; virtual;
 
     Property MessagesMaxLines: Integer Read FMessagesMaxLines Write FMessagesMaxLines;
+    Property AutoClearOnPublish: boolean Read FAutoClearOnPublish Write FAutoClearOnPublish;
     Property AutoconnectOnPublish : Boolean Read FAutoconnectOnPublish Write FAutoconnectOnPublish;
     Property AutoconnectDelay : Integer Read FAutoconnectDelay Write FAutoconnectDelay;
     Property PubMsgHeader : String Read FPubMsgHeader Write FPubMsgHeader;
@@ -92,6 +94,7 @@ end;
 procedure TOptions.Assign(aOptions: TOptions);
 begin
   FMessagesMaxLines := aOptions.MessagesMaxLines;
+  FAutoclearOnPublish := aOptions.AutoclearOnPublish;
   FAutoconnectOnPublish := aOptions.AutoconnectOnPublish;
   FAutoconnectDelay := aOptions.AutoconnectDelay;
   FPubMsgHeader := aOptions.PubMsgHeader;
@@ -108,6 +111,7 @@ end;
 procedure TOptions.Init;
 begin
   FMessagesMaxLines := DEFAULT_MESSAGES_MAXLINES;
+  FAutoclearOnPublish := DEFAULT_AUTOCLEAR_ONPUBLISH;
   FAutoconnectOnPublish := DEFAULT_AUTOCONNECT_ONPUBLISH;
   FAutoconnectDelay := DEFAULT_AUTOCONNECT_DELAY;
   FPubMsgHeader := DEFAULT_PUBMSG_HEADER;
@@ -119,6 +123,7 @@ end;
 function TOptions.isEqual(aOptions: TOptions): boolean;
 begin
   result := (FMessagesMaxLines = aOptions.MessagesMaxLines) and
+    (FAutoclearOnPublish = aOptions.AutoclearOnPublish) and
     (FAutoconnectOnPublish = aOptions.AutoconnectOnPublish) and
     (FAutoconnectDelay = aOptions.AutoconnectDelay) and
     (FPubMsgHeader = aOptions.PubMsgHeader) and
@@ -133,20 +138,14 @@ var
 begin
   for E in AJSON do begin
     case E.Key of
-    'MessageMaxLines':
-      MessagesMaxLines := E.Value.AsInteger;
-    'AutoconnectOnPublish':
-      AutoconnectOnPublish := E.Value.AsBoolean;
-    'AutoconnectDelay':
-      AutoconnectDelay := E.Value.AsInteger;
-    'PubMsgHeader':
-      PubMsgHeader := E.Value.AsString;
-    'SubMsgHeader':
-      SubMsgHeader := E.Value.AsString;
-    'CopyPubMessages':
-      CopyPubMessages := E.Value.AsBoolean;
-    'ShowTopics':
-      ShowTopics := E.Value.AsBoolean;
+    'MessageMaxLines':      MessagesMaxLines := E.Value.AsInteger;
+    'AutoclearOnPublish':   AutoclearOnPublish := E.Value.AsBoolean;
+    'AutoconnectOnPublish': AutoconnectOnPublish := E.Value.AsBoolean;
+    'AutoconnectDelay':     AutoconnectDelay := E.Value.AsInteger;
+    'PubMsgHeader':         PubMsgHeader := E.Value.AsString;
+    'SubMsgHeader':         SubMsgHeader := E.Value.AsString;
+    'CopyPubMessages':      CopyPubMessages := E.Value.AsBoolean;
+    'ShowTopics':           ShowTopics := E.Value.AsBoolean;
     (*
      else: Warning or Error for unknown key ??
     *)
@@ -185,6 +184,7 @@ end;
 procedure TOptions.SaveToJSON(AJSON: TJSONObject);
 begin
   AJSON.Add('MessagesMaxLines', MessagesMaxLines);
+  AJSON.Add('AutoclearOnPublish', AutoclearOnPublish);
   AJSON.Add('AutoconnectOnPublish', AutoconnectOnPublish);
   AJSON.Add('AutoconnectDelay', AutoconnectDelay);
   AJSON.Add('PubMsgHeader', PubMsgHeader);
