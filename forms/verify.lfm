@@ -8,6 +8,7 @@ object Form2: TForm2
   ClientHeight = 111
   ClientWidth = 320
   Position = poOwnerFormCenter
+  LCLVersion = '2.2.0.2'
   object Label1: TLabel
     AnchorSideLeft.Control = Owner
     AnchorSideLeft.Side = asrCenter
@@ -17,7 +18,6 @@ object Form2: TForm2
     Width = 41
     Alignment = taCenter
     Caption = 'Label1'
-    ParentColor = False
   end
   object Panel1: TPanel
     AnchorSideLeft.Control = Owner
