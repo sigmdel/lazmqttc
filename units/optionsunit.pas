@@ -73,6 +73,16 @@ var
 
 implementation
 
+const
+  sMessagesMaxLines = 'MessagesMaxLines';
+  sAutoclearOnPublish = 'AutoclearOnPublish';
+  sAutoconnectOnPublish = 'AutoconnectOnPublish';
+  sAutoconnectDelay = 'AutoconnectDelay';
+  sPubMsgHeader = 'PubMsgHeader';
+  sSubMsgHeader = 'SubMsgHeader';
+  sCopyPubMessages = 'CopyPubMessages';
+  sShowTopics = 'ShowTopics';
+
 constructor TOptions.Create;
 begin
   inherited Create();
@@ -138,14 +148,14 @@ var
 begin
   for E in AJSON do begin
     case E.Key of
-    'MessageMaxLines':      MessagesMaxLines := E.Value.AsInteger;
-    'AutoclearOnPublish':   AutoclearOnPublish := E.Value.AsBoolean;
-    'AutoconnectOnPublish': AutoconnectOnPublish := E.Value.AsBoolean;
-    'AutoconnectDelay':     AutoconnectDelay := E.Value.AsInteger;
-    'PubMsgHeader':         PubMsgHeader := E.Value.AsString;
-    'SubMsgHeader':         SubMsgHeader := E.Value.AsString;
-    'CopyPubMessages':      CopyPubMessages := E.Value.AsBoolean;
-    'ShowTopics':           ShowTopics := E.Value.AsBoolean;
+      sMessagesMaxLines:     MessagesMaxLines := E.Value.AsInteger;
+      sAutoclearOnPublish:   AutoclearOnPublish := E.Value.AsBoolean;
+      sAutoconnectOnPublish: AutoconnectOnPublish := E.Value.AsBoolean;
+      sAutoconnectDelay:     AutoconnectDelay := E.Value.AsInteger;
+      sPubMsgHeader:         PubMsgHeader := E.Value.AsString;
+      sSubMsgHeader:         SubMsgHeader := E.Value.AsString;
+      sCopyPubMessages:      CopyPubMessages := E.Value.AsBoolean;
+      sShowTopics:           ShowTopics := E.Value.AsBoolean;
     (*
      else: Warning or Error for unknown key ??
     *)
@@ -183,14 +193,14 @@ end;
 
 procedure TOptions.SaveToJSON(AJSON: TJSONObject);
 begin
-  AJSON.Add('MessagesMaxLines', MessagesMaxLines);
-  AJSON.Add('AutoclearOnPublish', AutoclearOnPublish);
-  AJSON.Add('AutoconnectOnPublish', AutoconnectOnPublish);
-  AJSON.Add('AutoconnectDelay', AutoconnectDelay);
-  AJSON.Add('PubMsgHeader', PubMsgHeader);
-  AJSON.Add('SubMsgHeader', SubMsgHeader);
-  AJSON.Add('CopyPubMessages', CopyPubMessages);
-  AJSON.Add('ShowTopics', ShowTopics);
+  AJSON.Add(sMessagesMaxLines, MessagesMaxLines);
+  AJSON.Add(sAutoclearOnPublish, AutoclearOnPublish);
+  AJSON.Add(sAutoconnectOnPublish, AutoconnectOnPublish);
+  AJSON.Add(sAutoconnectDelay, AutoconnectDelay);
+  AJSON.Add(sPubMsgHeader, PubMsgHeader);
+  AJSON.Add(sSubMsgHeader, SubMsgHeader);
+  AJSON.Add(sCopyPubMessages, CopyPubMessages);
+  AJSON.Add(sShowTopics, ShowTopics);
 end;
 
 procedure TOptions.SaveToFile(const aFilename: string);
