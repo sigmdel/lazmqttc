@@ -8,14 +8,14 @@ uses
   {$ENDIF}{$ENDIF}
   ctypes, // needed by mosquitto
   Interfaces, // this includes the LCL widgetset
-  Forms, lazcontrols, main, report, brokerunit, brokeredit, verify, stringres,
-  pwd;
+  Forms, lazcontrols, main, report, brokerunit, brokeredit, verify, optionsedit,
+  stringres, pwd, optionsunit, startup;
 
 {$R *.res}
 
 begin
   RequireDerivedFormResource:=True;
-  Application.Title := 'MQTT Client';
+  Application.Title:='MQTT Client';
   Application.Scaled:=True;
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);

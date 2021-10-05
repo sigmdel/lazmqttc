@@ -34,12 +34,12 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
-  Grids, Buttons, ComCtrls, DefaultTranslator, DividerBevel,  brokerunit, mqttclass,
-  topicgrids, fileinfo;
+  Grids, Buttons, ComCtrls, DefaultTranslator, DividerBevel,  brokerunit, optionsunit,
+  mqttclass, topicgrids, fileinfo;
 
 // Move these to application options
 const
-  SubscribedMemoSize = 2500;    // maximum number of lines in subscribed memo
+  MessagesLineSize = 2500;      // maximum number of lines in Messages memo
   AutoConnectOnPublish = true;  // connect to broker if needed when Publish is pressed
   AutoConnectDelay = 5000;      // five seconds
   PubMsgHeader = 'TX: ';        // start of published messages in Messages box
@@ -51,11 +51,11 @@ type
 
   TMainForm = class(TForm)
     BottomPanel: TPanel;
+    Button1: TButton;
     CheckBox1: TCheckBox;
     autoClearCheckBox: TCheckBox;
     CopyPubCheckbox: TCheckBox;
     DividerBevel1: TDividerBevel;
-    VersionLabel: TLabel;
     QuitButton: TButton;
     SourceLabel: TLabel;
     Splitter2: TSplitter;
@@ -78,6 +78,7 @@ type
     MiddlePanel: TPanel;
     Splitter1: TSplitter;
     TopPanel: TPanel;
+    procedure Button1Click(Sender: TObject);
     procedure CheckBox1Change(Sender: TObject);
     procedure ConnectButtonClick(Sender: TObject);
     procedure EditBrokerButtonClick(Sender: TObject);
@@ -115,7 +116,7 @@ implementation
 {$R *.lfm}
 
 uses
-  LCLIntf, stringres, brokeredit, mosquitto, pwd, report;
+  LCLIntf, stringres, brokeredit, optionsedit, mosquitto, pwd, report;
 
 
 // mosquitto library log level
@@ -163,7 +164,7 @@ begin
      else begin
        Lines.BeginUpdate;
        try
-         while Lines.Count > SubscribedMemoSize do
+         while Lines.Count > MessagesLineSize do
             Lines.Delete(0);
        finally
          Lines.EndUpdate;
@@ -266,6 +267,14 @@ begin
   ShowTopics := CheckBox1.Checked;
 end;
 
+procedure TMainForm.Button1Click(Sender: TObject);
+begin
+  if TOptionsEditForm.EditOptions(Options) then begin
+    //freeandnil(MqttClient);
+    //RefreshGUI;
+  end;
+end;
+
 procedure TMainForm.EditBrokerButtonClick(Sender: TObject);
 begin
   if TBrokerEditForm.EditBroker(Broker) then begin
@@ -279,10 +288,9 @@ var
   Version : TProgramVersion;
 begin
   i18nFixup;
+  Caption := changefileext(extractfilename(application.exename), '');
   if GetProgramVersion(Version) then with Version do
-    VersionLabel.caption := Format(sVersionFormat, [Major,Minor,Revision])
-  else
-    VersionLabel.caption := '';
+    caption := Format(sAppCaption, [Caption, Major,Minor,Revision]);
 
   statusLabel.caption := statusStr[mqttNone];
   TopicsGrid := TSubTopicsGrid.Create(self);

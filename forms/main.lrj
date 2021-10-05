@@ -16,5 +16,6 @@
 {"hash":135239987,"name":"tmainform.checkbox1.caption","sourcebytes":[83,104,111,119,32,116,111,112,105,99,115],"value":"Show topics"},
 {"hash":94816405,"name":"tmainform.sourcelabel.caption","sourcebytes":[83,111,117,114,99,101],"value":"Source"},
 {"hash":212433139,"name":"tmainform.dividerbevel1.caption","sourcebytes":[77,101,115,115,97,103,101,115],"value":"Messages"},
-{"hash":24028978,"name":"tmainform.autoclearcheckbox.caption","sourcebytes":[65,117,116,111,32,99,108,101,97,114],"value":"Auto clear"}
+{"hash":24028978,"name":"tmainform.autoclearcheckbox.caption","sourcebytes":[65,117,116,111,32,99,108,101,97,114],"value":"Auto clear"},
+{"hash":108725763,"name":"tmainform.button1.caption","sourcebytes":[79,112,116,105,111,110,115],"value":"Options"}
 ]}

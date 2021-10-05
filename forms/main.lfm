@@ -30,13 +30,12 @@ object MainForm: TMainForm
       AnchorSideTop.Control = ConnectButton
       AnchorSideTop.Side = asrCenter
       Left = 21
-      Height = 14
-      Top = 11
+      Height = 16
+      Top = 10
       Width = 44
       BorderSpacing.Left = 6
       Caption = 'Broker:'
       Layout = tlCenter
-      ParentColor = False
     end
     object EditBrokerButton: TButton
       AnchorSideLeft.Control = TopPanel
@@ -65,7 +64,6 @@ object MainForm: TMainForm
       Anchors = [akTop, akRight]
       BorderSpacing.Left = 6
       BorderSpacing.Right = 6
-      ParentColor = False
     end
     object ConnectButton: TButton
       AnchorSideTop.Control = EditBrokerButton
@@ -91,14 +89,13 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = statusLabel
       Left = 87
-      Height = 14
-      Top = 11
+      Height = 16
+      Top = 10
       Width = 410
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Left = 6
       BorderSpacing.Right = 6
       Caption = '<host name>'
-      ParentColor = False
     end
   end
   object MiddlePanel: TPanel
@@ -120,12 +117,11 @@ object MainForm: TMainForm
       AnchorSideTop.Control = PublishTopicEdit
       AnchorSideTop.Side = asrCenter
       Left = 6
-      Height = 14
-      Top = 12
+      Height = 16
+      Top = 11
       Width = 32
       BorderSpacing.Left = 6
       Caption = 'Topic'
-      ParentColor = False
     end
     object PublishTopicEdit: TEdit
       AnchorSideLeft.Control = PayloadMemo
@@ -167,11 +163,10 @@ object MainForm: TMainForm
       AnchorSideLeft.Control = Label3
       AnchorSideTop.Control = PayloadMemo
       Left = 6
-      Height = 14
+      Height = 16
       Top = 39
       Width = 49
       Caption = 'Payload'
-      ParentColor = False
     end
     object PublishButton: TButton
       AnchorSideLeft.Control = QoSComboBox
@@ -198,12 +193,11 @@ object MainForm: TMainForm
       AnchorSideTop.Control = QoSComboBox
       AnchorSideTop.Side = asrCenter
       Left = 6
-      Height = 14
-      Top = 93
+      Height = 16
+      Top = 92
       Width = 140
       Caption = 'Quality of service (QoS)'
       Layout = tlCenter
-      ParentColor = False
     end
     object QoSComboBox: TComboBox
       AnchorSideLeft.Control = Label5
@@ -229,13 +223,12 @@ object MainForm: TMainForm
       AnchorSideTop.Control = QoSComboBox
       AnchorSideTop.Side = asrCenter
       Left = 319
-      Height = 14
-      Top = 93
+      Height = 16
+      Top = 92
       Width = 38
       BorderSpacing.Left = 18
       Caption = 'Retain'
       Layout = tlCenter
-      ParentColor = False
     end
     object RetainCheckBox: TCheckBox
       AnchorSideLeft.Control = Label6
@@ -348,22 +341,6 @@ object MainForm: TMainForm
       State = cbChecked
       TabOrder = 1
     end
-    object VersionLabel: TLabel
-      AnchorSideLeft.Control = autoClearCheckBox
-      AnchorSideLeft.Side = asrBottom
-      AnchorSideTop.Control = CheckBox1
-      AnchorSideTop.Side = asrCenter
-      AnchorSideRight.Control = SourceLabel
-      Left = 222
-      Height = 1
-      Top = 105
-      Width = 202
-      Alignment = taCenter
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.Left = 24
-      BorderSpacing.Right = 6
-      ParentColor = False
-    end
     object SourceLabel: TLabel
       AnchorSideTop.Control = QuitButton
       AnchorSideTop.Side = asrCenter
@@ -380,7 +357,6 @@ object MainForm: TMainForm
       Caption = 'Source'
       Font.Style = [fsUnderline]
       Layout = tlCenter
-      ParentColor = False
       ParentFont = False
       OnClick = SourceLabelClick
     end
@@ -433,6 +409,19 @@ object MainForm: TMainForm
       BorderSpacing.Left = 6
       Caption = 'Auto clear'
       TabOrder = 3
+    end
+    object Button1: TButton
+      AnchorSideLeft.Control = BottomPanel
+      AnchorSideLeft.Side = asrCenter
+      AnchorSideTop.Control = QuitButton
+      AnchorSideTop.Side = asrCenter
+      Left = 261
+      Height = 25
+      Top = 94
+      Width = 75
+      Caption = 'Options'
+      OnClick = Button1Click
+      TabOrder = 4
     end
   end
 end

@@ -1,0 +1,168 @@
+object OptionsEditForm: TOptionsEditForm
+  Left = 425
+  Height = 361
+  Top = 250
+  Width = 460
+  Caption = 'Options Editor'
+  ClientHeight = 361
+  ClientWidth = 460
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poMainFormCenter
+  object Panel1: TPanel
+    Left = 0
+    Height = 42
+    Top = 319
+    Width = 460
+    Align = alBottom
+    Anchors = []
+    AutoSize = True
+    BevelOuter = bvNone
+    ClientHeight = 42
+    ClientWidth = 460
+    TabOrder = 0
+    object LoadButton: TButton
+      Left = 63
+      Height = 30
+      Top = 6
+      Width = 80
+      Align = alLeft
+      BorderSpacing.Top = 6
+      BorderSpacing.Bottom = 6
+      Caption = '&Load...'
+      OnClick = LoadButtonClick
+      TabOrder = 0
+    end
+    object AcceptButton: TButton
+      Left = 399
+      Height = 30
+      Top = 6
+      Width = 55
+      Align = alRight
+      AutoSize = True
+      BorderSpacing.Around = 6
+      Caption = '&Accept'
+      OnClick = AcceptButtonClick
+      TabOrder = 1
+    end
+    object CancelButton: TButton
+      Left = 313
+      Height = 30
+      Top = 6
+      Width = 80
+      Align = alRight
+      BorderSpacing.Top = 6
+      BorderSpacing.Bottom = 6
+      Caption = '&Cancel'
+      OnClick = CancelButtonClick
+      TabOrder = 2
+    end
+    object SaveButton: TButton
+      Left = 6
+      Height = 30
+      Top = 6
+      Width = 51
+      Align = alLeft
+      AutoSize = True
+      BorderSpacing.Around = 6
+      Caption = '&Save...'
+      OnClick = SaveButtonClick
+      TabOrder = 3
+    end
+  end
+  object Label1: TLabel
+    Left = 40
+    Height = 16
+    Top = 64
+    Width = 228
+    Caption = 'Automatic connection delay (seconds)'
+  end
+  object SpinEdit1: TSpinEdit
+    Left = 288
+    Height = 27
+    Top = 56
+    Width = 138
+    TabOrder = 1
+  end
+  object CheckBox1: TCheckBox
+    Left = 16
+    Height = 23
+    Top = 24
+    Width = 320
+    Caption = 'Automatic connection to broker when publishing'
+    TabOrder = 2
+  end
+  object Label2: TLabel
+    Left = 32
+    Height = 16
+    Top = 216
+    Width = 224
+    Caption = 'Publish message header in Messages:'
+  end
+  object Edit1: TEdit
+    Left = 272
+    Height = 27
+    Top = 208
+    Width = 80
+    TabOrder = 3
+    Text = 'Edit1'
+  end
+  object CheckBox2: TCheckBox
+    Left = 24
+    Height = 23
+    Top = 144
+    Width = 238
+    Caption = 'Copy publish message to Messages'
+    TabOrder = 4
+  end
+  object CheckBox3: TCheckBox
+    Left = 24
+    Height = 23
+    Top = 176
+    Width = 229
+    Caption = 'Show message topics in Messages'
+    TabOrder = 5
+  end
+  object Label3: TLabel
+    Left = 30
+    Height = 16
+    Top = 256
+    Width = 232
+    Caption = 'Received message header in Messages:'
+  end
+  object Edit2: TEdit
+    Left = 272
+    Height = 27
+    Top = 248
+    Width = 80
+    TabOrder = 6
+    Text = 'Edit2'
+  end
+  object Label4: TLabel
+    Left = 24
+    Height = 16
+    Top = 120
+    Width = 190
+    Caption = 'Maximum number of Messages '
+  end
+  object SpinEdit2: TSpinEdit
+    Left = 288
+    Height = 27
+    Top = 112
+    Width = 138
+    TabOrder = 7
+  end
+  object OpenDialog: TOpenDialog
+    DefaultExt = '.json'
+    Options = [ofFileMustExist, ofEnableSizing, ofViewDetail]
+    Left = 344
+    Top = 152
+  end
+  object SaveDialog: TSaveDialog
+    DefaultExt = '.json'
+    Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
+    Left = 288
+    Top = 168
+  end
+end
