@@ -325,7 +325,7 @@ procedure TMainForm.FormShow(Sender: TObject);
 begin
   Constraints.MinHeight := Height;
   Constraints.MinWidth := Width;
-  if DefaultKey = '' then begin
+  if EncryptionKey = '' then begin
     ShowPublishResult(sNoEncryptionKey, false);
     halt;
   end;

@@ -19,7 +19,7 @@ const
   DEFAULT_KEY = 'CdBZoYYSWjPiZV8fxbN62a4TK8cSDNDKQoAmA73t3qX';
 
 var
-  DefaultKey: string = DEFAULT_KEY;
+  EncryptionKey: string = DEFAULT_KEY;
 
 function Encrypt(value: string; encode: boolean = true; const aKey: string = ''): string;
 function Decrypt(value: string; encoded: boolean = true; const aKey: string = ''): string;
@@ -39,7 +39,7 @@ begin
   if value = '' then
     exit;
   if aKey = '' then
-    Key := DefaultKey
+    Key := EncryptionKey
   else
     Key := aKey;
 
@@ -69,7 +69,7 @@ begin
   if value = '' then
     exit;
   if aKey = '' then
-    Key := DefaultKey
+    Key := EncryptionKey
   else
     Key := aKey;
 
@@ -101,7 +101,7 @@ begin
   reset(inf);
   {$i+}
   if (IoResult=0) then begin
-    read(inf, DefaultKey);
+    read(inf, EncryptionKey);
     close(inf);
   end;
 end;
