@@ -7,6 +7,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr_FR\n"
 
+#: optionsunit.rsloaderror
+#, object-pascal-format
+msgid "Error reading options.json: %s"
+msgstr "Erreur en lecture de options.json : %s"
+
 #: stringres.cbsdeletequery
 #, object-pascal-format
 msgid "Delete <%s>"
@@ -195,6 +200,10 @@ msgctxt "tbrokereditform.caption"
 msgid "MQTT Broker Editor"
 msgstr "Editeur du serveur MQTT"
 
+#: tbrokereditform.hostedit.text
+msgid "HostEdit"
+msgstr ""
+
 #: tbrokereditform.label1.caption
 msgid "Keep Alive Interval"
 msgstr "Intervalle de maintien en vie"
@@ -259,6 +268,10 @@ msgctxt "tbrokereditform.loadbutton.caption"
 msgid "&Load..."
 msgstr "&Charger..."
 
+#: tbrokereditform.passwordedit.text
+msgid "PasswordEdit"
+msgstr ""
+
 #: tbrokereditform.portedit.hint
 msgid "Default MQTT Port: 1883"
 msgstr "Port MQTT par défaut : 1883"
@@ -267,6 +280,14 @@ msgstr "Port MQTT par défaut : 1883"
 msgctxt "tbrokereditform.pubretaincheckbox.caption"
 msgid "(false)"
 msgstr "(faux)"
+
+#: tbrokereditform.pubtopicedit.text
+msgid "PubTopicEdit"
+msgstr ""
+
+#: tbrokereditform.qoscombobox.text
+msgid "0 - at most once"
+msgstr ""
 
 #: tbrokereditform.reconnectbackoffcheckbox.caption
 msgctxt "tbrokereditform.reconnectbackoffcheckbox.caption"
@@ -277,6 +298,14 @@ msgstr "(faux)"
 msgctxt "tbrokereditform.savebutton.caption"
 msgid "&Save..."
 msgstr "&Sauvegarder..."
+
+#: tbrokereditform.toolbar.caption
+msgid "ToolBar"
+msgstr ""
+
+#: tbrokereditform.useredit.text
+msgid "UserEdit"
+msgstr ""
 
 #: teditsubtopicform.button1.caption
 msgid "Accept"
@@ -303,6 +332,14 @@ msgctxt "teditsubtopicform.label3.caption"
 msgid "Use"
 msgstr "Act."
 
+#: teditsubtopicform.qoscombobox.text
+msgid "0 - At most once"
+msgstr ""
+
+#: teditsubtopicform.topicedit.text
+msgid "TopicEdit"
+msgstr ""
+
 #: teditsubtopicform.usecheckbox.caption
 msgid "(subscribe to this topic)"
 msgstr "(se souscrire à ce sujet)"
@@ -314,6 +351,10 @@ msgstr "&Exit"
 #: tform2.caption
 msgid "Confirmation"
 msgstr "Confirmation"
+
+#: tform2.label1.caption
+msgid "Label1"
+msgstr ""
 
 #: tform2.nobutton.caption
 msgid "&No"
@@ -357,6 +398,9 @@ msgstr "Messages"
 msgid "Edit"
 msgstr "Modifier"
 
+#: tmainform.hostlabel.caption
+msgid "<host name>"
+msgstr ""
 
 #: tmainform.label1.caption
 msgid "Broker:"

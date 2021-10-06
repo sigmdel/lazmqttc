@@ -81,6 +81,7 @@ object OptionsEditForm: TOptionsEditForm
     Width = 138
     BorderSpacing.Left = 12
     BorderSpacing.Top = 6
+    MaxValue = 300
     TabOrder = 1
   end
   object AutoConnectCheckBox: TCheckBox
@@ -183,6 +184,7 @@ object OptionsEditForm: TOptionsEditForm
     Top = 162
     Width = 138
     BorderSpacing.Top = 6
+    MaxValue = 32768
     TabOrder = 7
   end
   object Bevel1: TBevel

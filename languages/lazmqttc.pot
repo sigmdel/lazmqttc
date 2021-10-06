@@ -1,6 +1,11 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+#: optionsunit.rsloaderror
+#, object-pascal-format
+msgid "Error reading options.json: %s"
+msgstr ""
+
 #: stringres.cbsdeletequery
 #, object-pascal-format
 msgid "Delete <%s>"
@@ -181,6 +186,10 @@ msgctxt "tbrokereditform.caption"
 msgid "MQTT Broker Editor"
 msgstr ""
 
+#: tbrokereditform.hostedit.text
+msgid "HostEdit"
+msgstr ""
+
 #: tbrokereditform.label1.caption
 msgid "Keep Alive Interval"
 msgstr ""
@@ -245,6 +254,10 @@ msgctxt "tbrokereditform.loadbutton.caption"
 msgid "&Load..."
 msgstr ""
 
+#: tbrokereditform.passwordedit.text
+msgid "PasswordEdit"
+msgstr ""
+
 #: tbrokereditform.portedit.hint
 msgid "Default MQTT Port: 1883"
 msgstr ""
@@ -252,6 +265,14 @@ msgstr ""
 #: tbrokereditform.pubretaincheckbox.caption
 msgctxt "tbrokereditform.pubretaincheckbox.caption"
 msgid "(false)"
+msgstr ""
+
+#: tbrokereditform.pubtopicedit.text
+msgid "PubTopicEdit"
+msgstr ""
+
+#: tbrokereditform.qoscombobox.text
+msgid "0 - at most once"
 msgstr ""
 
 #: tbrokereditform.reconnectbackoffcheckbox.caption
@@ -262,6 +283,14 @@ msgstr ""
 #: tbrokereditform.savebutton.caption
 msgctxt "tbrokereditform.savebutton.caption"
 msgid "&Save..."
+msgstr ""
+
+#: tbrokereditform.toolbar.caption
+msgid "ToolBar"
+msgstr ""
+
+#: tbrokereditform.useredit.text
+msgid "UserEdit"
 msgstr ""
 
 #: teditsubtopicform.button1.caption
@@ -289,6 +318,14 @@ msgctxt "teditsubtopicform.label3.caption"
 msgid "Use"
 msgstr ""
 
+#: teditsubtopicform.qoscombobox.text
+msgid "0 - At most once"
+msgstr ""
+
+#: teditsubtopicform.topicedit.text
+msgid "TopicEdit"
+msgstr ""
+
 #: teditsubtopicform.usecheckbox.caption
 msgid "(subscribe to this topic)"
 msgstr ""
@@ -299,6 +336,10 @@ msgstr ""
 
 #: tform2.caption
 msgid "Confirmation"
+msgstr ""
+
+#: tform2.label1.caption
+msgid "Label1"
 msgstr ""
 
 #: tform2.nobutton.caption
@@ -341,6 +382,10 @@ msgstr ""
 
 #: tmainform.editbrokerbutton.caption
 msgid "Edit"
+msgstr ""
+
+#: tmainform.hostlabel.caption
+msgid "<host name>"
 msgstr ""
 
 #: tmainform.label1.caption
@@ -450,3 +495,4 @@ msgstr ""
 #: toptionseditform.showtopicscheckbox.caption
 msgid "Show message topics"
 msgstr ""
+
