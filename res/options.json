@@ -1,0 +1,1 @@
+{ "MessagesMaxLines" : 2500, "AutoclearOnPublish" : false, "AutoconnectOnPublish" : true, "AutoconnectDelay" : 5, "PubMsgHeader" : "TX: ", "SubMsgHeader" : "RX: ", "CopyPubMessages" : true, "ShowTopics" : true }

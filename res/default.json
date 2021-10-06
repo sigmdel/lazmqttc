@@ -1,0 +1,10 @@
+{
+  "Host":"localhost",
+  "Port":1883,
+  "User":"",
+  "Password":"",
+  "PubTopic":"",
+  "SubTopics": [
+    { "Topic": "#", "Use":1 }
+  ]
+}
