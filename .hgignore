@@ -8,6 +8,7 @@ lib/
 publish/
 langs*/
 passwd/
+bin/
 
 
 # Backup, unit and binary output folders

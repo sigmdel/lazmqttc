@@ -30,3 +30,5 @@ The definition includes six subscribe topics, only one is used: `stat/+/STATUS5`
 ### `options.json`
 
 This contains the default settings just as if the `Reset` button had been pressed in the **Options** edit window.
+
+If the application does not find the options file in the configuration directory when it starts up, it will created one with default values. A new 'options.json` file is saved only when at least one parameter is changed.

@@ -1,5 +1,5 @@
 # lazmqttc: Lazarus MQTT Client
-**Version 0.4.0**
+**Version 0.4.1**
 
 A basic MQTT client written in Free Pascal/Lazarus that can publish messages to a broker while being subscribed to one or more topics with the same broker. It uses the [Eclipse mosquitto](https://mosquitto.org/) library to communicate with the MQTT broker.
 
