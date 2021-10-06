@@ -1,7 +1,7 @@
 #!/usr/bin/env xdg-open
 
 [Desktop Entry]
-Version=0.3.0
+Version=0.4.0
 Encoding=UTF-8
 Type=Application
 Exec=/home/$USER/.local/bin/lazmqttc/lazmqttc
@@ -12,4 +12,3 @@ Categories=Network;
 Terminal=false
 Comment=Subscribe to and publish MQTT messages
 Comment[fr_CA]=Souscrire et publier des messages MQTT
-

@@ -1,4 +1,5 @@
 # lazmqttc: Lazarus MQTT Client
+**Version 0.4.0**
 
 A basic MQTT client written in Free Pascal/Lazarus that can publish messages to a broker while being subscribed to one or more topics with the same broker. It uses the [Eclipse mosquitto](https://mosquitto.org/) library to communicate with the MQTT broker.
 
@@ -14,12 +15,16 @@ The screen capture shows the message sent to the public `test.moquitto.org` brok
 - [2. Compiling](#2-compiling)
 - [3. Testing](#3-testing)
 - [4. Installation](#4-installation)
-- [5. Broker Definitions](#5-broker-definitions)
-    - [5.1. Security Warning](#51-security-warning)
-- [6. National Language Support](#6-national-language-support)
-- [7. Improvements and Development](#7-improvements-and-development)
-- [8. Acknowledgment](#8-acknowledgment)
-- [9. Licence](#9-licence)
+- [5. Program Options](#5-program-options)
+    - [5.1. Automatic Connection Options](#51-automatic-connection-options)
+    - [5.2. Messages Options](#52-messages-options)
+- [6. Option Overrides at Runtime](#6-option-overrides-at-runtime)
+- [7. Broker Definitions](#7-broker-definitions)
+    - [7.1. Security Warning](#71-security-warning)
+- [8. National Language Support](#8-national-language-support)
+- [9. Improvements and Development](#9-improvements-and-development)
+- [10. Acknowledgment](#10-acknowledgment)
+- [11. Licence](#11-licence)
 
 <!-- /TOC -->
 
@@ -80,7 +85,7 @@ Ultimately, if a mosquitto MQTT broker is to be run on the system, it may make m
 
 The repository is self-contained (except for the mosquitto library of course), so creating this tool should be straightforward. Clone the repository, start the Lazarus IDE, load the project, and compile. 
 
-The project uses a custom component, a "virtual grid" to display subscribed topics. This component is so specialized that there is no point in adding it to the IDE component palette. Instead the component is created at run-time in the `FormCreate` methods of the main and broker edit forms. Consequently, it is normal to not find the component in the form designer.
+The project uses a custom component, a "virtual grid" to display subscribed topics. This component is so specialized that there is no point in adding it to the IDE component palette. Instead the component is created at runtime in the `FormCreate` methods of the main and broker edit forms. Consequently, the component is not visible in the form designer.
 
 When compiling a final version, it would be advisable to heed the following advice.
 
@@ -92,9 +97,9 @@ When compiling a final version, it would be advisable to heed the following advi
 
 ## 3. Testing
 
-The project was built with Lazarus 2.0.12 (Free Pascall 3.2.0) on a Mint 20.1 system with version 1.6.9-1 of the mosquitto libraries. 
+The project was built with Lazarus 2.2.0RC2 (Free Pascal 3.2.3) on a Mint 20.1 system with version 1.6.9-1 of the mosquitto libraries. 
 
-A cursory test was done with the same compiler in Windows 10. 
+A cursory test was done with Lazarus 2.0.12 (Free Pascal 3.2.0) in Windows 10. 
 
 There are unit tests of the `TBroker` class, but they may be out of date.
 
@@ -106,61 +111,43 @@ The [installation](installation/) directory contains a `lazmqttc.desktop` file a
 
 Details about installation of an application in Windows 10 are unfortunately not provided.
 
-## 5. Broker Definitions 
+## 5. Program Options
+
+Starting with version 0.4.0, program options can be changed at runtime. Click on the `Options` button at the bottom right of the application window to enter the options editor.
+
+### 5.1. Automatic Connection Options
+
+If automatic connection is enabled, then an attempt will be made to open a connection to the MQTT broker if one is not already established when a message is published. When such an attempt is made, the program will wait for the specified number of seconds and then publish the message if the connection has been established. Even if the program reports that it was unable to establish a connection, it is still possible that the broker will respond later. 
+
+The public MQTT server at `mosquitto.org` may very well take more than the default 5 seconds to respond to an initial connection request. It was necessary to press the `Publish` button again once the connection was made to get the response shown in the screenshot at the top of this page.
+
+### 5.2. Messages Options
+
+If `Auto clear previous messages on publishing a message` is checked then the `Messages` control is cleared of old messages when a new message is published to the broker.
+
+It is possible to define the maximum number of messages that can be shown in the `Messages` control. Older messages are removed as new messages come in if necessary.
+
+If `Show published messages` is checked then published messages are added in the control no matter if the client is subscribed to these messages or not. In the screenshot the 
+
+If `Show message topics` is not checked then only message payloads are shown in the `Messages` control. When shown, topics are enclosed in square brackets [&lt;*topic*&gt;].
+
+The `Received message header` and `Published message header` are used to define prefixes that identify which messages are sent and which are received.
+
+## 6. Option Overrides at Runtime 
+
+Published messages are only shown in `Messages` if `Show` is checked no matter the value of `Show published messages` option. Changes to `Show` have no effect on the value of the option. When the program is started or when Options are changed then `Show` will be set to the same value as the  `Show published messages` option.
+
+`Show topics` and `Auto clear` operate in the same fashion in relation to the `Show message topics` and ` `Auto clear previous messages on publishing a message` options.
+
+
+## 7. Broker Definitions 
 
 MQTT broker definitions can be retrieved, saved, edited or created by clicking on the **` Edit `** button at the top of the main program window. Editing the current MQTT definition is the only way to add, remove or change the list of subscribed topics. 
 
-In Linux, broker definition files are saved in the `~/.config/sigmdel/lazmqttc` where `~` is the user home directory. So fully expanded the directory is
-<pre>  /home/&lt;<i>user</i>&gt;/.config/sigmdel/lazmqttc</pre>
-
-In Windows 10, the files are saved in the local `AppData` folder :
-<pre>  C:\Users\&lt;<i>user</i>&gt;\AppData\Local\sigmdel\lazmqttc</pre>
-
-MQTT broker definitions are JSON formatted text files. As an example, here is a definition used with an MQTT broker running on a Raspberry Pi also hosting a [Domoticz](https://domoticz.com/) home automation server. By default, the client will subscribe to the `stat/+/STATUS5` topic only when it connects with the broker. When the default publish message is sent to the broker, all subscribed [Tasmota](https://github.com/tasmota) devices respond by sending a "status 5" message. This can be useful because that will display the IP address of each device.
-
-<pre>
-{
-  "Host" : "192.168.1.22",
-  "Port" : 1883,
-  "User" : "",
-  "Password" : "",
-  "SSL" : false,
-  "SSLCert" : "",
-  "KeepAlives" : 60,
-  "ReconnectDelay" : 10,
-  "ReconnectBackoff" : true,
-  "AutoReconnect" : true,
-  "PubTopic" : "cmnd/tasmotas/status",
-  "PubPayload" : "5",
-  "PubQoS" : 0,
-  "PubRetain" : false,
-  "SubTopics" : [
-    {
-      "Topic" : "stat/+/STATUS5",
-      "QoS" : 0,
-      "Use" : true
-    },
-    {
-      "Topic" : "tele/#",
-      "QoS" : 0,
-      "Use" : false
-    },
-    {
-      "Topic" : "domoticz/in",
-      "QoS" : 0,
-      "Use" : false
-    },
-    {
-      "Topic" : "domoticz/out",
-      "QoS" : 0,
-      "Use" : false
-    }
-  ]
-}   
-</pre>       
+MQTT broker definitions are JSON formatted text files. The [res](res/) directory contains examples of broker definition files.
 
 
-### 5.1. Security Warning
+### 7.1. Security Warning
 
 Prior to version 3.3, the MQTT broker passwords were stored in plain text in the broker definitions file. **Do not save MQTT broker passwords in the broker definition screen** in these older versions. 
 
@@ -168,7 +155,7 @@ A quick fix was added in version 3.3 so that an encrypted password will be saved
 
 Note that the MQTT user and password are transmitted in plain text over an HTTP connection, so truly secure handling of the MQTT password will have to wait until communication with the broker using the HTTPS protocol is implemented.
 
-## 6. National Language Support
+## 8. National Language Support
 
 The `languages` directory contains national language translations of the literal strings found in the program. This directory should be copied alongside the executable file.
 
@@ -176,29 +163,13 @@ Only a single translation into French is provided: `lazmqttc.fr.po`. However the
 
 The choice of language is done automatically based on the system locale when the program starts up. There is no provision for choosing the language at run-time. Those that prefer to use the English language version even if a translation into the national language exists can achieve their goal by renaming or erasing the `languages` directory.
 
-## 7. Improvements and Development
+## 9. Improvements and Development
 
 Initially this utility was quickly cobbled to fulfill an immediate need: wrangling a number of IoT devices running Tasmota firmware mostly to get their IP address. Since then, an attempt has been made to combine the important features of the mosquitto "pub and sub clients" into a single application. At the same time, some attention has been given to cleaning up the code, but improvements are certainly possible. All suggestions welcome.
 
 There are aspects of the MQTT protocol that are not implemented including the Last Will and Testament feature and clean sessions.
 
-Version 0.3.4 brings two changes:
-  1. If the client is not connected to the MQTT broker when the ```Publish``` button is pressed, then it will attempt to connect. 
-  2. Published messages can now be added to list of ```Messages``` window which now looks more like a "chat". The published messages have a "TX: " prefix, received messages have a "RX: " prefix. This behaviour is controlled by a ```Copy``` checkbox beside the ```Publish``` button.
-
-Connection to a broker is asynchronous. If an attempt to connect to a broker is made after pushing on the publish button, then the application will wait at most 5 seconds for the connection. The automation connection, the connection delay, as well as the message prefixes are  currently defined as constants at the start of the implementation of ```main.pas```.
-
-```  
-// Move these to application options
-  SubscribedMemoSize = 2500;    // maximum number of lines in subscribed memo
-  AutoConnectOnPublish = true;  // connect to broker if needed when Publish is pressed
-  AutoConnectDelay = 5000;      // five seconds
-  PubMsgHeader = 'TX: ';        // start of published messages in Messages box
-  RcvMsgHeader = 'RX: ';        // start of received messages in Messages box           
-```  
-The next improvement should be to add these options to an application configuration file and to add a form to edit them.
-
-## 8. Acknowledgment
+## 10. Acknowledgment
 
 Obviously, this utility would not have been possible without 
 
@@ -206,11 +177,11 @@ Obviously, this utility would not have been possible without
 - the [Eclipse Mosquitto](https://github.com/eclipse/mosquitto) project and 
 - the [mosquitto-p](https://github.com/chainq/mosquitto-p) project by Károly Balogh (chainq).
 
-Not quite as obvious, the JSON data viewer by Michael Van Canneyt (named `jsonviewer`) provided the code for saving and loading JSON broker definition files. The utility can be found in the `tools` directory in the Lazarus source. The full path is `/usr/share/lazarus/2.0.12/tools/jsonviewer` in a default installation of Lazarus in Mint 20.1.
+Not quite as obvious, the JSON data viewer by Michael Van Canneyt (named `jsonviewer`) provided the code for saving and loading the JSON broker definition and the JSON program option files. The utility can be found in the `tools` directory in the Lazarus source. The full path is `/usr/share/lazarus/2.0.12/tools/jsonviewer` in a default installation of Lazarus in Mint 20.1.
 
 The broker password encryption using the <span class="tm">Free Pascal</span> Blowfish unit is based on a blog post by leledumbo [Blowfish, the cryptography unit by leledumbo](http://pascalgeek.blogspot.com/2012/06/encryption-decryption-and-asynchronous.html) (June 24, 2012).
 
-## 9. Licence
+## 11. Licence
 
 The [Eclipse Mosquitto](https://github.com/eclipse/mosquitto) project is dual-licensed under the Eclipse Public License 2.0 and the
 Eclipse Distribution License 1.0.

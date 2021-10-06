@@ -1,14 +1,21 @@
 
 # Change Log
 
-## 0.3.4 (current)
+## 0.4.0 (current)
+
+- Bumped up to version 0.4.0
+- New screen shot 
+- Added resource directory
+- Added application options and option edit form
+
+
+## 0.3.4 (0fd1b4f)
 
 - Bumped up to version 0.3.4
 - Updated translations
 - If needed, automatically connects to a broker when the Publish button is pressed
 - Published topic can optionaly be added to the Messages window 
 - Added a temporary work directory in .hgignore
-
 
 
 ## 0.3.3 (94e0e89)
