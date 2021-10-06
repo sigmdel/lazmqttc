@@ -2,7 +2,7 @@ unit optionsunit;
 
 interface
 
-uses SysUtils, Classes, fpJSON;
+uses SysUtils, Classes, Dialogs, fpJSON;
 
 {$i options.inc} // Get the default values for TOptions.Init
 
@@ -72,6 +72,10 @@ var
   options: TOptions;
 
 implementation
+
+resourcestring
+   rsLoadError = 'Error reading options.json: %s';
+
 
 const
   sMessagesMaxLines = 'MessagesMaxLines';
@@ -163,6 +167,8 @@ begin
   end;
 end;
 
+
+(*
 procedure TOptions.LoadFromFile(const aFilename: string);
 Var
   stream : TFileStream;
@@ -170,13 +176,42 @@ Var
 begin
   if aFilename = '' then exit;
   jd := nil;
-  stream := TFileStream.Create(AFileName,fmOpenRead or fmShareDenyWrite);
   try
-    jd := getJSON(stream);
-    LoadFromJSON(jd);
-  finally
-    jd.free;
-    stream.free;
+    stream := TFileStream.Create(AFileName,fmOpenRead or fmShareDenyWrite);
+    try
+      jd := getJSON(stream);
+      LoadFromJSON(jd);
+    finally
+      jd.free;
+      stream.free;
+    end;
+  except
+    MessageDlg('lazmqttc', 'options.json not found', mtInformation, [mbOk], 0);
+    //ShowMessage('oops, not found');
+  end;
+end;
+*)
+
+procedure TOptions.LoadFromFile(const aFilename: string);
+Var
+  stream : TFileStream;
+  jd : TJSONData;
+begin
+  if aFilename = '' then exit;
+  if not fileExists(AFilename) then
+    SaveToFile(aFilename);
+  jd := nil;
+  try
+    stream := TFileStream.Create(AFileName,fmOpenRead or fmShareDenyWrite);
+    try
+      jd := getJSON(stream);
+      LoadFromJSON(jd);
+    finally
+      jd.free;
+      stream.free;
+    end;
+  except
+    on E : Exception do MessageDlg('lazmqttc', format(rsLoadError, [E.Message]), mtInformation, [mbOk], 0);
   end;
 end;
 
