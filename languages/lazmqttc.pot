@@ -327,7 +327,7 @@ msgid "Disconnect"
 msgstr ""
 
 #: tmainform.copypubcheckbox.caption
-msgid "Copy"
+msgid "Show"
 msgstr ""
 
 #: tmainform.copypubcheckbox.hint
@@ -418,7 +418,7 @@ msgid "Delay waiting for connection (seconds)"
 msgstr ""
 
 #: toptionseditform.label2.caption
-msgid "Publish message header"
+msgid "Published message header"
 msgstr ""
 
 #: toptionseditform.label3.caption

@@ -11,7 +11,7 @@
 {"hash":93104126,"name":"tmainform.label6.caption","sourcebytes":[82,101,116,97,105,110],"value":"Retain"},
 {"hash":248002905,"name":"tmainform.retaincheckbox.caption","sourcebytes":[40,102,97,108,115,101,41],"value":"(false)"},
 {"hash":139659751,"name":"tmainform.copypubcheckbox.hint","sourcebytes":[67,111,112,121,32,116,104,101,32,109,101,115,115,97,103,101,32,105,110,32,116,104,101,32,77,101,115,115,97,103,101,115,32,119,105,110,100,111,119],"value":"Copy the message in the Messages window"},
-{"hash":304761,"name":"tmainform.copypubcheckbox.caption","sourcebytes":[67,111,112,121],"value":"Copy"},
+{"hash":368487,"name":"tmainform.copypubcheckbox.caption","sourcebytes":[83,104,111,119],"value":"Show"},
 {"hash":363524,"name":"tmainform.quitbutton.caption","sourcebytes":[81,117,105,116],"value":"Quit"},
 {"hash":135239987,"name":"tmainform.showtopicscheckbox.caption","sourcebytes":[83,104,111,119,32,116,111,112,105,99,115],"value":"Show topics"},
 {"hash":94816405,"name":"tmainform.sourcelabel.caption","sourcebytes":[83,111,117,114,99,101],"value":"Source"},

@@ -2,10 +2,10 @@ object OptionsEditForm: TOptionsEditForm
   Left = 425
   Height = 368
   Top = 250
-  Width = 451
+  Width = 454
   Caption = 'Options Editor'
   ClientHeight = 368
-  ClientWidth = 451
+  ClientWidth = 454
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -14,16 +14,16 @@ object OptionsEditForm: TOptionsEditForm
     Left = 0
     Height = 42
     Top = 326
-    Width = 451
+    Width = 454
     Align = alBottom
     Anchors = []
     AutoSize = True
     BevelOuter = bvNone
     ClientHeight = 42
-    ClientWidth = 451
+    ClientWidth = 454
     TabOrder = 0
     object AcceptButton: TButton
-      Left = 390
+      Left = 393
       Height = 30
       Top = 6
       Width = 55
@@ -35,7 +35,7 @@ object OptionsEditForm: TOptionsEditForm
       TabOrder = 0
     end
     object CancelButton: TButton
-      Left = 330
+      Left = 333
       Height = 30
       Top = 6
       Width = 54
@@ -103,8 +103,8 @@ object OptionsEditForm: TOptionsEditForm
     Left = 12
     Height = 16
     Top = 291
-    Width = 145
-    Caption = 'Publish message header'
+    Width = 160
+    Caption = 'Published message header'
   end
   object PubHeaderEdit: TEdit
     AnchorSideLeft.Control = SubHeaderEdit
@@ -194,7 +194,7 @@ object OptionsEditForm: TOptionsEditForm
     Left = 6
     Height = 6
     Top = 95
-    Width = 439
+    Width = 442
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 6
     BorderSpacing.Top = 8

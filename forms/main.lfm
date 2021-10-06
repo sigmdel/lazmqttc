@@ -175,7 +175,7 @@ object MainForm: TMainForm
       AnchorSideRight.Control = CopyPubCheckbox
       AnchorSideBottom.Control = MiddlePanel
       AnchorSideBottom.Side = asrBottom
-      Left = 469
+      Left = 467
       Height = 30
       Top = 85
       Width = 59
@@ -249,15 +249,15 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = MiddlePanel
       AnchorSideRight.Side = asrBottom
-      Left = 534
+      Left = 532
       Height = 23
       Hint = 'Copy the message in the Messages window'
       Top = 89
-      Width = 57
+      Width = 59
       Alignment = taLeftJustify
       Anchors = [akTop, akRight]
       BorderSpacing.Right = 6
-      Caption = 'Copy'
+      Caption = 'Show'
       TabOrder = 5
     end
   end
