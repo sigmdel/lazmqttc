@@ -37,16 +37,6 @@ uses
   Grids, Buttons, ComCtrls, DefaultTranslator, DividerBevel,  brokerunit, optionsunit,
   mqttclass, topicgrids, fileinfo;
 
-(*
-// Move these to application options
-const
-  MessagesLineSize = 2500;      // maximum number of lines in Messages memo
-  AutoConnectOnPublish = true;  // connect to broker if needed when Publish is pressed
-  AutoConnectDelay = 5000;      // five seconds
-  PubMsgHeader = 'TX: ';        // start of published messages in Messages box
-  RcvMsgHeader = 'RX: ';        // start of received messages in Messages box
-*)
-
 type
 
   { TMainForm }
@@ -85,7 +75,6 @@ type
     procedure ConnectButtonClick(Sender: TObject);
     procedure EditBrokerButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure MiddlePanelClick(Sender: TObject);
     procedure SourceLabelClick(Sender: TObject);
     procedure PayloadMemoEditingDone(Sender: TObject);
     procedure PublishButtonClick(Sender: TObject);
@@ -97,15 +86,14 @@ type
     procedure RetainCheckBoxChange(Sender: TObject);
     procedure SubTopicsPanelResize(Sender: TObject);
   private
-    FDisplayedState: TMQTTConnectionState;
     procedure i18nFixup;
     function ClientState: TMQTTConnectionState;
     procedure RefreshGui;
     function ConnectBroker(aBroker: TBroker): boolean;
     procedure UpdateConnectionState;
     procedure UpdateFromOptions;
-    procedure AppIdle(Sender: TObject; var Done: Boolean);
   public
+
     TopicsGrid: TSubTopicsGrid;
     procedure TopicsGridSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
     procedure TopicsGridSetUse(Sender: TObject; aCol, aRow: Integer; const aState: TCheckboxState);
@@ -145,6 +133,7 @@ type
     FThisMessage: string;
     procedure UpdateGUI;
     procedure MessageHandler(const payload: Pmosquitto_message);
+    procedure ConnectionHandler(const rc: longint);
   end;
 
 
@@ -155,6 +144,10 @@ var
   MqttClient: TThisMQTTConnection = nil;
   MqttConfig: TMQTTConfig;
 
+procedure TThisMQTTConnection.ConnectionHandler(const rc: longint);
+begin
+  Synchronize(@MainForm.UpdateConnectionState);
+end;
 
 procedure TThisMQTTConnection.UpdateGUI;
 var
@@ -212,12 +205,6 @@ end;
 
 { TMainForm }
 
-procedure TMainForm.AppIdle(Sender: TObject; var Done: Boolean);
-begin
-  UpdateConnectionState;
-  Done := true;
-end;
-
 function TMainForm.ClientState: TMQTTConnectionState;
 begin
   if assigned(MqttClient) then
@@ -242,11 +229,12 @@ begin
   end;
   result := false;
   freeandnil(MqttClient);
-  FDisplayedState := mqttnone;
   MqttClient := TThisMQTTConnection.Create('mqttClient', MqttConfig, MOSQ_LOG);
   try
     MqttClient.AutoReconnect := aBroker.AutoReconnect;
     MqttClient.OnMessage := @MqttClient.MessageHandler;
+    MqttClient.OnConnect := @MqttClient.ConnectionHandler;
+    MqttClient.OnDisconnect := @MqttClient.ConnectionHandler;
     MqttClient.Connect;
     PublishTopicEdit.Text := aBroker.PubTopic;
     TopicsGrid.Broker := aBroker;
@@ -260,8 +248,9 @@ end;
 
 procedure TMainForm.ConnectButtonClick(Sender: TObject);
 begin
-  if ConnectButton.tag = 0 then
+  if ConnectButton.tag = 0 then begin
     ConnectBroker(Broker)
+  end
   else
     freeandnil(MqttClient);
 end;
@@ -312,8 +301,6 @@ begin
     //TabOrder = 1
   end;
   RefreshGUI;
-  FDisplayedState := mqttReconnecting; // force update
-  Application.OnIdle := @AppIdle;
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
@@ -333,10 +320,6 @@ begin
   UpdateFromOptions;
 end;
 
-procedure TMainForm.MiddlePanelClick(Sender: TObject);
-begin
-
-end;
 
 procedure TMainForm.i18nFixup;
 begin
@@ -458,6 +441,7 @@ begin
     if TopicsGrid.RowCount > 1 then
       TopicsGrid.Row := 1;
     MessagesMemo.Clear;
+    UpdateConnectionState;
   end;
 end;
 
@@ -510,23 +494,22 @@ var
   i: integer;
 begin
   newState := ClientState;
-  if FDisplayedState <> newState then begin
-    statusLabel.Caption := statusStr[newState];
-    FDisplayedState := newState;
-    if (newState in [mqttConnecting, mqttConnected, mqttReconnecting]) then begin
-      ConnectButton.Caption := sDisconnect;
-      ConnectButton.tag := 1;
-    end
-    else begin
-      ConnectButton.Caption := sConnect;
-      ConnectButton.tag := 0;
-    end;
-    if newState = mqttConnected then begin
-      // subscribe to all used topics
-      for i := 0 to Broker.SubTopicsCount-1 do begin
-        if Broker.SubTopics[i].Use then begin
-          MqttClient.Subscribe(Broker.subTopics[i].Topic, Broker.subTopics[i].QoS); // and subsbcribe to wanted topics
-        end;
+  /// debug: writeln(format('state changed to %d', [newState]));
+  statusLabel.Caption := statusStr[newState];
+  if (newState in [mqttConnecting, mqttConnected, mqttReconnecting]) then begin
+    ConnectButton.Caption := sDisconnect;
+    ConnectButton.tag := 1;
+  end
+  else begin
+    ConnectButton.Caption := sConnect;
+    ConnectButton.tag := 0;
+  end;
+  if newState = mqttConnected then begin
+    /// debug: writeln('subscribing to all topics');
+    // subscribe to all used topics
+    for i := 0 to Broker.SubTopicsCount-1 do begin
+      if Broker.SubTopics[i].Use then begin
+        MqttClient.Subscribe(Broker.subTopics[i].Topic, Broker.subTopics[i].QoS); // and subsbcribe to wanted topics
       end;
     end;
   end;
