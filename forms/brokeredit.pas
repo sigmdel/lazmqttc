@@ -285,7 +285,29 @@ end;
 
 procedure TBrokerEditForm.FormDestroy(Sender: TObject);
 begin
-  FBroker.free;
+  freeandnil(FBroker);  // why does this seem to make a difference ?
+  (* With FBroker.free there appears there is a memory loss
+     if user name and password edited. Apparently a call to EditingDone
+     is performed when the object is destroyed??
+
+  Call trace for block $00007F9EF5202100 size 31
+    $000000000072A600  GETTEXT,  line 312 of gtk2/gtk2wscontrols.pp
+    $000000000054C141  REALGETTEXT,  line 8315 of include/wincontrol.inc
+    $0000000000599D78  REALGETTEXT,  line 539 of include/customedit.inc
+    $0000000000555D89  GETTEXT,  line 3596 of include/control.inc
+    $000000000046E36C  USEREDITEDITINGDONE,  line 410 of forms/brokeredit.pas   << now line 430
+    $000000000054ED33  EDITINGDONE,  line 616 of include/control.inc
+    $000000000059A32D  EDITINGDONE,  line 650 of include/customedit.inc
+    $0000000000548C00  WMKILLFOCUS,  line 6793 of include/wincontrol.inc
+    $0000000000599B0A  WMKILLFOCUS,  line 486 of include/customedit.inc
+    $00000000004321FA
+    $0000000000545DD9  WNDPROC,  line 5429 of include/wincontrol.inc
+    $0000000000599B86  WNDPROC,  line 500 of include/customedit.inc
+    $0000000000722AB2  DELIVERMESSAGE,  line 112 of lclmessageglue.pas
+    $0000000000601940  DELIVERMESSAGE,  line 3777 of gtk2/gtk2proc.inc
+    $000000000060D942  GTKKILLFOCUSCBAFTER,  line 1054 of gtk2/gtk2callback.inc
+    $0000000000478CD8  GTK2KILLFOCUSCBAFTER,  line 108 of gtk2/gtk2widgetset.inc
+   *)
 end;
 
 procedure TBrokerEditForm.HostEditEditingDone(Sender: TObject);
