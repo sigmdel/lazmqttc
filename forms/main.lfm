@@ -111,7 +111,6 @@ object MainForm: TMainForm
     ClientHeight = 118
     ClientWidth = 597
     TabOrder = 1
-    OnClick = MiddlePanelClick
     object Label3: TLabel
       AnchorSideLeft.Control = MiddlePanel
       AnchorSideTop.Control = PublishTopicEdit
