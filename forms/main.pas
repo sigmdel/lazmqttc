@@ -91,7 +91,7 @@ type
     procedure RefreshGui;
     function ConnectBroker(aBroker: TBroker): boolean;
     procedure UpdateConnectionState;
-    procedure UpdateFromOptions;
+    procedure UpdateFormOptions;
   public
 
     TopicsGrid: TSubTopicsGrid;
@@ -264,7 +264,7 @@ procedure TMainForm.Button1Click(Sender: TObject);
 begin
   if TOptionsEditForm.EditOptions(Options) then begin
     Options.SaveToFile(optionsfile);
-    UpdateFromOptions;
+    UpdateFormOptions;
   end;
 end;
 
@@ -317,7 +317,7 @@ begin
     halt;
   end;
   Options.LoadFromFile(optionsfile);
-  UpdateFromOptions;
+  UpdateFormOptions;
 end;
 
 
@@ -515,7 +515,7 @@ begin
   end;
 end;
 
-procedure TMainForm.UpdateFromOptions;
+procedure TMainForm.UpdateFormOptions;
 begin
   CopyPubCheckbox.Checked := Options.CopyPubMessages;
   autoClearCheckBox.Checked := Options.AutoClearOnPublish;
