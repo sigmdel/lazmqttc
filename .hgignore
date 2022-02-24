@@ -6,7 +6,8 @@ syntax: glob
 # some work directories
 lib/
 publish/
-langs*/
+langs/
+language/
 passwd/
 bin/
 
@@ -38,5 +39,5 @@ tests/brokerunittest.res
 tests/brokerunittest.fpcunit.ini
 tests/brokerunittest.lps
 
-
 lazmqttc.ico
+
