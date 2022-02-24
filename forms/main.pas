@@ -34,8 +34,8 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
-  Grids, Buttons, ComCtrls, DefaultTranslator, DividerBevel,  brokerunit, optionsunit,
-  mqttclass, topicgrids, fileinfo;
+  Grids, Buttons, ComCtrls, DefaultTranslator, Menus, brokerunit,
+  optionsunit, mqttclass, topicgrids, fileinfo;
 
 type
 
@@ -44,14 +44,28 @@ type
   TMainForm = class(TForm)
     BottomPanel: TPanel;
     Button1: TButton;
+    LogMemo: TMemo;
+    MenuItem1: TMenuItem;
+    MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
+    MenuItem12: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
+    N1: TMenuItem;
+    MessagesMemo: TMemo;
+    PageControl1: TPageControl;
+    PopupMenu1: TPopupMenu;
     ShowTopicsCheckBox: TCheckBox;
     autoClearCheckBox: TCheckBox;
     CopyPubCheckbox: TCheckBox;
-    DividerBevel1: TDividerBevel;
     QuitButton: TButton;
     SourceLabel: TLabel;
     Splitter2: TSplitter;
-    MessagesMemo: TMemo;
     SubTopicsPanel: TPanel;
     RetainCheckBox: TCheckBox;
     QoSComboBox: TComboBox;
@@ -69,8 +83,15 @@ type
     PayloadMemo: TMemo;
     MiddlePanel: TPanel;
     Splitter1: TSplitter;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
     TopPanel: TPanel;
+    procedure BottomPanelClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure LogMenuItemClick(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
+    procedure MenuItem2Click(Sender: TObject);
+    procedure PopupMenu1Popup(Sender: TObject);
     procedure ShowTopicsCheckBoxChange(Sender: TObject);
     procedure ConnectButtonClick(Sender: TObject);
     procedure EditBrokerButtonClick(Sender: TObject);
@@ -86,6 +107,8 @@ type
     procedure RetainCheckBoxChange(Sender: TObject);
     procedure SubTopicsPanelResize(Sender: TObject);
   private
+    Fpt: TPoint; // position of Log memo popup menu
+    FLogLevel: longint; // log levels of MqttClient and the underlying mosquitto lib
     procedure i18nFixup;
     function ClientState: TMQTTConnectionState;
     procedure RefreshGui;
@@ -107,18 +130,10 @@ implementation
 {$R *.lfm}
 
 uses
-  LCLIntf, stringres, startup, brokeredit, optionsedit, mosquitto, pwd, report;
+  LCLIntf, stringres, startup, brokeredit, optionsedit, mosquitto, pwd, report, clipbrd;
 
-
-// mosquitto library log level
-const
-  {$IFDEF MSWINDOWS}  // no log in Windows
-  MOSQ_LOG = MOSQ_LOG_NONE;
-  {$ELSE} // chose one from any log level defined in mosquitto.pas,  for all debug levels
-  //MOSQ_LOG = MOSQ_LOG_ALL;
-  MOSQ_LOG = MOSQ_LOG_NODEBUG;
-  //MOSQ_LOG = MOSQ_LOG_NONE;
-  {$ENDIF}
+CONST
+  DEFAULT_LOG_LEVEL = MOSQ_LOG_NODEBUG; // defined in mqttclass
 
   { Global variables for MQTTClient that does not know about MainForm components }
 var
@@ -229,7 +244,7 @@ begin
   end;
   result := false;
   freeandnil(MqttClient);
-  MqttClient := TThisMQTTConnection.Create('mqttClient', MqttConfig, MOSQ_LOG);
+  MqttClient := TThisMQTTConnection.Create('mqttClient', MqttConfig, FLogLevel);
   try
     MqttClient.AutoReconnect := aBroker.AutoReconnect;
     MqttClient.OnMessage := @MqttClient.MessageHandler;
@@ -260,6 +275,11 @@ begin
   gvShowTopics := ShowTopicsCheckBox.Checked;
 end;
 
+procedure TMainForm.BottomPanelClick(Sender: TObject);
+begin
+
+end;
+
 procedure TMainForm.Button1Click(Sender: TObject);
 begin
   if TOptionsEditForm.EditOptions(Options) then begin
@@ -267,6 +287,47 @@ begin
     UpdateFormOptions;
   end;
 end;
+
+procedure TMainForm.LogMenuItemClick(Sender: TObject);
+begin
+  with (Sender as TMenuItem) do begin
+     Checked := not Checked;
+     if Checked then
+       FLogLevel := FLogLevel or Tag
+     else
+       FLogLevel := FLogLevel and (not Tag);
+  end;
+  if assigned(MqttClient) then begin
+    MqttClient.MQTTLogLevel := FLogLevel;
+    MqttClient.MOSQLogLevel := FLogLevel;
+  end;
+  PopupMenu1.popup(Fpt.X, Fpt.Y);
+end;
+
+procedure TMainForm.MenuItem1Click(Sender: TObject);
+begin
+  LogMemo.Clear;
+end;
+
+procedure TMainForm.MenuItem2Click(Sender: TObject);
+begin
+  ClipBoard.AsText := LogMemo.Lines.Text;
+end;
+
+procedure TMainForm.PopupMenu1Popup(Sender: TObject);
+begin
+  Fpt := popupmenu1.PopupPoint;
+  MenuItem5.Checked := (MenuItem5.tag and FLogLevel) > 0;
+  MenuItem6.Checked := (MenuItem6.tag and FLogLevel) > 0;
+  MenuItem7.Checked := (MenuItem7.tag and FLogLevel) > 0;
+  MenuItem8.Checked := (MenuItem8.tag and FLogLevel) > 0;
+  MenuItem9.Checked := (MenuItem9.tag and FLogLevel) > 0;
+  MenuItem10.Checked := (MenuItem10.tag and FLogLevel) > 0;
+  MenuItem11.Checked := (MenuItem11.tag and FLogLevel) > 0;
+  MenuItem12.Checked := (MenuItem12.tag and FLogLevel) > 0;
+end;
+
+
 
 procedure TMainForm.EditBrokerButtonClick(Sender: TObject);
 begin
@@ -300,6 +361,7 @@ begin
     OnSetCheckboxState := @TopicsGridSetUse;
     //TabOrder = 1
   end;
+  FLogLevel := DEFAULT_LOG_LEVEL;
   RefreshGUI;
 end;
 
@@ -441,6 +503,8 @@ begin
     if TopicsGrid.RowCount > 1 then
       TopicsGrid.Row := 1;
     MessagesMemo.Clear;
+    LogMemo.Clear;
+    PageControl1.ActivePage := TabSheet1;
     UpdateConnectionState;
   end;
 end;
@@ -523,6 +587,20 @@ begin
   gvShowTopics := Options.ShowTopics;
 end;
 
+procedure mqttlog(const msg: ansistring);
+begin
+  MainForm.LogMemo.Lines.Add(msg);
+  (* debug version)
+  if assigned(MqttClient) then
+    MainForm.LogMemo.Lines.Add(Format('%s (loglevel:%d, %d)', [msg, MainForm.FLogLevel, MqttClient.MOSQLogLevel]))
+  else
+    MainForm.LogMemo.Lines.Add(Format('%s (loglevel:%d)', [msg, MainForm.FLogLevel]));
+  *)
+end;
+
+
+initialization
+  mqtt_setlogfunc(@mqttlog);
 end.
 
 

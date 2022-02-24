@@ -1,11 +1,11 @@
 object MainForm: TMainForm
   Left = 332
-  Height = 355
+  Height = 402
   Top = 250
-  Width = 597
+  Width = 605
   Caption = 'MQTT Client'
-  ClientHeight = 355
-  ClientWidth = 597
+  ClientHeight = 402
+  ClientWidth = 605
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
@@ -15,14 +15,14 @@ object MainForm: TMainForm
     Left = 0
     Height = 39
     Top = 0
-    Width = 597
+    Width = 605
     Align = alTop
     Alignment = taRightJustify
     Anchors = [akTop]
     AutoSize = True
     BevelOuter = bvNone
     ClientHeight = 39
-    ClientWidth = 597
+    ClientWidth = 605
     TabOrder = 0
     object Label1: TLabel
       AnchorSideLeft.Control = EditBrokerButton
@@ -57,7 +57,7 @@ object MainForm: TMainForm
       AnchorSideTop.Control = EditBrokerButton
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = ConnectButton
-      Left = 503
+      Left = 511
       Height = 1
       Top = 18
       Width = 1
@@ -70,7 +70,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = TopPanel
       AnchorSideRight.Side = asrBottom
-      Left = 510
+      Left = 518
       Height = 30
       Top = 3
       Width = 81
@@ -91,7 +91,7 @@ object MainForm: TMainForm
       Left = 87
       Height = 16
       Top = 10
-      Width = 410
+      Width = 418
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Left = 6
       BorderSpacing.Right = 6
@@ -104,12 +104,12 @@ object MainForm: TMainForm
     Left = 0
     Height = 118
     Top = 39
-    Width = 597
+    Width = 605
     Align = alTop
     Anchors = []
     BevelOuter = bvNone
     ClientHeight = 118
-    ClientWidth = 597
+    ClientWidth = 605
     TabOrder = 1
     object Label3: TLabel
       AnchorSideLeft.Control = MiddlePanel
@@ -130,7 +130,7 @@ object MainForm: TMainForm
       Left = 61
       Height = 27
       Top = 6
-      Width = 530
+      Width = 538
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Top = 6
       BorderSpacing.Right = 6
@@ -148,7 +148,7 @@ object MainForm: TMainForm
       Left = 61
       Height = 41
       Top = 39
-      Width = 530
+      Width = 538
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Left = 6
       BorderSpacing.Top = 6
@@ -174,7 +174,7 @@ object MainForm: TMainForm
       AnchorSideRight.Control = CopyPubCheckbox
       AnchorSideBottom.Control = MiddlePanel
       AnchorSideBottom.Side = asrBottom
-      Left = 467
+      Left = 475
       Height = 30
       Top = 85
       Width = 59
@@ -248,7 +248,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = MiddlePanel
       AnchorSideRight.Side = asrBottom
-      Left = 532
+      Left = 540
       Height = 23
       Hint = 'Copy the message in the Messages window'
       Top = 89
@@ -266,7 +266,7 @@ object MainForm: TMainForm
     Left = 0
     Height = 8
     Top = 157
-    Width = 597
+    Width = 605
     Align = alTop
     ResizeAnchor = akTop
   end
@@ -274,7 +274,7 @@ object MainForm: TMainForm
     Left = 0
     Height = 61
     Top = 165
-    Width = 597
+    Width = 605
     Align = alTop
     Anchors = []
     BevelOuter = bvNone
@@ -287,20 +287,21 @@ object MainForm: TMainForm
     Left = 0
     Height = 5
     Top = 226
-    Width = 597
+    Width = 605
     Align = alTop
     ResizeAnchor = akTop
   end
   object BottomPanel: TPanel
     Left = 0
-    Height = 124
+    Height = 171
     Top = 231
-    Width = 597
+    Width = 605
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 124
-    ClientWidth = 597
+    ClientHeight = 171
+    ClientWidth = 605
     TabOrder = 5
+    OnClick = BottomPanelClick
     object QuitButton: TButton
       AnchorSideTop.Control = BottomPanel
       AnchorSideTop.Side = asrCenter
@@ -308,9 +309,9 @@ object MainForm: TMainForm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = BottomPanel
       AnchorSideBottom.Side = asrBottom
-      Left = 551
+      Left = 559
       Height = 30
-      Top = 89
+      Top = 136
       Width = 40
       Anchors = [akRight, akBottom]
       AutoSize = True
@@ -329,7 +330,7 @@ object MainForm: TMainForm
       AnchorSideBottom.Side = asrCenter
       Left = 6
       Height = 23
-      Top = 92
+      Top = 139
       Width = 98
       Anchors = [akLeft, akBottom]
       BorderSpacing.Left = 6
@@ -344,9 +345,9 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = Button1
       Cursor = crHandPoint
-      Left = 397
+      Left = 405
       Height = 22
-      Top = 93
+      Top = 140
       Width = 62
       Alignment = taRightJustify
       Anchors = [akTop, akRight]
@@ -358,43 +359,6 @@ object MainForm: TMainForm
       ParentFont = False
       OnClick = SourceLabelClick
     end
-    object MessagesMemo: TMemo
-      AnchorSideLeft.Control = BottomPanel
-      AnchorSideTop.Control = DividerBevel1
-      AnchorSideTop.Side = asrBottom
-      AnchorSideRight.Control = BottomPanel
-      AnchorSideRight.Side = asrBottom
-      AnchorSideBottom.Control = QuitButton
-      Left = 6
-      Height = 65
-      Top = 18
-      Width = 585
-      Anchors = [akTop, akLeft, akRight, akBottom]
-      BorderSpacing.Left = 6
-      BorderSpacing.Top = 2
-      BorderSpacing.Right = 6
-      BorderSpacing.Bottom = 6
-      Font.Height = -15
-      Font.Name = 'Ubuntu Mono'
-      ParentFont = False
-      ScrollBars = ssAutoVertical
-      TabOrder = 2
-    end
-    object DividerBevel1: TDividerBevel
-      AnchorSideLeft.Control = BottomPanel
-      AnchorSideTop.Control = BottomPanel
-      AnchorSideRight.Control = BottomPanel
-      AnchorSideRight.Side = asrBottom
-      Left = 5
-      Height = 16
-      Top = 0
-      Width = 586
-      Caption = 'Messages'
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.Left = 5
-      BorderSpacing.Right = 6
-      ParentFont = False
-    end
     object autoClearCheckBox: TCheckBox
       AnchorSideLeft.Control = ShowTopicsCheckBox
       AnchorSideLeft.Side = asrBottom
@@ -402,27 +366,142 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       Left = 110
       Height = 23
-      Top = 92
+      Top = 139
       Width = 88
       BorderSpacing.Left = 6
       Caption = 'Auto clear'
-      TabOrder = 3
+      TabOrder = 2
     end
     object Button1: TButton
       AnchorSideLeft.Side = asrCenter
       AnchorSideTop.Control = QuitButton
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = QuitButton
-      Left = 483
+      Left = 491
       Height = 30
-      Top = 89
+      Top = 136
       Width = 62
       Anchors = [akTop, akRight]
       AutoSize = True
       BorderSpacing.Right = 6
       Caption = 'Options'
       OnClick = Button1Click
+      TabOrder = 3
+    end
+    object PageControl1: TPageControl
+      AnchorSideBottom.Control = QuitButton
+      Left = 0
+      Height = 132
+      Top = 0
+      Width = 605
+      ActivePage = TabSheet2
+      Align = alTop
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      TabIndex = 1
       TabOrder = 4
+      object TabSheet1: TTabSheet
+        Caption = 'Messages'
+        ClientHeight = 102
+        ClientWidth = 595
+        object MessagesMemo: TMemo
+          Left = 0
+          Height = 102
+          Top = 0
+          Width = 595
+          Align = alClient
+          Font.Height = -15
+          Font.Name = 'Ubuntu Mono'
+          ParentFont = False
+          ScrollBars = ssAutoVertical
+          TabOrder = 0
+        end
+      end
+      object TabSheet2: TTabSheet
+        Caption = 'Log'
+        ClientHeight = 102
+        ClientWidth = 595
+        object LogMemo: TMemo
+          Left = 0
+          Height = 102
+          Top = 0
+          Width = 595
+          Align = alClient
+          Font.Pitch = fpFixed
+          ParentFont = False
+          PopupMenu = PopupMenu1
+          ScrollBars = ssAutoBoth
+          TabOrder = 0
+          WordWrap = False
+        end
+      end
+    end
+  end
+  object PopupMenu1: TPopupMenu
+    OnPopup = PopupMenu1Popup
+    Left = 154
+    Top = 296
+    object MenuItem1: TMenuItem
+      Caption = 'Clear'
+      OnClick = MenuItem1Click
+    end
+    object MenuItem2: TMenuItem
+      Caption = 'Copy'
+      OnClick = MenuItem2Click
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem3: TMenuItem
+      Caption = 'Log Level:'
+    end
+    object MenuItem5: TMenuItem
+      Tag = 1
+      Caption = '  information '
+      GroupIndex = 5
+      OnClick = LogMenuItemClick
+    end
+    object MenuItem6: TMenuItem
+      Tag = 2
+      Caption = '  notice'
+      GroupIndex = 5
+      OnClick = LogMenuItemClick
+    end
+    object MenuItem7: TMenuItem
+      Tag = 4
+      Caption = '  warning'
+      GroupIndex = 5
+      OnClick = LogMenuItemClick
+    end
+    object MenuItem8: TMenuItem
+      Tag = 8
+      Caption = '  error'
+      GroupIndex = 5
+      OnClick = LogMenuItemClick
+    end
+    object MenuItem9: TMenuItem
+      Tag = 16
+      Caption = '  debug'
+      Checked = True
+      GroupIndex = 5
+      OnClick = LogMenuItemClick
+    end
+    object MenuItem10: TMenuItem
+      Tag = 32
+      Caption = '  subscribe'
+      GroupIndex = 5
+      OnClick = LogMenuItemClick
+    end
+    object MenuItem11: TMenuItem
+      Tag = 64
+      Caption = '  unsubscribe'
+      GroupIndex = 5
+      OnClick = LogMenuItemClick
+    end
+    object MenuItem12: TMenuItem
+      Tag = 128
+      Caption = '  websocket'
+      GroupIndex = 5
+      OnClick = LogMenuItemClick
     end
   end
 end

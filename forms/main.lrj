@@ -15,7 +15,19 @@
 {"hash":363524,"name":"tmainform.quitbutton.caption","sourcebytes":[81,117,105,116],"value":"Quit"},
 {"hash":135239987,"name":"tmainform.showtopicscheckbox.caption","sourcebytes":[83,104,111,119,32,116,111,112,105,99,115],"value":"Show topics"},
 {"hash":94816405,"name":"tmainform.sourcelabel.caption","sourcebytes":[83,111,117,114,99,101],"value":"Source"},
-{"hash":212433139,"name":"tmainform.dividerbevel1.caption","sourcebytes":[77,101,115,115,97,103,101,115],"value":"Messages"},
 {"hash":24028978,"name":"tmainform.autoclearcheckbox.caption","sourcebytes":[65,117,116,111,32,99,108,101,97,114],"value":"Auto clear"},
-{"hash":108725763,"name":"tmainform.button1.caption","sourcebytes":[79,112,116,105,111,110,115],"value":"Options"}
+{"hash":108725763,"name":"tmainform.button1.caption","sourcebytes":[79,112,116,105,111,110,115],"value":"Options"},
+{"hash":212433139,"name":"tmainform.tabsheet1.caption","sourcebytes":[77,101,115,115,97,103,101,115],"value":"Messages"},
+{"hash":21335,"name":"tmainform.tabsheet2.caption","sourcebytes":[76,111,103],"value":"Log"},
+{"hash":4860802,"name":"tmainform.menuitem1.caption","sourcebytes":[67,108,101,97,114],"value":"Clear"},
+{"hash":304761,"name":"tmainform.menuitem2.caption","sourcebytes":[67,111,112,121],"value":"Copy"},
+{"hash":86638186,"name":"tmainform.menuitem3.caption","sourcebytes":[76,111,103,32,76,101,118,101,108,58],"value":"Log Level:"},
+{"hash":76427952,"name":"tmainform.menuitem5.caption","sourcebytes":[32,32,105,110,102,111,114,109,97,116,105,111,110,32],"value":"  information "},
+{"hash":123121077,"name":"tmainform.menuitem6.caption","sourcebytes":[32,32,110,111,116,105,99,101],"value":"  notice"},
+{"hash":227110455,"name":"tmainform.menuitem7.caption","sourcebytes":[32,32,119,97,114,110,105,110,103],"value":"  warning"},
+{"hash":40671554,"name":"tmainform.menuitem8.caption","sourcebytes":[32,32,101,114,114,111,114],"value":"  error"},
+{"hash":40548759,"name":"tmainform.menuitem9.caption","sourcebytes":[32,32,100,101,98,117,103],"value":"  debug"},
+{"hash":163116341,"name":"tmainform.menuitem10.caption","sourcebytes":[32,32,115,117,98,115,99,114,105,98,101],"value":"  subscribe"},
+{"hash":199677205,"name":"tmainform.menuitem11.caption","sourcebytes":[32,32,117,110,115,117,98,115,99,114,105,98,101],"value":"  unsubscribe"},
+{"hash":164101236,"name":"tmainform.menuitem12.caption","sourcebytes":[32,32,119,101,98,115,111,99,107,101,116],"value":"  websocket"}
 ]}

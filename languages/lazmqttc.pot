@@ -254,10 +254,6 @@ msgctxt "tbrokereditform.loadbutton.caption"
 msgid "&Load..."
 msgstr ""
 
-#: tbrokereditform.passwordedit.text
-msgid "PasswordEdit"
-msgstr ""
-
 #: tbrokereditform.portedit.hint
 msgid "Default MQTT Port: 1883"
 msgstr ""
@@ -265,14 +261,6 @@ msgstr ""
 #: tbrokereditform.pubretaincheckbox.caption
 msgctxt "tbrokereditform.pubretaincheckbox.caption"
 msgid "(false)"
-msgstr ""
-
-#: tbrokereditform.pubtopicedit.text
-msgid "PubTopicEdit"
-msgstr ""
-
-#: tbrokereditform.qoscombobox.text
-msgid "0 - at most once"
 msgstr ""
 
 #: tbrokereditform.reconnectbackoffcheckbox.caption
@@ -316,14 +304,6 @@ msgstr ""
 #: teditsubtopicform.label3.caption
 msgctxt "teditsubtopicform.label3.caption"
 msgid "Use"
-msgstr ""
-
-#: teditsubtopicform.qoscombobox.text
-msgid "0 - At most once"
-msgstr ""
-
-#: teditsubtopicform.topicedit.text
-msgid "TopicEdit"
 msgstr ""
 
 #: teditsubtopicform.usecheckbox.caption
@@ -375,17 +355,8 @@ msgstr ""
 msgid "Copy the message in the Messages window"
 msgstr ""
 
-#: tmainform.dividerbevel1.caption
-msgctxt "tmainform.dividerbevel1.caption"
-msgid "Messages"
-msgstr ""
-
 #: tmainform.editbrokerbutton.caption
 msgid "Edit"
-msgstr ""
-
-#: tmainform.hostlabel.caption
-msgid "<host name>"
 msgstr ""
 
 #: tmainform.label1.caption
@@ -411,6 +382,50 @@ msgctxt "tmainform.label6.caption"
 msgid "Retain"
 msgstr ""
 
+#: tmainform.menuitem1.caption
+msgid "Clear"
+msgstr ""
+
+#: tmainform.menuitem10.caption
+msgid "  subscribe"
+msgstr ""
+
+#: tmainform.menuitem11.caption
+msgid "  unsubscribe"
+msgstr ""
+
+#: tmainform.menuitem12.caption
+msgid "  websocket"
+msgstr ""
+
+#: tmainform.menuitem2.caption
+msgid "Copy"
+msgstr ""
+
+#: tmainform.menuitem3.caption
+msgid "Log Levels:"
+msgstr ""
+
+#: tmainform.menuitem5.caption
+msgid "  information "
+msgstr ""
+
+#: tmainform.menuitem6.caption
+msgid "  notice"
+msgstr ""
+
+#: tmainform.menuitem7.caption
+msgid "  warning"
+msgstr ""
+
+#: tmainform.menuitem8.caption
+msgid "  error"
+msgstr ""
+
+#: tmainform.menuitem9.caption
+msgid "  debug"
+msgstr ""
+
 #: tmainform.publishbutton.caption
 msgid "Publish"
 msgstr ""
@@ -431,6 +446,15 @@ msgstr ""
 
 #: tmainform.sourcelabel.caption
 msgid "Source"
+msgstr ""
+
+#: tmainform.tabsheet1.caption
+msgctxt "tmainform.tabsheet1.caption"
+msgid "Messages"
+msgstr ""
+
+#: tmainform.tabsheet2.caption
+msgid "Log"
 msgstr ""
 
 #: toptionseditform.acceptbutton.caption
@@ -495,4 +519,3 @@ msgstr ""
 #: toptionseditform.showtopicscheckbox.caption
 msgid "Show message topics"
 msgstr ""
-

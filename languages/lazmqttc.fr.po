@@ -116,7 +116,7 @@ msgid ""
 "Security\n"
 "Encryption\n"
 "Publish Topic\n"
-"Subscribe Topics"
+"Subscribe Topics\n"
 msgstr ""
 "Serveur MQTT\n"
 "Sécurité\n"
@@ -132,7 +132,7 @@ msgstr "Qualité du service"
 msgid ""
 "0 - At most once\n"
 "1 - At least once\n"
-"2 - Exactly once"
+"2 - Exactly once\n"
 msgstr ""
 "0 - Au plus un envoi\n"
 "1 - Au moins un envoi\n"
@@ -268,10 +268,6 @@ msgctxt "tbrokereditform.loadbutton.caption"
 msgid "&Load..."
 msgstr "&Charger..."
 
-#: tbrokereditform.passwordedit.text
-msgid "PasswordEdit"
-msgstr ""
-
 #: tbrokereditform.portedit.hint
 msgid "Default MQTT Port: 1883"
 msgstr "Port MQTT par défaut : 1883"
@@ -280,14 +276,6 @@ msgstr "Port MQTT par défaut : 1883"
 msgctxt "tbrokereditform.pubretaincheckbox.caption"
 msgid "(false)"
 msgstr "(faux)"
-
-#: tbrokereditform.pubtopicedit.text
-msgid "PubTopicEdit"
-msgstr ""
-
-#: tbrokereditform.qoscombobox.text
-msgid "0 - at most once"
-msgstr ""
 
 #: tbrokereditform.reconnectbackoffcheckbox.caption
 msgctxt "tbrokereditform.reconnectbackoffcheckbox.caption"
@@ -331,14 +319,6 @@ msgstr "Qualité du service (QdS)"
 msgctxt "teditsubtopicform.label3.caption"
 msgid "Use"
 msgstr "Act."
-
-#: teditsubtopicform.qoscombobox.text
-msgid "0 - At most once"
-msgstr ""
-
-#: teditsubtopicform.topicedit.text
-msgid "TopicEdit"
-msgstr ""
 
 #: teditsubtopicform.usecheckbox.caption
 msgid "(subscribe to this topic)"
@@ -389,18 +369,9 @@ msgstr "Montrer"
 msgid "Copy the message in the Messages window"
 msgstr "Copier dans Messages"
 
-#: tmainform.dividerbevel1.caption
-msgctxt "tmainform.dividerbevel1.caption"
-msgid "Messages"
-msgstr "Messages"
-
 #: tmainform.editbrokerbutton.caption
 msgid "Edit"
 msgstr "Modifier"
-
-#: tmainform.hostlabel.caption
-msgid "<host name>"
-msgstr ""
 
 #: tmainform.label1.caption
 msgid "Broker:"
@@ -425,6 +396,50 @@ msgctxt "tmainform.label6.caption"
 msgid "Retain"
 msgstr "Conserver"
 
+#: tmainform.menuitem1.caption
+msgid "Clear"
+msgstr "Effacer"
+
+#: tmainform.menuitem10.caption
+msgid "  subscribe"
+msgstr "  souscription"
+
+#: tmainform.menuitem11.caption
+msgid "  unsubscribe"
+msgstr "  désabonnement"
+
+#: tmainform.menuitem12.caption
+msgid "  websocket"
+msgstr "  websocket"
+
+#: tmainform.menuitem2.caption
+msgid "Copy"
+msgstr "Copier"
+
+#: tmainform.menuitem3.caption
+msgid "Log Levels:"
+msgstr "Niveaux de journal :"
+
+#: tmainform.menuitem5.caption
+msgid "  information "
+msgstr "  information"
+
+#: tmainform.menuitem6.caption
+msgid "  notice"
+msgstr "  note"
+
+#: tmainform.menuitem7.caption
+msgid "  warning"
+msgstr "  avertissement"
+
+#: tmainform.menuitem8.caption
+msgid "  error"
+msgstr "  erreur"
+
+#: tmainform.menuitem9.caption
+msgid "  debug"
+msgstr "  débogage"
+
 #: tmainform.publishbutton.caption
 msgid "Publish"
 msgstr "Publier"
@@ -446,6 +461,15 @@ msgstr "Montrer les sujets"
 #: tmainform.sourcelabel.caption
 msgid "Source"
 msgstr "Source"
+
+#: tmainform.tabsheet1.caption
+msgctxt "tmainform.tabsheet1.caption"
+msgid "Messages"
+msgstr "Messages"
+
+#: tmainform.tabsheet2.caption
+msgid "Log"
+msgstr "Journal"
 
 #: toptionseditform.acceptbutton.caption
 msgctxt "toptionseditform.acceptbutton.caption"

@@ -10,7 +10,6 @@ object BrokerEditForm: TBrokerEditForm
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poMainFormCenter
-  LCLVersion = '2.2.0.2'
   object Panel1: TPanel
     Left = 0
     Height = 42
@@ -109,7 +108,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideLeft.Control = BrokerPage
         AnchorSideTop.Control = BrokerPage
         Left = 12
-        Height = 14
+        Height = 16
         Top = 12
         Width = 31
         BorderSpacing.Left = 12
@@ -124,7 +123,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Side = asrBottom
         Left = 12
         Height = 27
-        Top = 32
+        Top = 34
         Width = 483
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 6
@@ -140,8 +139,8 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
         Left = 232
-        Height = 14
-        Top = 77
+        Height = 16
+        Top = 78
         Width = 29
         Anchors = [akTop, akRight]
         Caption = 'Port:'
@@ -153,7 +152,7 @@ object BrokerEditForm: TBrokerEditForm
         Left = 270
         Height = 27
         Hint = 'Default MQTT Port: 1883'
-        Top = 71
+        Top = 73
         Width = 120
         BorderSpacing.Top = 12
         MaxValue = 65365
@@ -169,8 +168,8 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
         Left = 148
-        Height = 14
-        Top = 116
+        Height = 16
+        Top = 117
         Width = 113
         Anchors = [akTop, akRight]
         Caption = 'Keep Alive Interval'
@@ -181,7 +180,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrBottom
         Left = 270
         Height = 27
-        Top = 110
+        Top = 112
         Width = 120
         BorderSpacing.Top = 12
         MaxValue = 200000
@@ -197,8 +196,8 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
         Left = 157
-        Height = 14
-        Top = 155
+        Height = 16
+        Top = 156
         Width = 104
         Anchors = [akTop, akRight]
         Caption = 'Reconnect  Delay'
@@ -209,7 +208,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrBottom
         Left = 270
         Height = 27
-        Top = 149
+        Top = 151
         Width = 120
         BorderSpacing.Top = 12
         OnEditingDone = ReconnectDelayEditEditingDone
@@ -222,7 +221,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrBottom
         Left = 270
         Height = 23
-        Top = 188
+        Top = 190
         Width = 63
         BorderSpacing.Top = 12
         Caption = '(false)'
@@ -236,8 +235,8 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Control = Label10
         AnchorSideRight.Side = asrBottom
         Left = 148
-        Height = 14
-        Top = 192
+        Height = 16
+        Top = 193
         Width = 113
         Anchors = [akTop, akRight]
         Caption = 'Reconnect Backoff'
@@ -247,8 +246,8 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Control = AutoReconnectCheckBox
         AnchorSideTop.Side = asrCenter
         Left = 133
-        Height = 14
-        Top = 227
+        Height = 16
+        Top = 228
         Width = 128
         Anchors = [akTop]
         Caption = 'Automatic Reconnect'
@@ -260,7 +259,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrBottom
         Left = 270
         Height = 23
-        Top = 223
+        Top = 225
         Width = 59
         BorderSpacing.Left = 9
         BorderSpacing.Top = 12
