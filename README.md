@@ -1,5 +1,5 @@
 # lazmqttc: Lazarus MQTT Client
-**Version 0.4.1**
+**Version 0.5.0**
 
 A basic MQTT client written in Free Pascal/Lazarus that can publish messages to a broker while being subscribed to one or more topics with the same broker. It uses the [Eclipse mosquitto](https://mosquitto.org/) library to communicate with the MQTT broker.
 
@@ -10,21 +10,22 @@ The screen capture shows the message sent to the public `test.moquitto.org` brok
 <!-- TOC -->
 
 - [1. Requirements](#1-requirements)
-    - [1.1. Linux](#11-linux)
-    - [1.2. Windows 10](#12-windows-10)
+  - [1.1. Linux](#11-linux)
+  - [1.2. Windows 10](#12-windows-10)
 - [2. Compiling](#2-compiling)
 - [3. Testing](#3-testing)
 - [4. Installation](#4-installation)
 - [5. Program Options](#5-program-options)
-    - [5.1. Automatic Connection Options](#51-automatic-connection-options)
-    - [5.2. Messages Options](#52-messages-options)
+  - [5.1. Automatic Connection Options](#51-automatic-connection-options)
+  - [5.2. Messages Options](#52-messages-options)
 - [6. Option Overrides at Runtime](#6-option-overrides-at-runtime)
 - [7. Broker Definitions](#7-broker-definitions)
-    - [7.1. Security Warning](#71-security-warning)
-- [8. National Language Support](#8-national-language-support)
-- [9. Improvements and Development](#9-improvements-and-development)
-- [10. Acknowledgment](#10-acknowledgment)
-- [11. Licence](#11-licence)
+  - [7.1. Security Warning](#71-security-warning)
+- [8. Log](#8-log)
+- [9. National Language Support](#9-national-language-support)
+- [10. Improvements and Development](#10-improvements-and-development)
+- [11. Acknowledgment](#11-acknowledgment)
+- [12. Licence](#12-licence)
 
 <!-- /TOC -->
 
@@ -155,7 +156,15 @@ A quick fix was added in version 3.3 so that an encrypted password will be saved
 
 Note that the MQTT user and password are transmitted in plain text over an HTTP connection, so truly secure handling of the MQTT password will have to wait until communication with the broker using the HTTPS protocol is implemented.
 
-## 8. National Language Support
+## 8. Log
+
+Starting with version 0.5.0, the application log messages can be viewed. These are the messages produced by the `TMQTTConnection` object (defined in `mqttclass.pas` and the underlying Mosquitto library. The log level is set in the Log window context menu obtained with a right mouse button click.
+
+![log screenshot](images/log.jpg)
+
+Unlike the usual implementation, in Linux at least, setting a log level does not set all levels with higher priority. In other words, each level can be set or reset independently. It seems that some levels are not implemented; `subscribe` and `unsubscribe` do not generate messages for example.
+
+## 9. National Language Support
 
 The `languages` directory contains national language translations of the literal strings found in the program. This directory should be copied alongside the executable file.
 
@@ -163,13 +172,13 @@ Only a single translation into French is provided: `lazmqttc.fr.po`. However the
 
 The choice of language is done automatically based on the system locale when the program starts up. There is no provision for choosing the language at run-time. Those that prefer to use the English language version even if a translation into the national language exists can achieve their goal by renaming or erasing the `languages` directory.
 
-## 9. Improvements and Development
+## 10. Improvements and Development
 
 Initially this utility was quickly cobbled to fulfill an immediate need: wrangling a number of IoT devices running Tasmota firmware mostly to get their IP address. Since then, an attempt has been made to combine the important features of the mosquitto "pub and sub clients" into a single application. At the same time, some attention has been given to cleaning up the code, but improvements are certainly possible. All suggestions welcome.
 
 There are aspects of the MQTT protocol that are not implemented including the Last Will and Testament feature and clean sessions.
 
-## 10. Acknowledgment
+## 11. Acknowledgment
 
 Obviously, this utility would not have been possible without 
 
@@ -181,7 +190,7 @@ Not quite as obvious, the JSON data viewer by Michael Van Canneyt (named `jsonvi
 
 The broker password encryption using the <span class="tm">Free Pascal</span> Blowfish unit is based on a blog post by leledumbo [Blowfish, the cryptography unit by leledumbo](http://pascalgeek.blogspot.com/2012/06/encryption-decryption-and-asynchronous.html) (June 24, 2012).
 
-## 11. Licence
+## 12. Licence
 
 The [Eclipse Mosquitto](https://github.com/eclipse/mosquitto) project is dual-licensed under the Eclipse Public License 2.0 and the
 Eclipse Distribution License 1.0.
