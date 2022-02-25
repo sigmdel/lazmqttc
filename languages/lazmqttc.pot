@@ -267,6 +267,14 @@ msgctxt "tbrokereditform.pubretaincheckbox.caption"
 msgid "(false)"
 msgstr ""
 
+#: tbrokereditform.pubtopicedit.text
+msgid "PubTopicEdit"
+msgstr ""
+
+#: tbrokereditform.qoscombobox.text
+msgid "0 - at most once"
+msgstr ""
+
 #: tbrokereditform.reconnectbackoffcheckbox.caption
 msgctxt "tbrokereditform.reconnectbackoffcheckbox.caption"
 msgid "(false)"
@@ -308,6 +316,14 @@ msgstr ""
 #: teditsubtopicform.label3.caption
 msgctxt "teditsubtopicform.label3.caption"
 msgid "Use"
+msgstr ""
+
+#: teditsubtopicform.qoscombobox.text
+msgid "0 - At most once"
+msgstr ""
+
+#: teditsubtopicform.topicedit.text
+msgid "TopicEdit"
 msgstr ""
 
 #: teditsubtopicform.usecheckbox.caption
@@ -363,6 +379,10 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+#: tmainform.hostlabel.caption
+msgid "<host name>"
+msgstr ""
+
 #: tmainform.label1.caption
 msgid "Broker:"
 msgstr ""
@@ -407,7 +427,7 @@ msgid "Copy"
 msgstr ""
 
 #: tmainform.menuitem3.caption
-msgid "Log Levels:"
+msgid "Log Level:"
 msgstr ""
 
 #: tmainform.menuitem5.caption
@@ -523,3 +543,4 @@ msgstr ""
 #: toptionseditform.showtopicscheckbox.caption
 msgid "Show message topics"
 msgstr ""
+

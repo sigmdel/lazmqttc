@@ -1,9 +1,19 @@
 
 # Change Log
 
+## 0.5.0 
+
+- Updated the documentation
+- Updated the translation
+- Bumped up to version 0.5.0
+- Added a log window to display the mosquitto library log messages - works in Windows
+- The connection status updated with TMQTTConnection OnConnect and OnDisconnect events
+- Fixed a memory leak that occured when editing a broker definition
+
+
 ## 0.4.1 (7531d26, Release v0.4.1 with Linux and Windows binaries)
 
-- Updated translations
+- Updated the translation
 - Fixed cryptic error message when starting app with missing `options.json` file
 - Fixed limit of 100 shown messages in Windows version
 
@@ -19,7 +29,7 @@
 ## 0.3.4 (0fd1b4f)
 
 - Bumped up to version 0.3.4
-- Updated translations
+- Updated the translation
 - If needed, automatically connects to a broker when the Publish button is pressed
 - Published topic can optionally be added to the Messages window 
 - Added a temporary work directory in .hgignore

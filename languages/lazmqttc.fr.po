@@ -268,6 +268,10 @@ msgctxt "tbrokereditform.loadbutton.caption"
 msgid "&Load..."
 msgstr "&Charger..."
 
+#: tbrokereditform.passwordedit.text
+msgid "PasswordEdit"
+msgstr ""
+
 #: tbrokereditform.portedit.hint
 msgid "Default MQTT Port: 1883"
 msgstr "Port MQTT par défaut : 1883"
@@ -276,6 +280,14 @@ msgstr "Port MQTT par défaut : 1883"
 msgctxt "tbrokereditform.pubretaincheckbox.caption"
 msgid "(false)"
 msgstr "(faux)"
+
+#: tbrokereditform.pubtopicedit.text
+msgid "PubTopicEdit"
+msgstr ""
+
+#: tbrokereditform.qoscombobox.text
+msgid "0 - at most once"
+msgstr ""
 
 #: tbrokereditform.reconnectbackoffcheckbox.caption
 msgctxt "tbrokereditform.reconnectbackoffcheckbox.caption"
@@ -319,6 +331,14 @@ msgstr "Qualité du service (QdS)"
 msgctxt "teditsubtopicform.label3.caption"
 msgid "Use"
 msgstr "Act."
+
+#: teditsubtopicform.qoscombobox.text
+msgid "0 - At most once"
+msgstr ""
+
+#: teditsubtopicform.topicedit.text
+msgid "TopicEdit"
+msgstr ""
 
 #: teditsubtopicform.usecheckbox.caption
 msgid "(subscribe to this topic)"
@@ -373,6 +393,10 @@ msgstr "Copier dans Messages"
 msgid "Edit"
 msgstr "Modifier"
 
+#: tmainform.hostlabel.caption
+msgid "<host name>"
+msgstr ""
+
 #: tmainform.label1.caption
 msgid "Broker:"
 msgstr "Agent :"
@@ -417,7 +441,9 @@ msgid "Copy"
 msgstr "Copier"
 
 #: tmainform.menuitem3.caption
-msgid "Log Levels:"
+#, fuzzy
+#| msgid "Log Levels:"
+msgid "Log Level:"
 msgstr "Niveaux de journal :"
 
 #: tmainform.menuitem5.caption

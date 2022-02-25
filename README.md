@@ -1,7 +1,7 @@
 # lazmqttc: Lazarus MQTT Client
 **Version 0.5.0**
 
-A basic MQTT client written in Free Pascal/Lazarus that can publish messages to a broker while being subscribed to one or more topics with the same broker. It uses the [Eclipse mosquitto](https://mosquitto.org/) library to communicate with the MQTT broker.
+A basic MQTT client written in Free Pascal/Lazarus that can publish messages to a broker while being subscribed to one or more topics with the same broker. It uses the [Eclipse mosquitto](https://mosquitto.org/) library to communicate with the MQTT broker. `lazmqttc` can be seen as the Eclipse utility `mosquitto_rr` with a graphical interface and some additional capabilities.
 
 ![screenshot](images/test_mosquitto.jpg)
 
@@ -80,7 +80,16 @@ There is no requirement to install the mosquitto MQTT broker.
 
 >> It is left as an exercise for knowledgable Windows users to find a more elegant way of ensuring that the DLLs are found.
 
-Ultimately, if a mosquitto MQTT broker is to be run on the system, it may make more sense to simply copy `lazmqttc.exe` into the `mosquitto` directory alongside the `mosquitto_pub.exe` and `mosquitto_sub.exe` utilities it emulates.
+Ultimately, if a mosquitto MQTT broker is to be run on the system, it may make more sense to simply copy `lazmqttc.exe` into the `mosquitto` directory alongside the `mosquitto_rr.exe`, `mosquitto_pub.exe` and `mosquitto_sub.exe` utilities it emulates.
+
+<b>Warning:</b> The application seems to freeze when connecting to the localhost that is not running an MQTT broker. 
+
+    [MQTT] [mqttClient] INFO Connecting to [localhost:1884] - SSL:False
+    [MQTT] [mqttClient] INFO Broker disconnected: Connection lost
+    [MQTT] [mqttClient] INFO Next reconnection attempt in 60 seconds.
+    [MQTT] [mqttClient] INFO Reconnecting to [localhost:1884] - SSL:False
+
+The first log entry will be shown right away, but it will take a minute or so before the following two entries are shown and the application responds normally. This behaviour was not observed in Linux and it may not be present if an MQTT broker is running on the local machine.
 
 ## 2. Compiling
 
@@ -162,7 +171,7 @@ Starting with version 0.5.0, the application log messages can be viewed. These a
 
 ![log screenshot](images/log.jpg)
 
-Unlike the usual implementation, in Linux at least, setting a log level does not set all levels with higher priority. In other words, each level can be set or reset independently. It seems that some levels are not implemented; `subscribe` and `unsubscribe` do not generate messages for example.
+Unlike the usual implementation, in Linux at least, setting a log level does not set all levels with higher priority. In other words, each level can be set or reset independently. It seems that some levels are not implemented. For example, no messages are generated when topics are changed when the `subscribe` and `unsubscribe` log levels are set.
 
 ## 9. National Language Support
 

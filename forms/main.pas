@@ -86,7 +86,6 @@ type
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TopPanel: TPanel;
-    procedure BottomPanelClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure LogMenuItemClick(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
@@ -273,11 +272,6 @@ end;
 procedure TMainForm.ShowTopicsCheckBoxChange(Sender: TObject);
 begin
   gvShowTopics := ShowTopicsCheckBox.Checked;
-end;
-
-procedure TMainForm.BottomPanelClick(Sender: TObject);
-begin
-
 end;
 
 procedure TMainForm.Button1Click(Sender: TObject);
