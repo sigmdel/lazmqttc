@@ -33,8 +33,8 @@ resourcestring
   sNoEncryptionKey = 'Password encryption key is empty - program halted';
 
   // sbrorkeredit
-  sPageNames = 'Broker'#10'Security'#10'Encryption'#10'Publish Topic'#10'Subscribe Topics';
-  sQoSHint = '0 - At most once'#10'1 - At least once'#10'2 - Exactly once';
+  sPageNames = 'Broker'#10'Security'#10'Encryption'#10'Publish Topic'#10'Subscribe Topics'#10;
+  sQoSHint = '0 - At most once'#10'1 - At least once'#10'2 - Exactly once'#10;
   cbsLoseChanges = 'Close without saving changes';
   cbsDeleteQuery = 'Delete <%s>';
   sJSONFiles = 'JSON files';

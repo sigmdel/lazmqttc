@@ -110,7 +110,7 @@ msgid ""
 "Security\n"
 "Encryption\n"
 "Publish Topic\n"
-"Subscribe Topics"
+"Subscribe Topics\n"
 msgstr ""
 
 #: stringres.sqos
@@ -121,7 +121,7 @@ msgstr ""
 msgid ""
 "0 - At most once\n"
 "1 - At least once\n"
-"2 - Exactly once"
+"2 - Exactly once\n"
 msgstr ""
 
 #: stringres.sqostitle
@@ -252,6 +252,10 @@ msgstr ""
 #: tbrokereditform.loadbutton.caption
 msgctxt "tbrokereditform.loadbutton.caption"
 msgid "&Load..."
+msgstr ""
+
+#: tbrokereditform.passwordedit.text
+msgid "PasswordEdit"
 msgstr ""
 
 #: tbrokereditform.portedit.hint
