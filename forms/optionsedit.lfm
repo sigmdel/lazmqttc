@@ -10,6 +10,7 @@ object OptionsEditForm: TOptionsEditForm
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poMainFormCenter
+  LCLVersion = '2.3.0.0'
   object Panel1: TPanel
     Left = 0
     Height = 42

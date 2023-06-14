@@ -9,6 +9,7 @@ object EditSubTopicForm: TEditSubTopicForm
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poMainFormCenter
+  LCLVersion = '2.3.0.0'
   object BottomPanel: TPanel
     Left = 0
     Height = 42
