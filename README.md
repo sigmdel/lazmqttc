@@ -1,5 +1,5 @@
 # lazmqttc: Lazarus MQTT Client
-**Version 0.5.0**
+**Version 0.5.1**
 
 A basic MQTT client written in Free Pascal/Lazarus that can publish messages to a broker while being subscribed to one or more topics with the same broker. It uses the [Eclipse mosquitto](https://mosquitto.org/) library to communicate with the MQTT broker. `lazmqttc` can be seen as the Eclipse utility `mosquitto_rr` with a graphical interface and some additional capabilities.
 
@@ -82,7 +82,7 @@ There is no requirement to install the mosquitto MQTT broker.
 
 Ultimately, if a mosquitto MQTT broker is to be run on the system, it may make more sense to simply copy `lazmqttc.exe` into the `mosquitto` directory alongside the `mosquitto_rr.exe`, `mosquitto_pub.exe` and `mosquitto_sub.exe` utilities it emulates.
 
-<b>Warning:</b> The application seems to freeze when connecting to the localhost that is not running an MQTT broker. 
+<b>Warning:</b> The application seems to freeze when connecting to the localhost if it is not running an MQTT broker. 
 
     [MQTT] [mqttClient] INFO Connecting to [localhost:1884] - SSL:False
     [MQTT] [mqttClient] INFO Broker disconnected: Connection lost
@@ -145,10 +145,15 @@ The `Received message header` and `Published message header` are used to define 
 
 ## 6. Option Overrides at Runtime 
 
-Published messages are only shown in `Messages` if `Show` is checked no matter the value of `Show published messages` option. Changes to `Show` have no effect on the value of the option. When the program is started or when Options are changed then `Show` will be set to the same value as the  `Show published messages` option.
+It is possible to override each of three messages options when the program is running.  
 
-`Show topics` and `Auto clear` operate in the same fashion in relation to the `Show message topics` and ` `Auto clear previous messages on publishing a message` options.
+|Option override checkbox|Messages option|
+|---|---|
+|`Auto clear`|`Auto clear previous messages on publishing a message`|
+|`Show`|`Show published messages`|
+|`Show topics`|`Show message topics`|
 
+A change in a runtime override does not affect the corresponding messages option, it only modifies the manner in which messages received from then on will be displayed. Messages options are default values for the option overrides loaded when the program starts. These default can only be changed in the `Options` window.
 
 ## 7. Broker Definitions 
 
