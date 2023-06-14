@@ -268,10 +268,6 @@ msgctxt "tbrokereditform.loadbutton.caption"
 msgid "&Load..."
 msgstr "&Charger..."
 
-#: tbrokereditform.passwordedit.text
-msgid "PasswordEdit"
-msgstr ""
-
 #: tbrokereditform.portedit.hint
 msgid "Default MQTT Port: 1883"
 msgstr "Port MQTT par défaut : 1883"
@@ -301,10 +297,6 @@ msgstr "&Sauvegarder..."
 
 #: tbrokereditform.toolbar.caption
 msgid "ToolBar"
-msgstr ""
-
-#: tbrokereditform.useredit.text
-msgid "UserEdit"
 msgstr ""
 
 #: teditsubtopicform.button1.caption
@@ -368,10 +360,6 @@ msgstr "&Oui"
 msgid "Auto clear"
 msgstr "Auto effacement"
 
-#: tmainform.button1.caption
-msgid "Options"
-msgstr "Paramètres"
-
 #: tmainform.caption
 msgid "MQTT Client"
 msgstr "Client MQTT"
@@ -420,9 +408,20 @@ msgctxt "tmainform.label6.caption"
 msgid "Retain"
 msgstr "Conserver"
 
-#: tmainform.menuitem1.caption
+#: tmainform.logmenuclearmenuitem.caption
+msgctxt "tmainform.logmenuclearmenuitem.caption"
 msgid "Clear"
 msgstr "Effacer"
+
+#: tmainform.logmenucopymenuitem.caption
+msgctxt "tmainform.logmenucopymenuitem.caption"
+msgid "Copy all"
+msgstr "Copier tout"
+
+#: tmainform.logmenucopyselectionmenuitem.caption
+msgctxt "tmainform.logmenucopyselectionmenuitem.caption"
+msgid "Copy selection"
+msgstr "Copier la sélection"
 
 #: tmainform.menuitem10.caption
 msgid "  subscribe"
@@ -436,13 +435,7 @@ msgstr "  désabonnement"
 msgid "  websocket"
 msgstr "  websocket"
 
-#: tmainform.menuitem2.caption
-msgid "Copy"
-msgstr "Copier"
-
 #: tmainform.menuitem3.caption
-#, fuzzy
-#| msgid "Log Levels:"
 msgid "Log Level:"
 msgstr "Niveaux de journal :"
 
@@ -465,6 +458,31 @@ msgstr "  erreur"
 #: tmainform.menuitem9.caption
 msgid "  debug"
 msgstr "  débogage"
+
+#: tmainform.messagemenuwordwrapmenuitem.caption
+msgctxt "tmainform.messagemenuwordwrapmenuitem.caption"
+msgid "Word wrap"
+msgstr "Retour automatique à la ligne"
+
+#: tmainform.messagesmenuclearmenuitem.caption
+msgctxt "tmainform.messagesmenuclearmenuitem.caption"
+msgid "Clear"
+msgstr "Effacer"
+
+#: tmainform.messagesmenucopymenuitem.caption
+msgctxt "tmainform.messagesmenucopymenuitem.caption"
+msgid "Copy all"
+msgstr "Copier tout"
+
+#: tmainform.messagesmenucopyselectionmenuitem.caption
+msgctxt "tmainform.messagesmenucopyselectionmenuitem.caption"
+msgid "Copy selection"
+msgstr "Copier la sélection"
+
+#: tmainform.optionsbutton.caption
+msgctxt "tmainform.optionsbutton.caption"
+msgid "Options"
+msgstr "Paramètres"
 
 #: tmainform.publishbutton.caption
 msgid "Publish"

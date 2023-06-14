@@ -1,13 +1,28 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+# Uncomment after modifying as appropriate
+# "Content-Type: text/plain; charset=UTF-8
+#"
+# "Plural-Forms: nplurals=2; plural=(n > 1);
+#"
+# "Project-Id-Version: 
+#"
+# "MIME-Version: 1.0
+#"
+# "Content-Transfer-Encoding: 8bit
+#"
+# "Language: fr_FR
+#"
 #: optionsunit.rsloaderror
 #, object-pascal-format
+msgctxt "optionsunit.rsloaderror"
 msgid "Error reading options.json: %s"
 msgstr ""
 
 #: stringres.cbsdeletequery
 #, object-pascal-format
+msgctxt "stringres.cbsdeletequery"
 msgid "Delete <%s>"
 msgstr ""
 
@@ -254,10 +269,6 @@ msgctxt "tbrokereditform.loadbutton.caption"
 msgid "&Load..."
 msgstr ""
 
-#: tbrokereditform.passwordedit.text
-msgid "PasswordEdit"
-msgstr ""
-
 #: tbrokereditform.portedit.hint
 msgid "Default MQTT Port: 1883"
 msgstr ""
@@ -287,10 +298,6 @@ msgstr ""
 
 #: tbrokereditform.toolbar.caption
 msgid "ToolBar"
-msgstr ""
-
-#: tbrokereditform.useredit.text
-msgid "UserEdit"
 msgstr ""
 
 #: teditsubtopicform.button1.caption
@@ -354,10 +361,6 @@ msgstr ""
 msgid "Auto clear"
 msgstr ""
 
-#: tmainform.button1.caption
-msgid "Options"
-msgstr ""
-
 #: tmainform.caption
 msgid "MQTT Client"
 msgstr ""
@@ -406,8 +409,19 @@ msgctxt "tmainform.label6.caption"
 msgid "Retain"
 msgstr ""
 
-#: tmainform.menuitem1.caption
+#: tmainform.logmenuclearmenuitem.caption
+msgctxt "tmainform.logmenuclearmenuitem.caption"
 msgid "Clear"
+msgstr ""
+
+#: tmainform.logmenucopymenuitem.caption
+msgctxt "tmainform.logmenucopymenuitem.caption"
+msgid "Copy all"
+msgstr ""
+
+#: tmainform.logmenucopyselectionmenuitem.caption
+msgctxt "tmainform.logmenucopyselectionmenuitem.caption"
+msgid "Copy selection"
 msgstr ""
 
 #: tmainform.menuitem10.caption
@@ -420,10 +434,6 @@ msgstr ""
 
 #: tmainform.menuitem12.caption
 msgid "  websocket"
-msgstr ""
-
-#: tmainform.menuitem2.caption
-msgid "Copy"
 msgstr ""
 
 #: tmainform.menuitem3.caption
@@ -448,6 +458,31 @@ msgstr ""
 
 #: tmainform.menuitem9.caption
 msgid "  debug"
+msgstr ""
+
+#: tmainform.messagemenuwordwrapmenuitem.caption
+msgctxt "tmainform.messagemenuwordwrapmenuitem.caption"
+msgid "Word wrap"
+msgstr ""
+
+#: tmainform.messagesmenuclearmenuitem.caption
+msgctxt "tmainform.messagesmenuclearmenuitem.caption"
+msgid "Clear"
+msgstr ""
+
+#: tmainform.messagesmenucopymenuitem.caption
+msgctxt "tmainform.messagesmenucopymenuitem.caption"
+msgid "Copy all"
+msgstr ""
+
+#: tmainform.messagesmenucopyselectionmenuitem.caption
+msgctxt "tmainform.messagesmenucopyselectionmenuitem.caption"
+msgid "Copy selection"
+msgstr ""
+
+#: tmainform.optionsbutton.caption
+msgctxt "tmainform.optionsbutton.caption"
+msgid "Options"
 msgstr ""
 
 #: tmainform.publishbutton.caption

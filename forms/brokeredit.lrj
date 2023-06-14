@@ -16,8 +16,6 @@
 {"hash":50043769,"name":"tbrokereditform.autoreconnectcheckbox.caption","sourcebytes":[40,116,114,117,101,41],"value":"(true)"},
 {"hash":6069338,"name":"tbrokereditform.label6.caption","sourcebytes":[85,115,101,114,58],"value":"User:"},
 {"hash":179191546,"name":"tbrokereditform.label7.caption","sourcebytes":[80,97,115,115,119,111,114,100,58],"value":"Password:"},
-{"hash":164020420,"name":"tbrokereditform.useredit.text","sourcebytes":[85,115,101,114,69,100,105,116],"value":"UserEdit"},
-{"hash":65016292,"name":"tbrokereditform.passwordedit.text","sourcebytes":[80,97,115,115,119,111,114,100,69,100,105,116],"value":"PasswordEdit"},
 {"hash":153328652,"name":"tbrokereditform.label8.caption","sourcebytes":[69,110,97,98,108,101,32,83,83,76],"value":"Enable SSL"},
 {"hash":25561461,"name":"tbrokereditform.label9.caption","sourcebytes":[83,83,76,32,67,101,114,116,105,102,105,99,97,116,101],"value":"SSL Certificate"},
 {"hash":5990131,"name":"tbrokereditform.label11.caption","sourcebytes":[84,111,112,105,99],"value":"Topic"},
