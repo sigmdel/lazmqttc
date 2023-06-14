@@ -272,7 +272,7 @@ object BrokerEditForm: TBrokerEditForm
       object Label6: TLabel
         AnchorSideTop.Control = SecurityPage
         Left = 8
-        Height = 14
+        Height = 16
         Top = 12
         Width = 30
         BorderSpacing.Top = 12
@@ -283,8 +283,8 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Control = UserEdit
         AnchorSideTop.Side = asrBottom
         Left = 8
-        Height = 14
-        Top = 71
+        Height = 16
+        Top = 73
         Width = 61
         BorderSpacing.Top = 12
         Caption = 'Password:'
@@ -297,14 +297,13 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Side = asrBottom
         Left = 8
         Height = 27
-        Top = 32
-        Width = 494
+        Top = 34
+        Width = 487
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 6
         BorderSpacing.Right = 6
         OnEditingDone = UserEditEditingDone
         TabOrder = 0
-        Text = 'UserEdit'
       end
       object PasswordEdit: TEditButton
         AnchorSideLeft.Control = Label6
@@ -314,8 +313,8 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Side = asrBottom
         Left = 8
         Height = 27
-        Top = 91
-        Width = 494
+        Top = 95
+        Width = 487
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 6
         BorderSpacing.Right = 6
@@ -330,7 +329,6 @@ object BrokerEditForm: TBrokerEditForm
         OnEditingDone = PasswordEditEditingDone
         PasswordChar = '*'
         TabOrder = 1
-        Text = 'PasswordEdit'
       end
     end
     object EncryptionPage: TPage
