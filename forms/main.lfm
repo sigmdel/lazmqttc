@@ -10,7 +10,6 @@ object MainForm: TMainForm
   OnDestroy = FormDestroy
   OnShow = FormShow
   ShowHint = True
-  LCLVersion = '2.2.0.2'
   object TopPanel: TPanel
     AnchorSideTop.Control = Owner
     Left = 0
@@ -343,7 +342,7 @@ object MainForm: TMainForm
     object SourceLabel: TLabel
       AnchorSideTop.Control = QuitButton
       AnchorSideTop.Side = asrCenter
-      AnchorSideRight.Control = Button1
+      AnchorSideRight.Control = OptionsButton
       Cursor = crHandPoint
       Left = 405
       Height = 22
@@ -372,7 +371,7 @@ object MainForm: TMainForm
       Caption = 'Auto clear'
       TabOrder = 2
     end
-    object Button1: TButton
+    object OptionsButton: TButton
       AnchorSideLeft.Side = asrCenter
       AnchorSideTop.Control = QuitButton
       AnchorSideTop.Side = asrCenter
@@ -385,7 +384,7 @@ object MainForm: TMainForm
       AutoSize = True
       BorderSpacing.Right = 6
       Caption = 'Options'
-      OnClick = Button1Click
+      OnClick = OptionsButtonClick
       TabOrder = 3
     end
     object PageControl1: TPageControl
@@ -401,7 +400,7 @@ object MainForm: TMainForm
       TabOrder = 4
       object TabSheet1: TTabSheet
         Caption = 'Messages'
-        ClientHeight = 99
+        ClientHeight = 102
         ClientWidth = 595
         object MessagesMemo: TMemo
           Left = 0
@@ -412,13 +411,15 @@ object MainForm: TMainForm
           Font.Height = -15
           Font.Name = 'Ubuntu Mono'
           ParentFont = False
-          ScrollBars = ssAutoVertical
+          PopupMenu = MessagesMemoMenu
+          ScrollBars = ssAutoBoth
           TabOrder = 0
+          WordWrap = False
         end
       end
       object TabSheet2: TTabSheet
         Caption = 'Log'
-        ClientHeight = 99
+        ClientHeight = 102
         ClientWidth = 595
         object LogMemo: TMemo
           Left = 0
@@ -428,7 +429,7 @@ object MainForm: TMainForm
           Align = alClient
           Font.Pitch = fpFixed
           ParentFont = False
-          PopupMenu = PopupMenu1
+          PopupMenu = LogMemoMenu
           ScrollBars = ssAutoBoth
           TabOrder = 0
           WordWrap = False
@@ -436,17 +437,24 @@ object MainForm: TMainForm
       end
     end
   end
-  object PopupMenu1: TPopupMenu
-    OnPopup = PopupMenu1Popup
-    Left = 154
-    Top = 296
-    object MenuItem1: TMenuItem
+  object LogMemoMenu: TPopupMenu
+    OnPopup = LogMemoMenuPopup
+    Left = 408
+    Top = 216
+    object LogMenuClearMenuItem: TMenuItem
       Caption = 'Clear'
-      OnClick = MenuItem1Click
+      OnClick = LogMenuClearMenuItemClick
     end
-    object MenuItem2: TMenuItem
-      Caption = 'Copy'
-      OnClick = MenuItem2Click
+    object Separator2: TMenuItem
+      Caption = '-'
+    end
+    object LogMenuCopyMenuItem: TMenuItem
+      Caption = 'Copy all'
+      OnClick = LogMenuCopyMenuItemClick
+    end
+    object LogMenuCopySelectionMenuItem: TMenuItem
+      Caption = 'Copy selection'
+      OnClick = LogMenuCopySelectionMenuItemClick
     end
     object N1: TMenuItem
       Caption = '-'
@@ -458,50 +466,79 @@ object MainForm: TMainForm
       Tag = 1
       Caption = '  information '
       GroupIndex = 5
-      OnClick = LogMenuItemClick
+      OnClick = LogMenuLevelClick
     end
     object MenuItem6: TMenuItem
       Tag = 2
       Caption = '  notice'
       GroupIndex = 5
-      OnClick = LogMenuItemClick
+      OnClick = LogMenuLevelClick
     end
     object MenuItem7: TMenuItem
       Tag = 4
       Caption = '  warning'
       GroupIndex = 5
-      OnClick = LogMenuItemClick
+      OnClick = LogMenuLevelClick
     end
     object MenuItem8: TMenuItem
       Tag = 8
       Caption = '  error'
       GroupIndex = 5
-      OnClick = LogMenuItemClick
+      OnClick = LogMenuLevelClick
     end
     object MenuItem9: TMenuItem
       Tag = 16
       Caption = '  debug'
       Checked = True
       GroupIndex = 5
-      OnClick = LogMenuItemClick
+      OnClick = LogMenuLevelClick
     end
     object MenuItem10: TMenuItem
       Tag = 32
       Caption = '  subscribe'
       GroupIndex = 5
-      OnClick = LogMenuItemClick
+      OnClick = LogMenuLevelClick
     end
     object MenuItem11: TMenuItem
       Tag = 64
       Caption = '  unsubscribe'
       GroupIndex = 5
-      OnClick = LogMenuItemClick
+      OnClick = LogMenuLevelClick
     end
     object MenuItem12: TMenuItem
       Tag = 128
       Caption = '  websocket'
       GroupIndex = 5
-      OnClick = LogMenuItemClick
+      OnClick = LogMenuLevelClick
+    end
+  end
+  object MessagesMemoMenu: TPopupMenu
+    OnPopup = MessagesMemoMenuPopup
+    Left = 176
+    Top = 216
+    object MessagesMenuClearMenuItem: TMenuItem
+      Caption = 'Clear'
+      OnClick = MessagesMenuClearMenuItemClick
+    end
+    object Separator3: TMenuItem
+      Caption = '-'
+    end
+    object MessagesMenuCopyMenuItem: TMenuItem
+      Caption = 'Copy all'
+      OnClick = MessagesMenuCopyMenuItemClick
+    end
+    object MessagesMenuCopySelectionMenuItem: TMenuItem
+      Caption = 'Copy selection'
+      OnClick = MessagesMenuCopySelectionMenuItemClick
+    end
+    object Separator1: TMenuItem
+      Caption = '-'
+    end
+    object MessageMenuWordWrapMenuItem: TMenuItem
+      AutoCheck = True
+      Caption = 'Word wrap'
+      GroupIndex = 1
+      OnClick = MessageMenuWordWrapMenuItemClick
     end
   end
 end
