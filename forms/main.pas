@@ -43,14 +43,22 @@ type
 
   TMainForm = class(TForm)
     BottomPanel: TPanel;
-    Button1: TButton;
+    OptionsButton: TButton;
     LogMemo: TMemo;
-    MenuItem1: TMenuItem;
+    LogMenuClearMenuItem: TMenuItem;
     MenuItem10: TMenuItem;
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
-    MenuItem2: TMenuItem;
+    MessagesMenuCopyMenuItem: TMenuItem;
+    LogMenuCopySelectionMenuItem: TMenuItem;
+    Separator3: TMenuItem;
+    Separator2: TMenuItem;
+    MessagesMenuCopySelectionMenuItem: TMenuItem;
+    MessageMenuWordWrapMenuItem: TMenuItem;
+    Separator1: TMenuItem;
+    LogMenuCopyMenuItem: TMenuItem;
     MenuItem3: TMenuItem;
+    MessagesMenuClearMenuItem: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
@@ -59,7 +67,8 @@ type
     N1: TMenuItem;
     MessagesMemo: TMemo;
     PageControl1: TPageControl;
-    PopupMenu1: TPopupMenu;
+    LogMemoMenu: TPopupMenu;
+    MessagesMemoMenu: TPopupMenu;
     ShowTopicsCheckBox: TCheckBox;
     autoClearCheckBox: TCheckBox;
     CopyPubCheckbox: TCheckBox;
@@ -86,11 +95,17 @@ type
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TopPanel: TPanel;
-    procedure Button1Click(Sender: TObject);
-    procedure LogMenuItemClick(Sender: TObject);
-    procedure MenuItem1Click(Sender: TObject);
-    procedure MenuItem2Click(Sender: TObject);
-    procedure PopupMenu1Popup(Sender: TObject);
+    procedure OptionsButtonClick(Sender: TObject);
+    procedure LogMenuCopySelectionMenuItemClick(Sender: TObject);
+    procedure LogMenuLevelClick(Sender: TObject);
+    procedure MessagesMenuCopyMenuItemClick(Sender: TObject);
+    procedure MessagesMenuCopySelectionMenuItemClick(Sender: TObject);
+    procedure MessageMenuWordWrapMenuItemClick(Sender: TObject);
+    procedure LogMenuClearMenuItemClick(Sender: TObject);
+    procedure LogMenuCopyMenuItemClick(Sender: TObject);
+    procedure MessagesMenuClearMenuItemClick(Sender: TObject);
+    procedure LogMemoMenuPopup(Sender: TObject);
+    procedure MessagesMemoMenuPopup(Sender: TObject);
     procedure ShowTopicsCheckBoxChange(Sender: TObject);
     procedure ConnectButtonClick(Sender: TObject);
     procedure EditBrokerButtonClick(Sender: TObject);
@@ -217,6 +232,17 @@ begin
    end;
 end;
 
+procedure mqttlog(const msg: ansistring);
+begin
+  MainForm.LogMemo.Lines.Add(msg);
+  (* debug version)
+  if assigned(MqttClient) then
+    MainForm.LogMemo.Lines.Add(Format('%s (loglevel:%d, %d)', [msg, MainForm.FLogLevel, MqttClient.MOSQLogLevel]))
+  else
+    MainForm.LogMemo.Lines.Add(Format('%s (loglevel:%d)', [msg, MainForm.FLogLevel]));
+  *)
+end;
+
 { TMainForm }
 
 function TMainForm.ClientState: TMQTTConnectionState;
@@ -268,60 +294,6 @@ begin
   else
     freeandnil(MqttClient);
 end;
-
-procedure TMainForm.ShowTopicsCheckBoxChange(Sender: TObject);
-begin
-  gvShowTopics := ShowTopicsCheckBox.Checked;
-end;
-
-procedure TMainForm.Button1Click(Sender: TObject);
-begin
-  if TOptionsEditForm.EditOptions(Options) then begin
-    Options.SaveToFile(optionsfile);
-    UpdateFormOptions;
-  end;
-end;
-
-procedure TMainForm.LogMenuItemClick(Sender: TObject);
-begin
-  with (Sender as TMenuItem) do begin
-     Checked := not Checked;
-     if Checked then
-       FLogLevel := FLogLevel or Tag
-     else
-       FLogLevel := FLogLevel and (not Tag);
-  end;
-  if assigned(MqttClient) then begin
-    MqttClient.MQTTLogLevel := FLogLevel;
-    MqttClient.MOSQLogLevel := FLogLevel;
-  end;
-  PopupMenu1.popup(Fpt.X, Fpt.Y);
-end;
-
-procedure TMainForm.MenuItem1Click(Sender: TObject);
-begin
-  LogMemo.Clear;
-end;
-
-procedure TMainForm.MenuItem2Click(Sender: TObject);
-begin
-  ClipBoard.AsText := LogMemo.Lines.Text;
-end;
-
-procedure TMainForm.PopupMenu1Popup(Sender: TObject);
-begin
-  Fpt := popupmenu1.PopupPoint;
-  MenuItem5.Checked := (MenuItem5.tag and FLogLevel) > 0;
-  MenuItem6.Checked := (MenuItem6.tag and FLogLevel) > 0;
-  MenuItem7.Checked := (MenuItem7.tag and FLogLevel) > 0;
-  MenuItem8.Checked := (MenuItem8.tag and FLogLevel) > 0;
-  MenuItem9.Checked := (MenuItem9.tag and FLogLevel) > 0;
-  MenuItem10.Checked := (MenuItem10.tag and FLogLevel) > 0;
-  MenuItem11.Checked := (MenuItem11.tag and FLogLevel) > 0;
-  MenuItem12.Checked := (MenuItem12.tag and FLogLevel) > 0;
-end;
-
-
 
 procedure TMainForm.EditBrokerButtonClick(Sender: TObject);
 begin
@@ -376,17 +348,94 @@ begin
   UpdateFormOptions;
 end;
 
-
 procedure TMainForm.i18nFixup;
 begin
   QosComboBox.Items.Text := sQosHint;
   QosComboBox.ItemIndex := 0;
 end;
 
-procedure TMainForm.PublishTopicEditEditingDone(Sender: TObject);
+procedure TMainForm.LogMenuClearMenuItemClick(Sender: TObject);
 begin
-  if trim(PublishTopicEdit.Text) <> '' then
-    Broker.PubTopic := PublishTopicEdit.Text;
+  LogMemo.Clear;
+end;
+
+procedure TMainForm.LogMenuCopyMenuItemClick(Sender: TObject);
+begin
+  ClipBoard.AsText := LogMemo.Lines.Text;
+end;
+
+procedure TMainForm.LogMenuCopySelectionMenuItemClick(Sender: TObject);
+begin
+  ClipBoard.AsText := LogMemo.SelText;
+end;
+
+procedure TMainForm.LogMenuLevelClick(Sender: TObject);
+begin
+  with (Sender as TMenuItem) do begin
+     Checked := not Checked;
+     if Checked then
+       FLogLevel := FLogLevel or Tag
+     else
+       FLogLevel := FLogLevel and (not Tag);
+  end;
+  if assigned(MqttClient) then begin
+    MqttClient.MQTTLogLevel := FLogLevel;
+    MqttClient.MOSQLogLevel := FLogLevel;
+  end;
+  LogMemoMenu.popup(Fpt.X, Fpt.Y);
+end;
+
+procedure TMainForm.LogMemoMenuPopup(Sender: TObject);
+begin
+  Fpt := LogMemoMenu.PopupPoint;
+  MenuItem5.Checked := (MenuItem5.tag and FLogLevel) > 0;
+  MenuItem6.Checked := (MenuItem6.tag and FLogLevel) > 0;
+  MenuItem7.Checked := (MenuItem7.tag and FLogLevel) > 0;
+  MenuItem8.Checked := (MenuItem8.tag and FLogLevel) > 0;
+  MenuItem9.Checked := (MenuItem9.tag and FLogLevel) > 0;
+  MenuItem10.Checked := (MenuItem10.tag and FLogLevel) > 0;
+  MenuItem11.Checked := (MenuItem11.tag and FLogLevel) > 0;
+  MenuItem12.Checked := (MenuItem12.tag and FLogLevel) > 0;
+
+  LogMenuCopySelectionMenuItem.Enabled := LogMemo.SelLength > 0;
+  LogMenuClearMenuItem.Enabled := LogMemo.Lines.Count > 0;
+  LogMenuCopyMenuItem.Enabled := LogMemo.Lines.Count > 0;
+end;
+
+procedure TMainForm.MessagesMenuCopySelectionMenuItemClick(Sender: TObject);
+begin
+  ClipBoard.AsText := MessagesMemo.SelText;
+end;
+
+procedure TMainForm.MessagesMenuClearMenuItemClick(Sender: TObject);
+begin
+  MessagesMemo.Clear;
+end;
+
+procedure TMainForm.MessagesMenuCopyMenuItemClick(Sender: TObject);
+begin
+  ClipBoard.AsText := MessagesMemo.Lines.Text;
+end;
+
+procedure TMainForm.MessageMenuWordWrapMenuItemClick(Sender: TObject);
+begin
+  MessagesMemo.WordWrap := MessageMenuWordWrapMenuItem.Checked;
+end;
+
+procedure TMainForm.MessagesMemoMenuPopup(Sender: TObject);
+begin
+   MessagesMenuCopySelectionMenuItem.Enabled := MessagesMemo.SelLength > 0;
+   MessagesMenuClearMenuItem.Enabled := MessagesMemo.Lines.Count > 0;
+   MessagesMenuCopyMenuItem.Enabled := MessagesMemo.Lines.Count > 0;
+   MessageMenuWordWrapMenuItem.Checked := MessagesMemo.WordWrap;
+end;
+
+procedure TMainForm.OptionsButtonClick(Sender: TObject);
+begin
+  if TOptionsEditForm.EditOptions(Options) then begin
+    Options.SaveToFile(optionsfile);
+    UpdateFormOptions;
+  end;
 end;
 
 procedure TMainForm.PayloadMemoEditingDone(Sender: TObject);
@@ -470,6 +519,11 @@ begin
   RetainCheckBox.Checked := false;
 end;
 
+procedure TMainForm.PublishTopicEditEditingDone(Sender: TObject);
+begin
+  if trim(PublishTopicEdit.Text) <> '' then
+    Broker.PubTopic := PublishTopicEdit.Text;
+end;
 
 procedure TMainForm.QoSComboBoxChange(Sender: TObject);
 begin
@@ -507,6 +561,11 @@ procedure TMainForm.RetainCheckBoxChange(Sender: TObject);
 begin
   RetainCheckBox.Caption := Format('(%s)', [falsetruestr[RetainCheckBox.Checked]]);
   Broker.PubRetain := RetainCheckBox.Checked;;
+end;
+
+procedure TMainForm.ShowTopicsCheckBoxChange(Sender: TObject);
+begin
+  gvShowTopics := ShowTopicsCheckBox.Checked;
 end;
 
 procedure TMainForm.SourceLabelClick(Sender: TObject);
@@ -580,18 +639,6 @@ begin
   ShowTopicsCheckbox.Checked := Options.ShowTopics;
   gvShowTopics := Options.ShowTopics;
 end;
-
-procedure mqttlog(const msg: ansistring);
-begin
-  MainForm.LogMemo.Lines.Add(msg);
-  (* debug version)
-  if assigned(MqttClient) then
-    MainForm.LogMemo.Lines.Add(Format('%s (loglevel:%d, %d)', [msg, MainForm.FLogLevel, MqttClient.MOSQLogLevel]))
-  else
-    MainForm.LogMemo.Lines.Add(Format('%s (loglevel:%d)', [msg, MainForm.FLogLevel]));
-  *)
-end;
-
 
 initialization
   mqtt_setlogfunc(@mqttlog);
