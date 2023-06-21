@@ -259,6 +259,7 @@ begin
   with MqttConfig do begin
       ssl := aBroker.SSL;
       ssl_cacertfile := aBroker.SSLCert;
+      client_id := aBroker.ClientId;
       hostname := aBroker.host;
       port := aBroker.port;
       username := aBroker.user;

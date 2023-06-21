@@ -40,6 +40,7 @@ Type
     FPassword: String;
     FSSL: Boolean;
     FSSLCert: String;
+    FClientId: String;
     FKeepAlives: Integer;
     FReconnectDelay: Integer;
     FReconnectBackoff: Boolean;
@@ -134,6 +135,9 @@ Type
       { MQTT TCP Port used by the broker}
     Property Port: Integer Read FPort Write FPort;
 
+      { MQTT client id string, can be empty}
+    Property ClientId: String Read FClientId Write FClientId;
+
       { Time between pings sent by the broker to keep the connection alive }
     Property KeepAlives: Integer Read FKeepAlives Write FKeepAlives;
 
@@ -143,7 +147,7 @@ Type
     Property PubPayload: String Read FPubPayload Write FPubPayload;
 
       { Default publish topic quality of service  }
-    Property PubQoS: integer Read FPubQoS write FPubQoS;
+    Property PubQoS: integer Read FPubQoS Write FPubQoS;
 
       { Default publish message retain flag }
     Property PubRetain: boolean read FPubRetain write FPubRetain;
@@ -174,6 +178,7 @@ Type
     Property User: String Read FUser Write FUser;
   end;
 
+procedure ValidateClientId(var id: string);
 
 Var
   Broker: TBroker;
@@ -194,6 +199,7 @@ const
   sPasswordKey = 'Password';
   sSSLKey = 'SSL';
   sSSLCertKey = 'SSLCert';
+  sClientID = 'ClientID';
   sKeepAlivesKey = 'KeepAlives';
   sReconnectDelayKey = 'ReconnectDelay';
   sReconnectBackoffKey = 'ReconnectBackoff';
@@ -204,6 +210,60 @@ const
   sPubRetainKey = 'PubRetain';
   sSubTopicsKey = 'SubTopics';
 
+(*
+3.1.3.1 Client Identifier
+
+The Client Identifier (ClientId) identifies the Client to the Server. Each
+Client connecting to the Server has a unique ClientId. The ClientId MUST be
+used by Clients and by Servers to identify state that they hold relating to
+this MQTT Session between the Client and the Server [MQTT-3.1.3-2].
+
+The Client Identifier (ClientId) MUST be present and MUST be the first field
+in the CONNECT packet payload [MQTT-3.1.3-3].
+
+The ClientId MUST be a UTF-8 encoded string as defined in Section 1.5.3
+[MQTT-3.1.3-4].
+
+The Server MUST allow ClientIds which are between 1 and 23 UTF-8 encoded bytes
+in length, and that contain only the characters
+"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" [MQTT-3.1.3-5].
+
+The Server MAY allow ClientId’s that contain more than 23 encoded bytes. The
+Server MAY allow ClientId’s that contain characters not included in the list
+given above.
+
+A Server MAY allow a Client to supply a ClientId that has a length of zero
+bytes, however if it does so the Server MUST treat this as a special case and
+assign a unique ClientId to that Client. It MUST then process the CONNECT
+packet as if the Client had provided that unique ClientId [MQTT-3.1.3-6].
+
+If the Client supplies a zero-byte ClientId, the Client MUST also set
+CleanSession to 1 [MQTT-3.1.3-7].
+
+If the Client supplies a zero-byte ClientId with CleanSession set to 0, the
+Server MUST respond to the CONNECT Packet with a CONNACK return code 0x02
+(Identifier rejected) and then close the Network Connection [MQTT-3.1.3-8].
+
+If the Server rejects the ClientId it MUST respond to the CONNECT Packet with
+a CONNACK return code 0x02 (Identifier rejected) and then close the Network
+Connection [MQTT-3.1.3-9].
+
+Non normative comment
+
+A Client implementation could provide a convenience method to generate a random
+ClientId. Use of such a method should be actively discouraged when the
+CleanSession is set to 0.
+*)
+procedure ValidateClientId(var id: string);
+const
+  ValidChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var
+  I: integer;
+begin
+  for I := length(id) downto 1 do
+    if pos(id[I], ValidChars) < 1 then
+      delete(id, I, 1);
+end;
 
 { TSubTopics functions }
 
@@ -396,6 +456,7 @@ begin
   FPassword := aBroker.Password;
   FSSL := aBroker.SSL;
   FSSLCert := aBroker.SSLCert;
+  FClientId := aBroker.ClientId;
   FKeepAlives := aBroker.KeepAlives;
   FReconnectDelay := aBroker.ReconnectDelay;
   FReconnectBackoff := aBroker.ReconnectBackoff;
@@ -437,6 +498,7 @@ begin
   FPassword := '';
   FSSL := false;
   FSSLCert := '';
+  FClientId := '';
   FKeepAlives := 60;
   FReconnectDelay := 0;
   FReconnectBackoff := false;
@@ -503,6 +565,7 @@ begin
   FPassword := DEFAULT_PASSWORD;
   FSSL := DEFAULT_SSL;
   FSSLCert := DEFAULT_SSLCERT;
+  FClientID := DEFAULT_CLIENTID;
   FKeepalives := DEFAULT_KEEPALIVES;
   FReconnectDelay := DEFAULT_RECONNECTDELAY;
   FReconnectBackoff := DEFAULT_RECONNECTBACKOFF;
@@ -527,6 +590,7 @@ begin
      (FPassword = aBroker.Password) and
      (FSSL = aBroker.SSL) and
      (FSSLCert = aBroker.SSLCert) and
+     (FClientId = aBroker.ClientId) and
      (FKeepAlives = aBroker.KeepAlives) and
      (FReconnectDelay = aBroker.ReconnectDelay) and
      (FReconnectBackoff = aBroker.ReconnectBackoff) and
@@ -568,6 +632,10 @@ begin
       sPasswordKey: Password := Decrypt(E.Value.AsString);
       sSSLKey: SSL := E.Value.AsBoolean;
       sSSLCertKey: SSLCert := E.Value.AsString;
+      sClientID: begin
+                   ClientID := E.Value.AsString;
+                   ValidateClientId(FClientID);
+                 end;
       sKeepAlivesKey: KeepAlives := E.Value.AsInteger;
       sReconnectDelayKey: ReconnectDelay := E.Value.AsInteger;
       sReconnectBackoffKey: ReconnectBackoff := E.Value.AsBoolean;
@@ -642,6 +710,7 @@ begin
   AJSON.Add(sPasswordKey, Encrypt(Password));
   AJSON.Add(sSSLKey, SSL);
   AJSON.Add(sSSLCertKey, SSLCert);
+  AJSON.Add(sClientID, ClientID);
   AJSON.Add(sKeepAlivesKey, KeepAlives);
   AJSON.Add(sReconnectDelayKey, ReconnectDelay);
   AJSON.Add(sReconnectBackoffKey, ReconnectBackoff);

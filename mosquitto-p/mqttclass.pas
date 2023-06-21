@@ -166,13 +166,19 @@ end;
 constructor TMQTTConnection.Create(const name: String; const config: TMQTTConfig; const loglevel: cint);
 var
   rc: cint;
+  cid: PChar;
 begin
   inherited Create(true);
 
   FName:=name;
   FConfig:=config;
+  cid:=nil;
+  if length(FConfig.client_id) > 0 then
+    cid := PChar(@FConfig.client_id[1])
+  else
+    cid := nil;
 
-  FMosquitto:=mosquitto_new(PChar(@FConfig.client_id[1]), true, self);
+  FMosquitto:=mosquitto_new(cid, true, self);
   if FMosquitto=nil then
     raise Exception.Create('mosquitto instance creation failure');
 

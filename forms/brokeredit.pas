@@ -21,8 +21,10 @@ type
     ActionList1: TActionList;
     CancelButton: TButton;
     AutoReconnectCheckBox: TCheckBox;
+    ClientIDEdit: TEdit;
     Label10: TLabel;
     Label14: TLabel;
+    Label15: TLabel;
     PayloadMemo: TMemo;
     ReconnectBackoffCheckBox: TCheckBox;
     SSLCheckBox: TCheckBox;
@@ -74,6 +76,7 @@ type
     procedure actEditExecute(Sender: TObject);
     procedure AutoReconnectCheckBoxChange(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
+    procedure ClientIDEditEditingDone(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure HostEditEditingDone(Sender: TObject);
     procedure KeepAlivesEditEditingDone(Sender: TObject);
@@ -227,6 +230,16 @@ end;
 procedure TBrokerEditForm.CancelButtonClick(Sender: TObject);
 begin
   ModalResult := mrCancel;
+end;
+
+procedure TBrokerEditForm.ClientIDEditEditingDone(Sender: TObject);
+var
+  validId: string;
+begin
+  validId := ClientIDEdit.text;
+  ValidateClientID(validId);
+  FBroker.ClientId := validId;
+  ClientIDEdit.Text := validId;
 end;
 
 procedure TBrokerEditForm.Change;
@@ -445,6 +458,7 @@ begin
     PasswordEdit.Text := Password;
     SSLCheckBox.Checked := SSL;
     SSLCertMemo.Text := SSLCert;
+    ClientIdEdit.Text := ClientId;
     PubTopicEdit.Text := PubTopic;
     PayloadMemo.Text := PubPayload;
     QoSComboBox.ItemIndex := PubQoS;
