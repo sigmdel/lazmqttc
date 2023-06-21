@@ -10,6 +10,7 @@ object MainForm: TMainForm
   OnDestroy = FormDestroy
   OnShow = FormShow
   ShowHint = True
+  LCLVersion = '2.3.0.0'
   object TopPanel: TPanel
     AnchorSideTop.Control = Owner
     Left = 0
@@ -400,7 +401,7 @@ object MainForm: TMainForm
       TabOrder = 4
       object TabSheet1: TTabSheet
         Caption = 'Messages'
-        ClientHeight = 102
+        ClientHeight = 99
         ClientWidth = 595
         object MessagesMemo: TMemo
           Left = 0
@@ -419,7 +420,7 @@ object MainForm: TMainForm
       end
       object TabSheet2: TTabSheet
         Caption = 'Log'
-        ClientHeight = 102
+        ClientHeight = 99
         ClientWidth = 595
         object LogMemo: TMemo
           Left = 0
