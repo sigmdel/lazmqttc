@@ -20,6 +20,7 @@ Type
     FSubMsgHeader : String;
     FCopyPubMessages : Boolean;
     FShowTopics : Boolean;
+    FDefaultBrokerFile: String;
   Protected
     Procedure Init;
   Public
@@ -58,14 +59,15 @@ Type
        { Saves the values of all properties in a JSON object}
     Procedure SaveToJSON(AJSON : TJSONObject); overload; virtual;
 
-    Property MessagesMaxLines: Integer Read FMessagesMaxLines Write FMessagesMaxLines;
     Property AutoClearOnPublish: boolean Read FAutoClearOnPublish Write FAutoClearOnPublish;
     Property AutoconnectOnPublish : Boolean Read FAutoconnectOnPublish Write FAutoconnectOnPublish;
+    Property CopyPubMessages : Boolean Read FCopyPubMessages Write FCopyPubMessages;
+    Property DefaultBrokerFile: String Read FDefaultBrokerFile Write FDefaultBrokerFile;
+    Property MessagesMaxLines: Integer Read FMessagesMaxLines Write FMessagesMaxLines;
     Property AutoconnectDelay : Integer Read FAutoconnectDelay Write FAutoconnectDelay;
     Property PubMsgHeader : String Read FPubMsgHeader Write FPubMsgHeader;
-    Property SubMsgHeader : String Read FSubMsgHeader Write FSubMsgHeader;
-    Property CopyPubMessages : Boolean Read FCopyPubMessages Write FCopyPubMessages;
     Property ShowTopics : Boolean Read FShowTopics Write FShowTopics;
+    Property SubMsgHeader : String Read FSubMsgHeader Write FSubMsgHeader;
   end;
 
 var
@@ -78,14 +80,15 @@ resourcestring
 
 
 const
-  sMessagesMaxLines = 'MessagesMaxLines';
   sAutoclearOnPublish = 'AutoclearOnPublish';
   sAutoconnectOnPublish = 'AutoconnectOnPublish';
   sAutoconnectDelay = 'AutoconnectDelay';
-  sPubMsgHeader = 'PubMsgHeader';
-  sSubMsgHeader = 'SubMsgHeader';
   sCopyPubMessages = 'CopyPubMessages';
+  sDefaultBrokerFile = 'DefaultBrokerFile';
+  sMessagesMaxLines = 'MessagesMaxLines';
+  sPubMsgHeader = 'PubMsgHeader';
   sShowTopics = 'ShowTopics';
+  sSubMsgHeader = 'SubMsgHeader';
 
 constructor TOptions.Create;
 begin
@@ -115,6 +118,7 @@ begin
   FSubMsgHeader := aOptions.SubMsgHeader;
   FCopyPubMessages := aOptions.CopyPubMessages;
   FShowTopics := aOptions.ShowTopics;
+  FDefaultBrokerFile := aOptions.DefaultBrokerFile
 end;
 
 procedure TOptions.Clear;
@@ -132,6 +136,7 @@ begin
   FSubMsgHeader := DEFAULT_SUBMSG_HEADER;
   FCopyPubMessages := DEFAULT_COPY_PUBMESSAGES;
   FShowTopics := DEFAULT_SHOW_TOPICS;
+  FDefaultBrokerFile := DEFAULT_BROKER_FILE;
 end;
 
 function TOptions.isEqual(aOptions: TOptions): boolean;
@@ -143,7 +148,8 @@ begin
     (FPubMsgHeader = aOptions.PubMsgHeader) and
     (FSubMsgHeader = aOptions.SubMsgHeader) and
     (FCopyPubMessages = aOptions.CopyPubMessages) and
-    (FShowTopics = aOptions.ShowTopics);
+    (FShowTopics = aOptions.ShowTopics) and
+    (FDefaultBrokerFile = aOptions.DefaultBrokerFile);
 end;
 
 procedure TOptions.LoadFromJSON(AJSON: TJSONData);
@@ -160,6 +166,7 @@ begin
       sSubMsgHeader:         SubMsgHeader := E.Value.AsString;
       sCopyPubMessages:      CopyPubMessages := E.Value.AsBoolean;
       sShowTopics:           ShowTopics := E.Value.AsBoolean;
+      sDefaultBrokerFile:    DefaultBrokerFile := E.Value.AsString;
     (*
      else: Warning or Error for unknown key ??
     *)
@@ -167,30 +174,6 @@ begin
   end;
 end;
 
-
-(*
-procedure TOptions.LoadFromFile(const aFilename: string);
-Var
-  stream : TFileStream;
-  jd : TJSONData;
-begin
-  if aFilename = '' then exit;
-  jd := nil;
-  try
-    stream := TFileStream.Create(AFileName,fmOpenRead or fmShareDenyWrite);
-    try
-      jd := getJSON(stream);
-      LoadFromJSON(jd);
-    finally
-      jd.free;
-      stream.free;
-    end;
-  except
-    MessageDlg('lazmqttc', 'options.json not found', mtInformation, [mbOk], 0);
-    //ShowMessage('oops, not found');
-  end;
-end;
-*)
 
 procedure TOptions.LoadFromFile(const aFilename: string);
 Var
@@ -236,6 +219,7 @@ begin
   AJSON.Add(sSubMsgHeader, SubMsgHeader);
   AJSON.Add(sCopyPubMessages, CopyPubMessages);
   AJSON.Add(sShowTopics, ShowTopics);
+  AJSON.Add(sDefaultBrokerFile, DefaultBrokerFile);
 end;
 
 procedure TOptions.SaveToFile(const aFilename: string);

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
-  Spin, ComCtrls, optionsunit;
+  Spin, ComCtrls, EditBtn, optionsunit;
 
 type
 
@@ -15,9 +15,12 @@ type
   TOptionsEditForm = class(TForm)
     AcceptButton: TButton;
     Bevel1: TBevel;
+    Bevel2: TBevel;
     CancelButton: TButton;
     AutoConnectCheckBox: TCheckBox;
     AutoClearCheckBox: TCheckBox;
+    DefaultBrokerFileNameEdit: TFileNameEdit;
+    Label7: TLabel;
     ShowPublishedCheckBox: TCheckBox;
     ShowTopicsCheckBox: TCheckBox;
     PubHeaderEdit: TEdit;
@@ -34,6 +37,8 @@ type
     MaxLinesEdit: TSpinEdit;
     procedure AcceptButtonClick(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
+    procedure DefaultBrokerFileNameEditAcceptFileName(Sender: TObject;
+      var Value: String);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -48,18 +53,12 @@ type
     class function EditOptions(aOptions: TOptions): boolean;
   end;
 
-var
-  configfile: string; // see initialization
-
 implementation
 
 {$R *.lfm}
 
 uses
-  startup, stringres, editsubtopic, verify;
-
-const
-  CONFIGFILENAME = 'default.json';
+  startup, stringres, verify;
 
 { TOptionsEditForm }
 
@@ -91,6 +90,13 @@ begin
   ModalResult := mrCancel;
 end;
 
+procedure TOptionsEditForm.DefaultBrokerFileNameEditAcceptFileName(
+  Sender: TObject; var Value: String);
+begin
+  if extractfilepath(Value) = extractfilepath(configfile) then
+    value := extractfilename(value);
+end;
+
 procedure TOptionsEditForm.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 var
   aControl: TWinControl;
@@ -118,6 +124,8 @@ procedure TOptionsEditForm.FormCreate(Sender: TObject);
 begin
   i18nFixup;
   FOptions := TOptions.create;
+  DefaultBrokerFileNameEdit.InitialDir := extractfilepath(configfile);
+  DefaultBrokerFileNameEdit.Filter := sJSONFiles + '|*.json|' + sAllFiles + '|*.*';
 end;
 
 procedure TOptionsEditForm.FormDestroy(Sender: TObject);
@@ -147,6 +155,7 @@ begin
     SubMsgHeader         := SubHeaderEdit.Text;
     CopyPubMessages      := ShowPublishedCheckBox.checked;
     ShowTopics           := ShowTopicsCheckBox.checked;
+    DefaultBrokerFile    := DefaultBrokerFilenameEdit.Filename;
   end;
 end;
 
@@ -161,6 +170,7 @@ begin
     SubHeaderEdit.Text := SubMsgHeader;
     ShowPublishedCheckBox.checked := CopyPubMessages;
     ShowTopicsCheckBox.checked := ShowTopics;
+    DefaultBrokerFilenameEdit.Filename := DefaultBrokerFile;
   end;
 end;
 

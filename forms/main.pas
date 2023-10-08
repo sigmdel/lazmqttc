@@ -329,7 +329,6 @@ begin
     //TabOrder = 1
   end;
   FLogLevel := DEFAULT_LOG_LEVEL;
-  RefreshGUI;
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
@@ -338,6 +337,8 @@ begin
 end;
 
 procedure TMainForm.FormShow(Sender: TObject);
+var
+  fname: string;
 begin
   Constraints.MinHeight := Height;
   Constraints.MinWidth := Width;
@@ -346,7 +347,18 @@ begin
     halt;
   end;
   Options.LoadFromFile(optionsfile);
+  fname := Options.DefaultBrokerFile;
+  if length(fname) > 0 then begin
+    if not fileexists(fname) then
+      fname := extractfilepath(configfile) + fname;
+    if not fileexists(fname) then
+      fname := '';
+  end;
+  if (length(fname) < 1) then
+    fname := configfile;
+  Broker.LoadFromFile(fname);
   UpdateFormOptions;
+  RefreshGUI;
 end;
 
 procedure TMainForm.i18nFixup;

@@ -1,33 +1,32 @@
 object OptionsEditForm: TOptionsEditForm
   Left = 425
-  Height = 368
+  Height = 400
   Top = 250
   Width = 454
   Caption = 'Options Editor'
-  ClientHeight = 368
+  ClientHeight = 400
   ClientWidth = 454
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poMainFormCenter
-  LCLVersion = '2.3.0.0'
   object Panel1: TPanel
     Left = 0
-    Height = 42
-    Top = 326
+    Height = 38
+    Top = 362
     Width = 454
     Align = alBottom
     Anchors = []
     AutoSize = True
     BevelOuter = bvNone
-    ClientHeight = 42
+    ClientHeight = 38
     ClientWidth = 454
     TabOrder = 0
     object AcceptButton: TButton
-      Left = 393
-      Height = 30
+      Left = 385
+      Height = 26
       Top = 6
-      Width = 55
+      Width = 63
       Align = alRight
       AutoSize = True
       BorderSpacing.Around = 6
@@ -36,10 +35,10 @@ object OptionsEditForm: TOptionsEditForm
       TabOrder = 0
     end
     object CancelButton: TButton
-      Left = 333
-      Height = 30
+      Left = 317
+      Height = 26
       Top = 6
-      Width = 54
+      Width = 62
       Align = alRight
       AutoSize = True
       BorderSpacing.Top = 6
@@ -50,9 +49,9 @@ object OptionsEditForm: TOptionsEditForm
     end
     object ResetButton: TButton
       Left = 6
-      Height = 30
+      Height = 26
       Top = 6
-      Width = 47
+      Width = 56
       Align = alLeft
       AutoSize = True
       BorderSpacing.Around = 6
@@ -67,18 +66,19 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Side = asrCenter
     Left = 12
     Height = 16
-    Top = 65
-    Width = 233
+    Top = 63
+    Width = 228
     Caption = 'Delay waiting for connection (seconds)'
+    ParentColor = False
   end
   object AutoConnectDelayEdit: TSpinEdit
     AnchorSideLeft.Control = Label1
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = AutoConnectCheckBox
     AnchorSideTop.Side = asrBottom
-    Left = 257
-    Height = 27
-    Top = 60
+    Left = 252
+    Height = 26
+    Top = 58
     Width = 138
     BorderSpacing.Left = 12
     BorderSpacing.Top = 6
@@ -90,9 +90,9 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Control = Label5
     AnchorSideTop.Side = asrBottom
     Left = 12
-    Height = 23
+    Height = 21
     Top = 31
-    Width = 76
+    Width = 77
     BorderSpacing.Left = 6
     BorderSpacing.Top = 8
     Caption = 'Enabled'
@@ -104,17 +104,18 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Side = asrCenter
     Left = 12
     Height = 16
-    Top = 291
-    Width = 160
+    Top = 283
+    Width = 157
     Caption = 'Published message header'
+    ParentColor = False
   end
   object PubHeaderEdit: TEdit
     AnchorSideLeft.Control = SubHeaderEdit
     AnchorSideTop.Control = SubHeaderEdit
     AnchorSideTop.Side = asrBottom
     Left = 183
-    Height = 27
-    Top = 286
+    Height = 28
+    Top = 277
     Width = 80
     BorderSpacing.Top = 6
     TabOrder = 3
@@ -124,8 +125,8 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Control = MaxLinesEdit
     AnchorSideTop.Side = asrBottom
     Left = 12
-    Height = 23
-    Top = 195
+    Height = 21
+    Top = 189
     Width = 183
     BorderSpacing.Top = 6
     Caption = 'Show published messages'
@@ -136,9 +137,9 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Control = ShowPublishedCheckBox
     AnchorSideTop.Side = asrBottom
     Left = 12
-    Height = 23
-    Top = 224
-    Width = 153
+    Height = 21
+    Top = 216
+    Width = 154
     BorderSpacing.Top = 6
     Caption = 'Show message topics'
     TabOrder = 5
@@ -149,9 +150,10 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Side = asrCenter
     Left = 12
     Height = 16
-    Top = 258
+    Top = 249
     Width = 153
     Caption = 'Received message header'
+    ParentColor = False
   end
   object SubHeaderEdit: TEdit
     AnchorSideLeft.Control = Label3
@@ -159,8 +161,8 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Control = ShowTopicsCheckBox
     AnchorSideTop.Side = asrBottom
     Left = 183
-    Height = 27
-    Top = 253
+    Height = 28
+    Top = 243
     Width = 80
     BorderSpacing.Left = 18
     BorderSpacing.Top = 6
@@ -172,17 +174,18 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Side = asrCenter
     Left = 12
     Height = 16
-    Top = 167
-    Width = 235
+    Top = 162
+    Width = 231
     Caption = 'Maximum number of logged messages '
+    ParentColor = False
   end
   object MaxLinesEdit: TSpinEdit
     AnchorSideLeft.Control = AutoConnectDelayEdit
     AnchorSideTop.Control = AutoClearCheckBox
     AnchorSideTop.Side = asrBottom
-    Left = 257
-    Height = 27
-    Top = 162
+    Left = 252
+    Height = 26
+    Top = 157
     Width = 138
     BorderSpacing.Top = 6
     MaxValue = 32768
@@ -196,7 +199,7 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideRight.Side = asrBottom
     Left = 6
     Height = 6
-    Top = 95
+    Top = 92
     Width = 442
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 6
@@ -210,11 +213,12 @@ object OptionsEditForm: TOptionsEditForm
     Left = 6
     Height = 16
     Top = 7
-    Width = 383
+    Width = 375
     BorderSpacing.Left = 6
     BorderSpacing.Top = 7
     Caption = 'Automatic connection to the broker on publishing a message'
     Font.Style = [fsBold]
+    ParentColor = False
     ParentFont = False
   end
   object Label6: TLabel
@@ -223,11 +227,12 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Side = asrBottom
     Left = 6
     Height = 16
-    Top = 109
+    Top = 106
     Width = 61
     BorderSpacing.Top = 8
     Caption = 'Messages'
     Font.Style = [fsBold]
+    ParentColor = False
     ParentFont = False
   end
   object AutoClearCheckBox: TCheckBox
@@ -235,11 +240,66 @@ object OptionsEditForm: TOptionsEditForm
     AnchorSideTop.Control = Label6
     AnchorSideTop.Side = asrBottom
     Left = 12
-    Height = 23
-    Top = 133
-    Width = 355
+    Height = 21
+    Top = 130
+    Width = 350
     BorderSpacing.Top = 8
     Caption = 'Auto clear previous messages on publishing a message'
     TabOrder = 8
+  end
+  object Bevel2: TBevel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = PubHeaderEdit
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 6
+    Height = 8
+    Top = 311
+    Width = 442
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 6
+    BorderSpacing.Right = 6
+    Shape = bsTopLine
+  end
+  object DefaultBrokerFileNameEdit: TFileNameEdit
+    AnchorSideLeft.Control = Label7
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = Bevel2
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 117
+    Height = 28
+    Top = 324
+    Width = 331
+    OnAcceptFileName = DefaultBrokerFileNameEditAcceptFileName
+    DialogTitle = 'Default Broker Definition'
+    DialogOptions = [ofFileMustExist, ofEnableSizing, ofViewDetail]
+    Filter = 'Json files|*jano|All files|*.*'
+    FilterIndex = 0
+    HideDirectories = False
+    ButtonWidth = 23
+    NumGlyphs = 1
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Left = 12
+    BorderSpacing.Top = 5
+    BorderSpacing.Right = 6
+    MaxLength = 0
+    TabOrder = 9
+  end
+  object Label7: TLabel
+    AnchorSideLeft.Control = Label2
+    AnchorSideTop.Control = DefaultBrokerFileNameEdit
+    AnchorSideTop.Side = asrCenter
+    Left = 12
+    Height = 16
+    Top = 330
+    Width = 93
+    Caption = 'Default broker'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
   end
 end

@@ -38,6 +38,7 @@ resourcestring
   cbsLoseChanges = 'Close without saving changes';
   cbsDeleteQuery = 'Delete <%s>';
   sJSONFiles = 'JSON files';
+  sAllFiles = 'All files';
 
   // topicsgrids
   sUseTitle = 'Use';
