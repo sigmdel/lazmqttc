@@ -1,12 +1,5 @@
 msgid ""
-msgstr ""
-#Uncomment after modifying as appropriate
-#"Content-Type: text/plain; charset=UTF-8\n"
-#"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#"Project-Id-Version: \n"
-#"MIME-Version: 1.0\n"
-#"Content-Transfer-Encoding: 8bit\n"
-#"Language: fr_FR\n"
+msgstr "Content-Type: text/plain; charset=UTF-8"
 
 #: optionsunit.rsloaderror
 #, object-pascal-format
@@ -40,6 +33,10 @@ msgstr ""
 
 #: stringres.mssreconnecting
 msgid "Attempting to reconnect"
+msgstr ""
+
+#: stringres.sallfiles
+msgid "All files"
 msgstr ""
 
 #: stringres.sappcaption
@@ -528,6 +525,10 @@ msgstr ""
 #: toptionseditform.label6.caption
 msgctxt "toptionseditform.label6.caption"
 msgid "Messages"
+msgstr ""
+
+#: toptionseditform.label7.caption
+msgid "Default broker"
 msgstr ""
 
 #: toptionseditform.resetbutton.caption

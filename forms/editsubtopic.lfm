@@ -9,7 +9,7 @@ object EditSubTopicForm: TEditSubTopicForm
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poMainFormCenter
-  LCLVersion = '2.3.0.0'
+  LCLVersion = '2.2.7.0'
   object BottomPanel: TPanel
     Left = 0
     Height = 42
@@ -62,6 +62,7 @@ object EditSubTopicForm: TEditSubTopicForm
     BorderSpacing.Left = 6
     BorderSpacing.Top = 6
     Caption = 'Topic:'
+    ParentColor = False
   end
   object TopicEdit: TEdit
     AnchorSideLeft.Control = Label1
@@ -89,6 +90,7 @@ object EditSubTopicForm: TEditSubTopicForm
     Width = 144
     Caption = 'Quality of Service (QoS):'
     ParentBidiMode = False
+    ParentColor = False
   end
   object QoSComboBox: TComboBox
     AnchorSideLeft.Control = Label2
@@ -140,5 +142,6 @@ object EditSubTopicForm: TEditSubTopicForm
     Top = 96
     Width = 22
     Caption = 'Use'
+    ParentColor = False
   end
 end

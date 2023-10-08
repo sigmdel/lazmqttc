@@ -277,7 +277,6 @@ object OptionsEditForm: TOptionsEditForm
     OnAcceptFileName = DefaultBrokerFileNameEditAcceptFileName
     DialogTitle = 'Default Broker Definition'
     DialogOptions = [ofFileMustExist, ofEnableSizing, ofViewDetail]
-    Filter = 'Json files|*jano|All files|*.*'
     FilterIndex = 0
     HideDirectories = False
     ButtonWidth = 23

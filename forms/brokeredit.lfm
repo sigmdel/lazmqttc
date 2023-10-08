@@ -12,19 +12,19 @@ object BrokerEditForm: TBrokerEditForm
   Position = poMainFormCenter
   object Panel1: TPanel
     Left = 0
-    Height = 42
-    Top = 372
+    Height = 40
+    Top = 374
     Width = 652
     Align = alBottom
     Anchors = []
     AutoSize = True
     BevelOuter = bvNone
-    ClientHeight = 42
+    ClientHeight = 40
     ClientWidth = 652
     TabOrder = 0
     object LoadButton: TButton
-      Left = 63
-      Height = 30
+      Left = 71
+      Height = 28
       Top = 6
       Width = 80
       Align = alLeft
@@ -35,10 +35,10 @@ object BrokerEditForm: TBrokerEditForm
       TabOrder = 0
     end
     object AcceptButton: TButton
-      Left = 591
-      Height = 30
+      Left = 583
+      Height = 28
       Top = 6
-      Width = 55
+      Width = 63
       Align = alRight
       AutoSize = True
       BorderSpacing.Around = 6
@@ -47,8 +47,8 @@ object BrokerEditForm: TBrokerEditForm
       TabOrder = 1
     end
     object CancelButton: TButton
-      Left = 505
-      Height = 30
+      Left = 497
+      Height = 28
       Top = 6
       Width = 80
       Align = alRight
@@ -60,9 +60,9 @@ object BrokerEditForm: TBrokerEditForm
     end
     object SaveButton: TButton
       Left = 6
-      Height = 30
+      Height = 28
       Top = 6
-      Width = 51
+      Width = 59
       Align = alLeft
       AutoSize = True
       BorderSpacing.Around = 6
@@ -73,7 +73,7 @@ object BrokerEditForm: TBrokerEditForm
   end
   object ListBox1: TListBox
     Left = 6
-    Height = 366
+    Height = 368
     Top = 6
     Width = 145
     Align = alLeft
@@ -96,7 +96,7 @@ object BrokerEditForm: TBrokerEditForm
   end
   object Notebook: TNotebook
     Left = 151
-    Height = 372
+    Height = 374
     Top = 0
     Width = 501
     PageIndex = 0
@@ -114,6 +114,7 @@ object BrokerEditForm: TBrokerEditForm
         BorderSpacing.Left = 12
         BorderSpacing.Top = 12
         Caption = 'Host'
+        ParentColor = False
       end
       object HostEdit: TEdit
         AnchorSideLeft.Control = Label2
@@ -122,7 +123,7 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Control = BrokerPage
         AnchorSideRight.Side = asrBottom
         Left = 12
-        Height = 27
+        Height = 28
         Top = 34
         Width = 483
         Anchors = [akTop, akLeft, akRight]
@@ -139,19 +140,20 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Side = asrBottom
         Left = 206
         Height = 16
-        Top = 117
+        Top = 119
         Width = 26
         Anchors = [akTop, akRight]
         Caption = 'Port'
+        ParentColor = False
       end
       object PortEdit: TSpinEdit
         AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = ClientIDEdit
         AnchorSideTop.Side = asrBottom
         Left = 241
-        Height = 27
+        Height = 26
         Hint = 'Default MQTT Port: 1883'
-        Top = 112
+        Top = 114
         Width = 120
         BorderSpacing.Top = 12
         MaxValue = 65365
@@ -166,20 +168,21 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
-        Left = 119
+        Left = 121
         Height = 16
-        Top = 156
-        Width = 113
+        Top = 157
+        Width = 111
         Anchors = [akTop, akRight]
         Caption = 'Keep Alive Interval'
+        ParentColor = False
       end
       object KeepAlivesEdit: TSpinEdit
         AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = PortEdit
         AnchorSideTop.Side = asrBottom
         Left = 241
-        Height = 27
-        Top = 151
+        Height = 26
+        Top = 152
         Width = 120
         BorderSpacing.Top = 12
         MaxValue = 200000
@@ -194,19 +197,20 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label5
         AnchorSideRight.Side = asrBottom
-        Left = 128
+        Left = 129
         Height = 16
         Top = 195
-        Width = 104
+        Width = 103
         Anchors = [akTop, akRight]
         Caption = 'Reconnect  Delay'
+        ParentColor = False
       end
       object ReconnectDelayEdit: TSpinEdit
         AnchorSideLeft.Control = AutoReconnectCheckBox
         AnchorSideTop.Control = KeepAlivesEdit
         AnchorSideTop.Side = asrBottom
         Left = 241
-        Height = 27
+        Height = 26
         Top = 190
         Width = 120
         BorderSpacing.Top = 12
@@ -219,9 +223,9 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Control = ReconnectDelayEdit
         AnchorSideTop.Side = asrBottom
         Left = 241
-        Height = 23
-        Top = 229
-        Width = 63
+        Height = 21
+        Top = 228
+        Width = 66
         BorderSpacing.Top = 12
         Caption = '(false)'
         OnChange = ReconnectBackoffCheckBoxChange
@@ -233,23 +237,25 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label10
         AnchorSideRight.Side = asrBottom
-        Left = 119
+        Left = 120
         Height = 16
-        Top = 232
-        Width = 113
+        Top = 230
+        Width = 112
         Anchors = [akTop, akRight]
         Caption = 'Reconnect Backoff'
+        ParentColor = False
       end
       object Label10: TLabel
         AnchorSideLeft.Control = Label2
         AnchorSideTop.Control = AutoReconnectCheckBox
         AnchorSideTop.Side = asrCenter
-        Left = 104
+        Left = 105
         Height = 16
-        Top = 267
-        Width = 128
+        Top = 263
+        Width = 127
         Anchors = [akTop]
         Caption = 'Automatic Reconnect'
+        ParentColor = False
       end
       object AutoReconnectCheckBox: TCheckBox
         AnchorSideLeft.Control = Label10
@@ -257,9 +263,9 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Control = ReconnectBackoffCheckBox
         AnchorSideTop.Side = asrBottom
         Left = 241
-        Height = 23
-        Top = 264
-        Width = 59
+        Height = 21
+        Top = 261
+        Width = 63
         BorderSpacing.Left = 9
         BorderSpacing.Top = 12
         Caption = '(true)'
@@ -271,13 +277,14 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Label1
         AnchorSideRight.Side = asrBottom
-        Left = 77
+        Left = 81
         Height = 16
-        Top = 78
-        Width = 155
+        Top = 80
+        Width = 151
         Anchors = [akTop, akRight]
         BorderSpacing.Top = 12
         Caption = 'MQTT Client ID (optional)'
+        ParentColor = False
       end
       object ClientIDEdit: TEdit
         AnchorSideLeft.Control = AutoReconnectCheckBox
@@ -286,8 +293,8 @@ object BrokerEditForm: TBrokerEditForm
         AnchorSideRight.Control = HostEdit
         AnchorSideRight.Side = asrBottom
         Left = 241
-        Height = 27
-        Top = 73
+        Height = 28
+        Top = 74
         Width = 254
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 12
@@ -305,6 +312,7 @@ object BrokerEditForm: TBrokerEditForm
         Width = 30
         BorderSpacing.Top = 24
         Caption = 'User:'
+        ParentColor = False
       end
       object Label7: TLabel
         AnchorSideLeft.Control = Label6
@@ -316,6 +324,7 @@ object BrokerEditForm: TBrokerEditForm
         Width = 61
         BorderSpacing.Top = 24
         Caption = 'Password:'
+        ParentColor = False
       end
       object UserEdit: TEdit
         AnchorSideLeft.Control = Label6
@@ -371,6 +380,7 @@ object BrokerEditForm: TBrokerEditForm
         BorderSpacing.Left = 12
         BorderSpacing.Top = 12
         Caption = 'Enable SSL'
+        ParentColor = False
       end
       object SSLCheckBox: TCheckBox
         AnchorSideLeft.Control = Label8
@@ -395,6 +405,7 @@ object BrokerEditForm: TBrokerEditForm
         Width = 86
         BorderSpacing.Top = 12
         Caption = 'SSL Certificate'
+        ParentColor = False
       end
       object SSLCertMemo: TMemo
         AnchorSideLeft.Control = Label8
@@ -429,6 +440,7 @@ object BrokerEditForm: TBrokerEditForm
         BorderSpacing.Left = 12
         BorderSpacing.Top = 12
         Caption = 'Topic'
+        ParentColor = False
       end
       object Label12: TLabel
         AnchorSideTop.Control = QoSComboBox
@@ -440,6 +452,7 @@ object BrokerEditForm: TBrokerEditForm
         BorderSpacing.Top = 11
         Caption = 'Quality of Service (QoS)'
         Layout = tlCenter
+        ParentColor = False
       end
       object QoSComboBox: TComboBox
         AnchorSideLeft.Control = Label12
@@ -475,6 +488,7 @@ object BrokerEditForm: TBrokerEditForm
         Width = 38
         Caption = 'Retain'
         Layout = tlCenter
+        ParentColor = False
       end
       object PubRetainCheckBox: TCheckBox
         AnchorSideLeft.Control = Label13
@@ -521,6 +535,7 @@ object BrokerEditForm: TBrokerEditForm
         Width = 49
         BorderSpacing.Top = 12
         Caption = 'Payload'
+        ParentColor = False
       end
       object PayloadMemo: TMemo
         AnchorSideLeft.Control = Label11

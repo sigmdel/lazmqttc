@@ -41,6 +41,10 @@ msgstr "Pas de client MQTT"
 msgid "Attempting to reconnect"
 msgstr "Reconnexion en cours"
 
+#: stringres.sallfiles
+msgid "All files"
+msgstr "Tous les fichiers"
+
 #: stringres.sappcaption
 #, object-pascal-format
 msgid "%s (ver. %d.%d.%d)"
@@ -536,6 +540,10 @@ msgstr "Connexion automatique au serveur à l'envoi d'un message"
 msgctxt "toptionseditform.label6.caption"
 msgid "Messages"
 msgstr "Messages"
+
+#: toptionseditform.label7.caption
+msgid "Default broker"
+msgstr "Serveur initial"
 
 #: toptionseditform.resetbutton.caption
 msgctxt "toptionseditform.resetbutton.caption"
