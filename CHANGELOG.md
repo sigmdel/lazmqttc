@@ -1,8 +1,19 @@
 
 # Change Log
 
+## 0.5.3
+- Bumped up to version 0.5.3 
+- Updated the documentation
+- Updated the translation
+- Added a default broker file option
+
+## 0.5.2
+- Bumped up to version 0.5.2 (38a5677)
+- Updated the translation
+- Added a optional client ID in the broker definition 
+
 ## 0.5.1
-- Bumped up to version 0.5.1
+- Bumped up to version 0.5.1 (701d461)
 - Updated the translation
 - Added a context menu in the Messages memo
 - Added word wrap option in Messages memo

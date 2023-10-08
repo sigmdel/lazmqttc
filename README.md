@@ -1,5 +1,5 @@
 # lazmqttc: Lazarus MQTT Client
-**Version 0.5.1**
+**Version 0.5.3**
 
 A basic MQTT client written in Free Pascal/Lazarus that can publish messages to a broker while being subscribed to one or more topics with the same broker. It uses the [Eclipse mosquitto](https://mosquitto.org/) library to communicate with the MQTT broker. `lazmqttc` can be seen as the Eclipse utility `mosquitto_rr` with a graphical interface and some additional capabilities.
 
@@ -18,6 +18,7 @@ The screen capture shows the message sent to the public `test.moquitto.org` brok
 - [5. Program Options](#5-program-options)
   - [5.1. Automatic Connection Options](#51-automatic-connection-options)
   - [5.2. Messages Options](#52-messages-options)
+  - [5.3. Default Broker](#53-default-broker)
 - [6. Option Overrides at Runtime](#6-option-overrides-at-runtime)
 - [7. Broker Definitions](#7-broker-definitions)
   - [7.1. Security Warning](#71-security-warning)
@@ -125,6 +126,8 @@ Details about installation of an application in Windows 10 are unfortunately not
 
 Starting with version 0.4.0, program options can be changed at runtime. Click on the `Options` button at the bottom right of the application window to enter the options editor.
 
+Modifying options (described next) has no immediate effect until the `Accept` button is pressed. In that case, the options editor will be immediately closed. The `Cancel` button will close the options editor with a prior verification that any modification will be lost. The `Reset` button will restore all options to their default values as defined in the `options.inc` file.
+
 ### 5.1. Automatic Connection Options
 
 If automatic connection is enabled, then an attempt will be made to open a connection to the MQTT broker if one is not already established when a message is published. When such an attempt is made, the program will wait for the specified number of seconds and then publish the message if the connection has been established. Even if the program reports that it was unable to establish a connection, it is still possible that the broker will respond later. 
@@ -142,6 +145,11 @@ If `Show published messages` is checked then published messages are added in the
 If `Show message topics` is not checked then only message payloads are shown in the `Messages` control. When shown, topics are enclosed in square brackets [&lt;*topic*&gt;].
 
 The `Received message header` and `Published message header` are used to define prefixes that identify which messages are sent and which are received.
+
+### 5.3. Default Broker 
+
+The `Default broker` field can be entered to set a broker definition file that will be loaded when the program starts.
+
 
 ## 6. Option Overrides at Runtime 
 
