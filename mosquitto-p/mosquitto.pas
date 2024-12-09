@@ -130,7 +130,7 @@ type
 
 type
     Pmosquitto = ^Tmosquitto;
-    Tmosquitto = type array of byte;
+    Tmosquitto = array of byte;
 
 
 {*
