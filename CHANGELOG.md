@@ -1,27 +1,36 @@
 
 # Change Log
 
-## 0.5.3
+## 0.5.4 (1893926, Release v0.5.4 with Linux and Windows binaries)
+- Bumped up to version 0.5.4 
+  - thus hidding the 5.0.3 inversion error!
+- Updated the documentation
+- Updated the translation
+- Fixed the missing broker json file error  
+- No horizontal scrolling when adding received MQTT messages 
+- Double click in Subscribe Topics grid opens the MQTT broker editor
+
+### 0.5.3 (if846e5)
 - Bumped up to version 0.5.3 
+  - not 5.0.3 as in commit messages
 - Updated the documentation
 - Updated the translation
 - Added a default broker file option
 
-## 0.5.2
-- Bumped up to version 0.5.2 (38a5677)
+### 0.5.2 (38a5677)
+- Bumped up to version 0.5.2 
 - Updated the translation
 - Added a optional client ID in the broker definition 
 
-## 0.5.1
-- Bumped up to version 0.5.1 (701d461)
+### 0.5.1 (701d461)
+- Bumped up to version 0.5.1 
 - Updated the translation
 - Added a context menu in the Messages memo
 - Added word wrap option in Messages memo
 - Ordered alphabetically TMainForm methods
 - Renamed some components with default names
 
-
-## 0.5.0 (efb1a85)
+## 0.5.0 (efb1a85, Release v0.5.0 with Linux and Windows binaries)
 - Updated the documentation
 - Updated the translation
 - Bumped up to version 0.5.0
@@ -34,20 +43,20 @@
 - Fixed cryptic error message when starting app with missing `options.json` file
 - Fixed limit of 100 shown messages in Windows version
 
-## 0.4.0 (7417773)
+### 0.4.0 (7417773)
 - Bumped up to version 0.4.0
 - New screen shot 
 - Added resource directory
 - Added application options and option edit form
 
-## 0.3.4 (0fd1b4f)
+### 0.3.4 (0fd1b4f)
 - Bumped up to version 0.3.4
 - Updated the translation
 - If needed, automatically connects to a broker when the Publish button is pressed
 - Published topic can optionally be added to the Messages window 
 - Added a temporary work directory in .hgignore
 
-## 0.3.3 (94e0e89, Release v0.3.3)
+### 0.3.3 (94e0e89, Release v0.3.3)
 - Bumped up the version to 0.3.3
 - Fixed errors in instructions about the `lazmqttc.desktop file`
 - Updated the documentation including warning about lack of security 
@@ -55,7 +64,7 @@
 - Updated the PO files
 - Added encryption of MQTT broker passwords in definition files
 
-## 0.3.2 (b3e2325)
+### 0.3.2 (b3e2325)
 - Bumped up the version to 0.3.2
 - Added missing .jr files
 - Added feature to automatically clear a message after it is published
@@ -85,7 +94,6 @@
 - Fixed missing PayloadMemo handler in `brokeredit.pas`
 - Added some documentation in `README.md` on use in Windows 10
 
-
 ### 0.2.1 (57488bd)
 - Auto reconnect added
 
@@ -96,7 +104,6 @@
 - Added a virtual grid (`TSubTopicsGrid` in `units/topicgrids.pas`) to make editing the `SubTopics` property of `TBroker` simpler
 - `brokeredit.pas` rewritten to handle all the new properties of `TBroker`
 - Rationalized editing of `TBroker` so that any changes made to the current MQTT broker definition in the main form are passed on to the broker editor form
-
 
 ## 0.1.0 (de68488, Pre-Release v0.1.0)
 - Last commit before adding QoS, Retain messages, etc.
