@@ -607,7 +607,7 @@ Var
   stream : TFileStream;
   jd : TJSONData;
 begin
-  if aFilename = '' then exit;
+  if (aFilename = '') or (not fileExists(aFilename)) then exit;
   jd := nil;
   stream := TFileStream.Create(AFileName,fmOpenRead or fmShareDenyWrite);
   try
