@@ -1,11 +1,14 @@
 # lazmqttc: Lazarus MQTT Client
-**Version 0.5.3**
+**Version 0.5.4**
 
 A basic MQTT client written in Free Pascal/Lazarus that can publish messages to a broker while being subscribed to one or more topics with the same broker. It uses the [Eclipse mosquitto](https://mosquitto.org/) library to communicate with the MQTT broker. `lazmqttc` can be seen as the Eclipse utility `mosquitto_rr` with a graphical interface and some additional capabilities.
 
 ![screenshot](images/test_mosquitto.jpg)
 
-The screen capture shows the message sent to the public `test.moquitto.org` broker and it's reply. In this example, the client is subscribed to the same topic used to send the message, which in many cases would not be done.
+The screen capture shows the message sent to the public `test.moquitto.org` broker and it's reply. In this example, the client is subscribed to the same topic used to send the message, but there is no obligation of doing this. Indeed, the client can subscribe to many topics simultaneously which is its principal advantage over `mosquitto_rr`.
+
+The source code of this project is made available with the understanding that users will compile it with a recent version the Free Pascal Compiler in the Lazarus IDE. Compilation should work with versions 2.0.12 or newer of Lazarus with Free Pascal 3.2.0 although it is recommended to use newer versions. The last tests were done with Lazarus 4.99 / FPC 3.3.1. It *may be possible* to test `lazmqttc` without compiling the source code using the binaries for Linux or Windows 10 found in the latest release.
+
 
 <!-- TOC -->
 
@@ -30,67 +33,40 @@ The screen capture shows the message sent to the public `test.moquitto.org` brok
 
 <!-- /TOC -->
 
+## 1. Requirements for running the binaries
 
-## 1. Requirements
+A recent version of the Eclipse mosquitto library must be installed. There is no need to install the Mosquitto MQTT broker.
 
-Two Free Pascal units are required
+### Linux
+
+The *libmosquito* library is needed. In Debian systems this means installing the `libmosquitto1` package with a package manager such as [Synaptic](http://www.nongnu.org/synaptic/) or from the command line with `apt`.
+
+```bash
+$ sudo apt install libmosquitto1
+```
+
+### Windows 
+
+The needed `dll`s (`mosquitto.dll`, `mosquitto_dynamic_security.dll`, `libcrypto-1_1-x64.dll`, `libssl-1_1-x64.dll`, `mosquittopp.dll`) should be in the same directory containing the `lazmqttc.exe` executable. Versions 2.0.10 of these files are include in the `lazmqtt-0-5-4.zip` archive.
+
+
+## Requirements to compile the source code
+
+Two Free Pascal units by [Károly Balogh (chainq)](https://github.com/chainq/mosquitto-p) are required. They are
 
 - `mosquitto.pas` - conversion of the C `mosquitto.h` header to Pascal, provides the same API as the C version
 - `mqttclass.pas` - Object Pascal wrapper class to ease the integration of libmosquitto into Object Oriented 
 
-These files, found in the [mosquitto-p](mosquitto-p/) directory, are copied from the [GitHub repository](https://github.com/chainq/mosquitto-p) with the same name by Károly Balogh (chainq).
+A slightly [modified version](mosquitto-p/README.md) is contained in the [mosquitto-p](mosquitto-p/) directory.
 
-In addition the  [Eclipse mosquitto](https://mosquitto.org/) library must be installed on the system.
+There is a further requirement in Linux: the `libmosquitto-dev` library. Install it with Synaptic or `apt` in Debian systems.
 
+```bash
+$ sudo apt install libmosquitto-dev
+```
 
-### 1.1. Linux
+Of course to run the application once it is compiled, the *libmosquito* library is required as explained in the previous section.
 
-The libmosquito library is needed. In Debian systems this means installing two packages:
--  `libmosquitto1`
--  `libmosquitto-dev`
-
-The first, `libmosquitto1` will probably already be installed if the mosquitto-clients package is available on the system. In Debian-based systems these packages can be installed with a package manager such as [Synaptic](http://www.nongnu.org/synaptic/) or from the command line.
-
-    $ sudo apt install libmosquitto1 libmosquitto-dev
-
-There is no requirement to install the mosquitto MQTT broker.
-
-### 1.2. Windows 10
-
-
-1. Get the latest binary package from [Eclipse mosquitto Download](https://mosquitto.org/download/). Version 2.0.10 is available as of May 5, 2021. Chose the appropriate 64-bit installer (`mosquitto-2.0.10-install-windows-x64.exe`) or 32-bit installer (`mosquitto-2.0.10-install-windows-x32.exe`). 
-
-2. Click on the downloaded application to install the package. It is not necessary to install it as a service if an MQTT broker is not needed. 
-
-> - The 64-bit package was installed in `C:\Program Files\mosquitto\`. 
-> - The 32-bit package will probably go into `C:\Program Files (x86)\mosquitto\`.
- 
- 3. Test the `mosquitto_sub` and `mosquitto_pub` utilities from the command line using the host name or IP address of a reachable MQTT broker instead of &lt;<i>mqtt_broker</i>&gt;. 
-
-<pre>
-   C:\Users\michel>"c:\Program Files\mosquitto\mosquitto_sub" -h &lt;<i>mqtt_broker</i>&gt; -t "#"
-</pre>
-
-4. Copy the mosquitto libraries <pre>
-        C:\Program Files\mosquitto\mosquitto.dll
-        C:\Program Files\mosquitto\mosquitto_dynamic_security.dll
-        C:\Program Files\mosquitto\libcrypto-1_1-x64.dll
-        C:\Program Files\mosquitto\libssl-1_1-x64.dll
-        C:\Program Files\mosquitto\mosquittopp.dll
-</pre> to the same folder containing the compiled `lazmqttc.exe` executable. Depending on use, they may not all be necessary, but the first two are needed without doubt. 
-
->> It is left as an exercise for knowledgable Windows users to find a more elegant way of ensuring that the DLLs are found.
-
-Ultimately, if a mosquitto MQTT broker is to be run on the system, it may make more sense to simply copy `lazmqttc.exe` into the `mosquitto` directory alongside the `mosquitto_rr.exe`, `mosquitto_pub.exe` and `mosquitto_sub.exe` utilities it emulates.
-
-<b>Warning:</b> The application seems to freeze when connecting to the localhost if it is not running an MQTT broker. 
-
-    [MQTT] [mqttClient] INFO Connecting to [localhost:1884] - SSL:False
-    [MQTT] [mqttClient] INFO Broker disconnected: Connection lost
-    [MQTT] [mqttClient] INFO Next reconnection attempt in 60 seconds.
-    [MQTT] [mqttClient] INFO Reconnecting to [localhost:1884] - SSL:False
-
-The first log entry will be shown right away, but it will take a minute or so before the following two entries are shown and the application responds normally. This behaviour was not observed in Linux and it may not be present if an MQTT broker is running on the local machine.
 
 ## 2. Compiling
 
@@ -106,25 +82,22 @@ When compiling a final version, it would be advisable to heed the following advi
 
 2. Compile the release version. Select the `Release` build mode in `Project / Project Options / Compiler Options` in the Lazarus IDE. This will reduce the size of the executable by an order of magnitude.
 
-## 3. Testing
-
-The project was built with Lazarus 2.2.0RC2 (Free Pascal 3.2.3) on a Mint 20.1 system with version 1.6.9-1 of the mosquitto libraries. 
-
-A cursory test was done with Lazarus 2.0.12 (Free Pascal 3.2.0) in Windows 10. 
-
-There are unit tests of the `TBroker` class, but they may be out of date.
-
-<b>Warning:</b> No testing of SSL encryption has been performed.
-
 ## 4. Installation
 
-The [installation](installation/) directory contains a `lazmqttc.desktop` file along with rudimentary instructions on how to install the utility in a Mint 20.1 Mate system. Presumably, installation in other Linux distributions would be more or less the same. 
+The [installation](installation/) directory contains a `lazmqttc.desktop` file along with rudimentary instructions on how to install the utility in a Linux Mint MATE system. Presumably, installation in other Linux distributions would be more or less the same. 
 
 Details about installation of an application in Windows 10 are unfortunately not provided.
 
-## 5. Program Options
+The [README](res/README.md) in the [res](res/) directory explains where the default options configuration file and the example broker definitions files must be stored in Linux or Windows 10.
 
-Starting with version 0.4.0, program options can be changed at runtime. Click on the `Options` button at the bottom right of the application window to enter the options editor.
+
+The `languages` directory contains national language translations of the literal strings found in the program. This directory should be copied alongside the executable file.
+
+Only a single translation into French is provided: `lazmqttc.fr.po`. However there is a template file, `lazmqttc.po`, that can be used to create a translation into other languages.
+
+The choice of language is done automatically based on the system locale when the program starts up. There is no provision for choosing the language at run-time. Those that prefer to use the English language version even if a translation into the national language exists can achieve their goal by renaming or erasing the `languages` directory.
+
+## 5. Program Options
 
 Modifying options (described next) has no immediate effect until the `Accept` button is pressed. In that case, the options editor will be immediately closed. The `Cancel` button will close the options editor with a prior verification that any modification will be lost. The `Reset` button will restore all options to their default values as defined in the `options.inc` file.
 
@@ -150,8 +123,7 @@ The `Received message header` and `Published message header` are used to define 
 
 The `Default broker` field can be entered to set a broker definition file that will be loaded when the program starts.
 
-
-## 6. Option Overrides at Runtime 
+### Option Overrides at Runtime 
 
 It is possible to override each of three messages options when the program is running.  
 
@@ -167,8 +139,11 @@ A change in a runtime override does not affect the corresponding messages option
 
 MQTT broker definitions can be retrieved, saved, edited or created by clicking on the **` Edit `** button at the top of the main program window. Editing the current MQTT definition is the only way to add, remove or change the list of subscribed topics. 
 
-MQTT broker definitions are JSON formatted text files. The [res](res/) directory contains examples of broker definition files.
+A double click anywhere in the Subscribe Topics grid, except in the `Use` column will topics grid will launch the MQTT broker editor, optinging the `Subscribe Topics` tab. 
 
+There are **` Load... `**  and **` Save.. `** buttons at the bottom of the broker editor window which makes it possible to load a definition file previously saved to disk into the editor and to save the current definition in the editor to a disk file. 
+
+The **` Accept `** button must be clicked to use the broker definition in the editor. When the button is activated, the definition in the editor is compared with the broker definition currently used by the application. If these two definitions are identical, then nothing happens, but if they differ at all, any connection with a broker is closed even if the broker address is the same. That way, all previously subscribed topics are erased from the broker and the new list of topics will be subscribed when the connection with the broker is reestablished.
 
 ### 7.1. Security Warning
 
@@ -180,25 +155,21 @@ Note that the MQTT user and password are transmitted in plain text over an HTTP 
 
 ## 8. Log
 
-Starting with version 0.5.0, the application log messages can be viewed. These are the messages produced by the `TMQTTConnection` object (defined in `mqttclass.pas` and the underlying Mosquitto library. The log level is set in the Log window context menu obtained with a right mouse button click.
+Application log messages produced by the `TMQTTConnection` object (defined in `mqttclass.pas` and the underlying Mosquitto library) and be viewed in the `Log` tab. The log level is set in the Log window context menu obtained with a right mouse button click.
 
 ![log screenshot](images/log.jpg)
 
 Unlike the usual implementation, in Linux at least, setting a log level does not set all levels with higher priority. In other words, each level can be set or reset independently. It seems that some levels are not implemented. For example, no messages are generated when topics are changed when the `subscribe` and `unsubscribe` log levels are set.
-
-## 9. National Language Support
-
-The `languages` directory contains national language translations of the literal strings found in the program. This directory should be copied alongside the executable file.
-
-Only a single translation into French is provided: `lazmqttc.fr.po`. However there is a template file, `lazmqttc.po`, that can be used to create a translation into other languages.
-
-The choice of language is done automatically based on the system locale when the program starts up. There is no provision for choosing the language at run-time. Those that prefer to use the English language version even if a translation into the national language exists can achieve their goal by renaming or erasing the `languages` directory.
 
 ## 10. Improvements and Development
 
 Initially this utility was quickly cobbled to fulfill an immediate need: wrangling a number of IoT devices running Tasmota firmware mostly to get their IP address. Since then, an attempt has been made to combine the important features of the mosquitto "pub and sub clients" into a single application. At the same time, some attention has been given to cleaning up the code, but improvements are certainly possible. All suggestions welcome.
 
 There are aspects of the MQTT protocol that are not implemented including the Last Will and Testament feature and clean sessions.
+
+## Recommendation
+
+Many have recommended [mqtt-spy](https://github.com/eclipse-paho/paho.mqtt-spy) but it is not easily installed. On the other hand, [MQTT Explorer](https://mqtt-explorer.com/) by Thomas Nordquist is very powerful and its AppImage is easily installed.
 
 ## 11. Acknowledgment
 

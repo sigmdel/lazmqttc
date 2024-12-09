@@ -1,7 +1,7 @@
 #!/usr/bin/env xdg-open
 
 [Desktop Entry]
-Version=0.5.3
+Version=0.5.4
 Encoding=UTF-8
 Type=Application
 Exec=/home/$USER/.local/bin/lazmqttc/lazmqttc

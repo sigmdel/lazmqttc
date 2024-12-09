@@ -1,6 +1,6 @@
 # Installation
 
-To install the compiled executable in Mint (MATE) (tested in versions 20.1 and 21.2) :
+To install the compiled executable in Mint (MATE) (tested in versions 20.1, 21.2 and 22) :
 
 1. Create a directory named `lazmqttc` somewhere in the search path such as in `~/.local/bin`.
 2. Copy the following files into that directory.
