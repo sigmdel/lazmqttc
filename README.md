@@ -12,24 +12,24 @@ The source code of this project is made available with the understanding that us
 
 <!-- TOC -->
 
-- [1. Requirements](#1-requirements)
+- [1. Requirements for running the binaries](#1-requirements-for-running-the-binaries)
   - [1.1. Linux](#11-linux)
-  - [1.2. Windows 10](#12-windows-10)
-- [2. Compiling](#2-compiling)
-- [3. Testing](#3-testing)
+  - [1.2. Windows](#12-windows)
+- [2. Requirements to compile the source code](#2-requirements-to-compile-the-source-code)
+- [3. Compiling](#3-compiling)
 - [4. Installation](#4-installation)
 - [5. Program Options](#5-program-options)
   - [5.1. Automatic Connection Options](#51-automatic-connection-options)
   - [5.2. Messages Options](#52-messages-options)
   - [5.3. Default Broker](#53-default-broker)
-- [6. Option Overrides at Runtime](#6-option-overrides-at-runtime)
-- [7. Broker Definitions](#7-broker-definitions)
-  - [7.1. Security Warning](#71-security-warning)
-- [8. Log](#8-log)
-- [9. National Language Support](#9-national-language-support)
-- [10. Improvements and Development](#10-improvements-and-development)
-- [11. Acknowledgment](#11-acknowledgment)
-- [12. Licence](#12-licence)
+  - [5.4. Option Overrides at Runtime](#54-option-overrides-at-runtime)
+- [6. Broker Definitions](#6-broker-definitions)
+  - [6.1. Security Warning](#61-security-warning)
+- [7. Log](#7-log)
+- [8. Improvements and Development](#8-improvements-and-development)
+- [9. Recommendations](#9-recommendations)
+- [10. Acknowledgment](#10-acknowledgment)
+- [11. Licence](#11-licence)
 
 <!-- /TOC -->
 
@@ -37,7 +37,7 @@ The source code of this project is made available with the understanding that us
 
 A recent version of the Eclipse mosquitto library must be installed. There is no need to install the Mosquitto MQTT broker.
 
-### Linux
+### 1.1. Linux
 
 The *libmosquito* library is needed. In Debian systems this means installing the `libmosquitto1` package with a package manager such as [Synaptic](http://www.nongnu.org/synaptic/) or from the command line with `apt`.
 
@@ -45,12 +45,12 @@ The *libmosquito* library is needed. In Debian systems this means installing the
 $ sudo apt install libmosquitto1
 ```
 
-### Windows 
+### 1.2. Windows 
 
 The needed `dll`s (`mosquitto.dll`, `mosquitto_dynamic_security.dll`, `libcrypto-1_1-x64.dll`, `libssl-1_1-x64.dll`, `mosquittopp.dll`) should be in the same directory containing the `lazmqttc.exe` executable. Versions 2.0.10 of these files are included in the `lazmqtt-0-5-4.zip` archive.
 
 
-## Requirements to compile the source code
+## 2. Requirements to compile the source code
 
 Two Free Pascal units by [Károly Balogh (chainq)](https://github.com/chainq/mosquitto-p) are required. They are
 
@@ -68,7 +68,7 @@ $ sudo apt install libmosquitto-dev
 Of course to run the application once it is compiled, the *libmosquito* library is required as explained in the previous section.
 
 
-## 2. Compiling
+## 3. Compiling
 
 The repository is self-contained (except for the mosquitto library of course), so creating this tool should be straightforward. Clone the repository, start the Lazarus IDE, load the project, and compile. 
 
@@ -123,7 +123,7 @@ The `Received message header` and the `Published message header` are used to def
 
 The `Default broker` field can be entered to set a broker definition file that will be loaded when the program starts.
 
-### Option Overrides at Runtime 
+### 5.4. Option Overrides at Runtime 
 
 It is possible to override each of three messages options when the program is running.  
 
@@ -135,14 +135,14 @@ It is possible to override each of three messages options when the program is ru
 
 A change in a runtime override does not affect the corresponding option in the configuration file, it only modifies the manner in which messages received from then on will be displayed. The default values in the options configuration file can only be changed in the `Options Editor` which is invoked with the *` Options `* button.
 
-## 7. Broker Definitions 
+## 6. Broker Definitions 
 
 MQTT broker definitions can be retrieved, saved, edited or created by clicking on the **` Edit `** button at the top of the main program window. Editing the current MQTT definition is the only way to add, remove or change the list of subscribed topics, but a double click anywhere in the Subscribe Topics grid, except in the `Use` column, is a shortcut to the `Subscribe Topics` tab  in the MQTT broker editor.
 
 
 The **` Accept `** button must be clicked to use the broker definition in the editor. When the button is activated, the definition in the editor is compared with the broker definition in use by the application. If these two definitions are identical, then nothing happens. If they differ at all, any connection with a broker is closed even if the broker address is the same. That way, all previously subscribed topics are erased from the broker and the new list of topics will be subscribed when the connection with the broker is reestablished.
 
-### 7.1. Security Warning
+### 6.1. Security Warning
 
 Prior to version 3.3, the MQTT broker passwords were stored in plain text in the broker definitions file. **Do not save MQTT broker passwords in the broker definition screen** in these older versions. 
 
@@ -150,7 +150,7 @@ A quick fix was added in version 3.3 so that an encrypted password will be saved
 
 Note that the MQTT user and password are transmitted in plain text over an HTTP connection, so truly secure handling of the MQTT password will have to wait until communication with the broker using the HTTPS protocol is implemented.
 
-## 8. Log
+## 7. Log
 
 Application log messages produced by the `TMQTTConnection` object (defined in `mqttclass.pas` and the underlying Mosquitto library) can be viewed in the `Log` tab. The log level is set in the Log window context menu obtained with a right mouse button click.
 
@@ -158,17 +158,17 @@ Application log messages produced by the `TMQTTConnection` object (defined in `m
 
 Unlike the usual implementation, in Linux at least, setting a log level does not set all levels with higher priority. In other words, each level can be set or reset independently. It seems that some levels are not implemented. For example, no messages are generated when topics are changed when the `subscribe` and `unsubscribe` log levels are set.
 
-## 10. Improvements and Development
+## 8. Improvements and Development
 
 Initially this utility was quickly cobbled to fulfill an immediate need: wrangling a number of IoT devices running Tasmota firmware mostly to get their IP address. Since then, an attempt has been made to combine the important features of the mosquitto "pub and sub clients" into a single application. At the same time, some attention has been given to cleaning up the code, but improvements are certainly possible. All suggestions welcome.
 
 There are aspects of the MQTT protocol that are not implemented including the Last Will and Testament feature and clean sessions.
 
-## Recommendation
+## 9. Recommendations
 
 Many have recommended [mqtt-spy](https://github.com/eclipse-paho/paho.mqtt-spy) but its installation is not straightforward. On the other hand, [MQTT Explorer](https://mqtt-explorer.com/) by Thomas Nordquist is very powerful and its AppImage is easily installed.
 
-## 11. Acknowledgment
+## 10. Acknowledgment
 
 Obviously, this utility would not have been possible without 
 
@@ -180,7 +180,7 @@ Not quite as obvious, the JSON data viewer by Michael Van Canneyt (named `jsonvi
 
 The broker password encryption using the <span class="tm">Free Pascal</span> Blowfish unit is based on a blog post by leledumbo [Blowfish, the cryptography unit by leledumbo](http://pascalgeek.blogspot.com/2012/06/encryption-decryption-and-asynchronous.html) (June 24, 2012).
 
-## 12. Licence
+## 11. Licence
 
 The [Eclipse Mosquitto](https://github.com/eclipse/mosquitto) project is dual-licensed under the Eclipse Public License 2.0 and the
 Eclipse Distribution License 1.0.
