@@ -47,7 +47,7 @@ $ sudo apt install libmosquitto1
 
 ### Windows 
 
-The needed `dll`s (`mosquitto.dll`, `mosquitto_dynamic_security.dll`, `libcrypto-1_1-x64.dll`, `libssl-1_1-x64.dll`, `mosquittopp.dll`) should be in the same directory containing the `lazmqttc.exe` executable. Versions 2.0.10 of these files are include in the `lazmqtt-0-5-4.zip` archive.
+The needed `dll`s (`mosquitto.dll`, `mosquitto_dynamic_security.dll`, `libcrypto-1_1-x64.dll`, `libssl-1_1-x64.dll`, `mosquittopp.dll`) should be in the same directory containing the `lazmqttc.exe` executable. Versions 2.0.10 of these files are included in the `lazmqtt-0-5-4.zip` archive.
 
 
 ## Requirements to compile the source code
@@ -57,7 +57,7 @@ Two Free Pascal units by [Károly Balogh (chainq)](https://github.com/chainq/mos
 - `mosquitto.pas` - conversion of the C `mosquitto.h` header to Pascal, provides the same API as the C version
 - `mqttclass.pas` - Object Pascal wrapper class to ease the integration of libmosquitto into Object Oriented 
 
-A slightly [modified version](mosquitto-p/README.md) is contained in the [mosquitto-p](mosquitto-p/) directory.
+A slightly [modified version](mosquitto-p/README.md) is used and contained in the [mosquitto-p](mosquitto-p/) directory.
 
 There is a further requirement in Linux: the `libmosquitto-dev` library. Install it with Synaptic or `apt` in Debian systems.
 
@@ -76,7 +76,7 @@ The project uses a custom component, a "virtual grid" to display subscribed topi
 
 When compiling a final version, it would be advisable to heed the following advice.
 
-1. Modify the default password encryption key 'DEFAULT_KEY' in the 'units/pwd.pas' file. That way it will not be easy for any one of the vast number of users of this application to read a broker definition file and obtain the MQTT broker password. See [5.1. Security Warning](#51-security-warning) for more details.
+1. Modify the default password encryption key 'DEFAULT_KEY' in the 'units/pwd.pas' file. That way it will not be easy for any one of the vast numbers of users of this application to read a broker definition file and obtain the MQTT broker password. See [5.1. Security Warning](#51-security-warning) for more details.
 
 1. Add an application icon. Select `Load Icon` in `Project / Project Options` in the Lazarus IDE. The `lazmqttc.png` image the `images` directory can be used. The file `lazmqtt.lzp` is the [LazPaint](https://lazpaint.github.io/) source for the image file. 
 
@@ -88,18 +88,18 @@ The [installation](installation/) directory contains a `lazmqttc.desktop` file a
 
 Details about installation of an application in Windows 10 are unfortunately not provided.
 
-The [README](res/README.md) in the [res](res/) directory explains where the default options configuration file and the example broker definitions files must be stored in Linux or Windows 10.
+The [README](res/README.md) in the [res](res/) directory explains where the default options configuration file and the example broker definition files must be stored in Linux or Windows 10.
 
 
 The `languages` directory contains national language translations of the literal strings found in the program. This directory should be copied alongside the executable file.
 
-Only a single translation into French is provided: `lazmqttc.fr.po`. However there is a template file, `lazmqttc.po`, that can be used to create a translation into other languages.
+Only a single translation into French is provided: `lazmqttc.fr.po`. However there is a template file, `lazmqttc.pot`, that can be used to create a translation into other languages.
 
 The choice of language is done automatically based on the system locale when the program starts up. There is no provision for choosing the language at run-time. Those that prefer to use the English language version even if a translation into the national language exists can achieve their goal by renaming or erasing the `languages` directory.
 
 ## 5. Program Options
 
-Modifying options (described next) has no immediate effect until the `Accept` button is pressed. In that case, the options editor will be immediately closed. The `Cancel` button will close the options editor with a prior verification that any modification will be lost. The `Reset` button will restore all options to their default values as defined in the `options.inc` file.
+Modifying options (described next) has no immediate effect until the `Accept` button is pressed. In that case, the options editor will be immediately closed. The `Cancel` button will close the options editor after confirmation that modification will be lost is obtained. The `Reset` button will restore all options to their default values as defined in the `options.inc` file.
 
 ### 5.1. Automatic Connection Options
 
@@ -117,7 +117,7 @@ If `Show published messages` is checked then published messages are added in the
 
 If `Show message topics` is not checked then only message payloads are shown in the `Messages` control. When shown, topics are enclosed in square brackets [&lt;*topic*&gt;].
 
-The `Received message header` and `Published message header` are used to define prefixes that identify which messages are sent and which are received.
+The `Received message header` and the `Published message header` are used to define prefixes that identify which messages are sent and which are received.
 
 ### 5.3. Default Broker 
 
@@ -133,17 +133,14 @@ It is possible to override each of three messages options when the program is ru
 |`Show`|`Show published messages`|
 |`Show topics`|`Show message topics`|
 
-A change in a runtime override does not affect the corresponding messages option, it only modifies the manner in which messages received from then on will be displayed. Messages options are default values for the option overrides loaded when the program starts. These default can only be changed in the `Options` window.
+A change in a runtime override does not affect the corresponding option in the configuration file, it only modifies the manner in which messages received from then on will be displayed. The default values in the options configuration file can only be changed in the `Options Editor` which is invoked with the *` Options `* button.
 
 ## 7. Broker Definitions 
 
-MQTT broker definitions can be retrieved, saved, edited or created by clicking on the **` Edit `** button at the top of the main program window. Editing the current MQTT definition is the only way to add, remove or change the list of subscribed topics. 
+MQTT broker definitions can be retrieved, saved, edited or created by clicking on the **` Edit `** button at the top of the main program window. Editing the current MQTT definition is the only way to add, remove or change the list of subscribed topics, but a double click anywhere in the Subscribe Topics grid, except in the `Use` column, is a shortcut to the `Subscribe Topics` tab  in the MQTT broker editor.
 
-A double click anywhere in the Subscribe Topics grid, except in the `Use` column will topics grid will launch the MQTT broker editor, optinging the `Subscribe Topics` tab. 
 
-There are **` Load... `**  and **` Save.. `** buttons at the bottom of the broker editor window which makes it possible to load a definition file previously saved to disk into the editor and to save the current definition in the editor to a disk file. 
-
-The **` Accept `** button must be clicked to use the broker definition in the editor. When the button is activated, the definition in the editor is compared with the broker definition currently used by the application. If these two definitions are identical, then nothing happens, but if they differ at all, any connection with a broker is closed even if the broker address is the same. That way, all previously subscribed topics are erased from the broker and the new list of topics will be subscribed when the connection with the broker is reestablished.
+The **` Accept `** button must be clicked to use the broker definition in the editor. When the button is activated, the definition in the editor is compared with the broker definition in use by the application. If these two definitions are identical, then nothing happens. If they differ at all, any connection with a broker is closed even if the broker address is the same. That way, all previously subscribed topics are erased from the broker and the new list of topics will be subscribed when the connection with the broker is reestablished.
 
 ### 7.1. Security Warning
 
@@ -155,7 +152,7 @@ Note that the MQTT user and password are transmitted in plain text over an HTTP 
 
 ## 8. Log
 
-Application log messages produced by the `TMQTTConnection` object (defined in `mqttclass.pas` and the underlying Mosquitto library) and be viewed in the `Log` tab. The log level is set in the Log window context menu obtained with a right mouse button click.
+Application log messages produced by the `TMQTTConnection` object (defined in `mqttclass.pas` and the underlying Mosquitto library) can be viewed in the `Log` tab. The log level is set in the Log window context menu obtained with a right mouse button click.
 
 ![log screenshot](images/log.jpg)
 
@@ -169,7 +166,7 @@ There are aspects of the MQTT protocol that are not implemented including the La
 
 ## Recommendation
 
-Many have recommended [mqtt-spy](https://github.com/eclipse-paho/paho.mqtt-spy) but it is not easily installed. On the other hand, [MQTT Explorer](https://mqtt-explorer.com/) by Thomas Nordquist is very powerful and its AppImage is easily installed.
+Many have recommended [mqtt-spy](https://github.com/eclipse-paho/paho.mqtt-spy) but its installation is not straightforward. On the other hand, [MQTT Explorer](https://mqtt-explorer.com/) by Thomas Nordquist is very powerful and its AppImage is easily installed.
 
 ## 11. Acknowledgment
 
@@ -193,18 +190,3 @@ The content of the `mosquito-p` repository is covered by the ISC License ([SPDX]
 Except for `eye.png` and `no_eye.png`, the icons used in the broker editor form were copied from the [Lazarus](https://www.lazarus-ide.org/) distribution which is provided under a modified LGPL licence (see COPYING.modifiedLGPL.txt in the Lazarus source tree. The source of the check list box editor (also covered by the modified LGPL licence) in the Lazarus IDE was the initial inspiration for the subscribed topics editor. 
 
 The **BSD Zero Clause** ([SPDX](https://spdx.dev/): [0BSD](https://spdx.org/licenses/0BSD.html)) licence applies to the original code in this repository.
-
-
-<!-- KeepAlives
-
-https://github.com/knolleary/pubsubclient/issues/239
-Keepalive timeout for default MQTT Broker is 10s, pubsubclient is default set to 15s?
-
-nestor@domo:~ $ man mosquitto.conf
-... 
-keepalive_interval seconds
-           Set the number of seconds after which the bridge should send a ping
-           if no other traffic has occurred. Defaults to 60. A minimum value
-           of 5 seconds is allowed.
-
--->
