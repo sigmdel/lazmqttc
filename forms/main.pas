@@ -181,6 +181,7 @@ end;
 procedure TThisMQTTConnection.UpdateGUI;
 var
   outs: string;
+  carpos: TPoint;
 begin
    with MainForm.MessagesMemo do begin
      if gvClearMessageMemo then begin
@@ -206,8 +207,11 @@ begin
        gvPubMessagePayload := '';
      end;
      Lines.Add(FThisMessage);
-     SelStart := Lines.Text.Length-1;
-     SelLength := 1;
+     // Scroll to end of messages but don't scroll horizontally
+     // Setting caret seems to work better, at least in GTK
+     carpos := CaretPos;
+     carpos.X := 0;
+     CaretPos := carpos;
   end;
 end;
 
