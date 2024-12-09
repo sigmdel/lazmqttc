@@ -6,6 +6,7 @@ object MainForm: TMainForm
   Caption = 'MQTT Client'
   ClientHeight = 402
   ClientWidth = 605
+  LCLVersion = '4.99.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
@@ -49,15 +50,15 @@ object MainForm: TMainForm
       BorderSpacing.Top = 6
       BorderSpacing.Bottom = 6
       Caption = 'Edit'
-      OnClick = EditBrokerButtonClick
       TabOrder = 0
+      OnClick = EditBrokerButtonClick
     end
     object statusLabel: TLabel
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = EditBrokerButton
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = ConnectButton
-      Left = 513
+      Left = 518
       Height = 1
       Top = 18
       Width = 1
@@ -71,17 +72,17 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = TopPanel
       AnchorSideRight.Side = asrBottom
-      Left = 520
-      Height = 26
-      Top = 5
-      Width = 79
+      Left = 525
+      Height = 24
+      Top = 6
+      Width = 74
       Anchors = [akTop, akRight]
       AutoSize = True
       BorderSpacing.Right = 6
       BorderSpacing.Bottom = 6
       Caption = 'Disconnect'
-      OnClick = ConnectButtonClick
       TabOrder = 1
+      OnClick = ConnectButtonClick
     end
     object HostLabel: TLabel
       AnchorSideLeft.Control = EditBrokerButton
@@ -92,7 +93,7 @@ object MainForm: TMainForm
       Left = 87
       Height = 16
       Top = 10
-      Width = 420
+      Width = 425
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Left = 6
       BorderSpacing.Right = 6
@@ -137,8 +138,8 @@ object MainForm: TMainForm
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Top = 6
       BorderSpacing.Right = 6
-      OnEditingDone = PublishTopicEditEditingDone
       TabOrder = 0
+      OnEditingDone = PublishTopicEditEditingDone
     end
     object PayloadMemo: TMemo
       AnchorSideLeft.Control = Label4
@@ -149,7 +150,7 @@ object MainForm: TMainForm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = QoSComboBox
       Left = 59
-      Height = 45
+      Height = 41
       Top = 40
       Width = 540
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -157,9 +158,9 @@ object MainForm: TMainForm
       BorderSpacing.Top = 6
       BorderSpacing.Right = 6
       BorderSpacing.Bottom = 6
-      OnEditingDone = PayloadMemoEditingDone
       ScrollBars = ssAutoVertical
       TabOrder = 1
+      OnEditingDone = PayloadMemoEditingDone
     end
     object Label4: TLabel
       AnchorSideLeft.Control = Label3
@@ -178,18 +179,18 @@ object MainForm: TMainForm
       AnchorSideRight.Control = CopyPubCheckbox
       AnchorSideBottom.Control = MiddlePanel
       AnchorSideBottom.Side = asrBottom
-      Left = 475
-      Height = 26
-      Top = 90
-      Width = 57
+      Left = 484
+      Height = 24
+      Top = 89
+      Width = 52
       Anchors = [akTop, akRight]
       AutoSize = True
       BorderSpacing.Left = 6
       BorderSpacing.Top = 6
       BorderSpacing.Right = 6
       Caption = 'Publish'
-      OnClick = PublishButtonClick
       TabOrder = 4
+      OnClick = PublishButtonClick
     end
     object Label5: TLabel
       AnchorSideLeft.Control = Label3
@@ -197,8 +198,8 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       Left = 6
       Height = 16
-      Top = 95
-      Width = 139
+      Top = 93
+      Width = 138
       Caption = 'Quality of service (QoS)'
       Layout = tlCenter
       ParentColor = False
@@ -209,27 +210,27 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrCenter
       AnchorSideBottom.Control = MiddlePanel
       AnchorSideBottom.Side = asrBottom
-      Left = 151
-      Height = 24
-      Top = 91
+      Left = 150
+      Height = 28
+      Top = 87
       Width = 149
       Anchors = [akLeft, akBottom]
       BorderSpacing.Left = 6
       BorderSpacing.Bottom = 3
-      ItemHeight = 24
-      OnChange = QoSComboBoxChange
+      ItemHeight = 0
       Style = csDropDownList
       TabOrder = 2
+      OnChange = QoSComboBoxChange
     end
     object Label6: TLabel
       AnchorSideLeft.Control = QoSComboBox
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = QoSComboBox
       AnchorSideTop.Side = asrCenter
-      Left = 318
+      Left = 317
       Height = 16
-      Top = 95
-      Width = 39
+      Top = 93
+      Width = 38
       BorderSpacing.Left = 18
       Caption = 'Retain'
       Layout = tlCenter
@@ -240,25 +241,25 @@ object MainForm: TMainForm
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = QoSComboBox
       AnchorSideTop.Side = asrCenter
-      Left = 364
+      Left = 362
       Height = 21
-      Top = 93
-      Width = 66
+      Top = 91
+      Width = 60
       BorderSpacing.Left = 7
       Caption = '(false)'
-      OnChange = RetainCheckBoxChange
       TabOrder = 3
+      OnChange = RetainCheckBoxChange
     end
     object CopyPubCheckbox: TCheckBox
       AnchorSideTop.Control = RetainCheckBox
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = MiddlePanel
       AnchorSideRight.Side = asrBottom
-      Left = 538
+      Left = 542
       Height = 21
       Hint = 'Copy the message in the Messages window'
-      Top = 93
-      Width = 61
+      Top = 91
+      Width = 57
       Alignment = taLeftJustify
       Anchors = [akTop, akRight]
       BorderSpacing.Right = 6
@@ -314,18 +315,18 @@ object MainForm: TMainForm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = BottomPanel
       AnchorSideBottom.Side = asrBottom
-      Left = 559
-      Height = 26
-      Top = 142
-      Width = 40
+      Left = 565
+      Height = 24
+      Top = 144
+      Width = 34
       Anchors = [akRight, akBottom]
       AutoSize = True
       BorderSpacing.Top = 4
       BorderSpacing.Right = 6
       BorderSpacing.Bottom = 5
       Caption = 'Quit'
+      TabOrder = 4
       OnClick = QuitButtonClick
-      TabOrder = 0
     end
     object ShowTopicsCheckBox: TCheckBox
       AnchorSideLeft.Control = BottomPanel
@@ -335,24 +336,24 @@ object MainForm: TMainForm
       AnchorSideBottom.Side = asrCenter
       Left = 6
       Height = 21
-      Top = 144
-      Width = 100
+      Top = 145
+      Width = 96
       Anchors = [akLeft, akBottom]
       BorderSpacing.Left = 6
       Caption = 'Show topics'
       Checked = True
-      OnChange = ShowTopicsCheckBoxChange
       State = cbChecked
       TabOrder = 1
+      OnChange = ShowTopicsCheckBoxChange
     end
     object SourceLabel: TLabel
       AnchorSideTop.Control = QuitButton
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = OptionsButton
       Cursor = crHandPoint
-      Left = 406
+      Left = 417
       Height = 22
-      Top = 144
+      Top = 145
       Width = 62
       Alignment = taRightJustify
       Anchors = [akTop, akRight]
@@ -370,10 +371,10 @@ object MainForm: TMainForm
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = ShowTopicsCheckBox
       AnchorSideTop.Side = asrCenter
-      Left = 112
+      Left = 108
       Height = 21
-      Top = 144
-      Width = 90
+      Top = 145
+      Width = 85
       BorderSpacing.Left = 6
       Caption = 'Auto clear'
       TabOrder = 2
@@ -383,37 +384,37 @@ object MainForm: TMainForm
       AnchorSideTop.Control = QuitButton
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = QuitButton
-      Left = 492
-      Height = 26
-      Top = 142
-      Width = 61
+      Left = 503
+      Height = 24
+      Top = 144
+      Width = 56
       Anchors = [akTop, akRight]
       AutoSize = True
       BorderSpacing.Right = 6
       Caption = 'Options'
-      OnClick = OptionsButtonClick
       TabOrder = 3
+      OnClick = OptionsButtonClick
     end
     object PageControl1: TPageControl
       AnchorSideBottom.Control = QuitButton
       Left = 0
-      Height = 138
+      Height = 140
       Top = 0
       Width = 605
       ActivePage = TabSheet1
       Align = alTop
       Anchors = [akTop, akLeft, akRight, akBottom]
       TabIndex = 0
-      TabOrder = 4
+      TabOrder = 0
       object TabSheet1: TTabSheet
         Caption = 'Messages'
-        ClientHeight = 106
-        ClientWidth = 601
+        ClientHeight = 109
+        ClientWidth = 595
         object MessagesMemo: TMemo
           Left = 0
-          Height = 106
+          Height = 112
           Top = 0
-          Width = 601
+          Width = 595
           Align = alClient
           Font.Height = -15
           Font.Name = 'Ubuntu Mono'
@@ -426,13 +427,13 @@ object MainForm: TMainForm
       end
       object TabSheet2: TTabSheet
         Caption = 'Log'
-        ClientHeight = 106
-        ClientWidth = 601
+        ClientHeight = 109
+        ClientWidth = 595
         object LogMemo: TMemo
           Left = 0
-          Height = 106
+          Height = 112
           Top = 0
-          Width = 601
+          Width = 595
           Align = alClient
           Font.Pitch = fpFixed
           ParentFont = False

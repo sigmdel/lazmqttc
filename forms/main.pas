@@ -130,8 +130,8 @@ type
     procedure UpdateConnectionState;
     procedure UpdateFormOptions;
   public
-
     TopicsGrid: TSubTopicsGrid;
+    procedure TopicsGridDblClick(Sender: TObject);
     procedure TopicsGridSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
     procedure TopicsGridSetUse(Sender: TObject; aCol, aRow: Integer; const aState: TCheckboxState);
   end;
@@ -297,8 +297,14 @@ begin
 end;
 
 procedure TMainForm.EditBrokerButtonClick(Sender: TObject);
+var
+  pg: integer;
 begin
-  if TBrokerEditForm.EditBroker(Broker) then begin
+  if (Sender = EditBrokerButton) then
+    pg := 0
+  else
+    pg := 4;
+  if TBrokerEditForm.EditBroker(Broker, pg) then begin
     freeandnil(MqttClient);
     RefreshGUI;
   end;
@@ -326,6 +332,7 @@ begin
     Columns[1].Title.Caption := sSubscribeColumnTitle;
     OnSelectCell := @TopicsGridSelectCell;
     OnSetCheckboxState := @TopicsGridSetUse;
+    OnDblClick := @TopicsGridDblClick;
     //TabOrder = 1
   end;
   FLogLevel := DEFAULT_LOG_LEVEL;
@@ -591,6 +598,23 @@ begin
   TopicsGrid.Invalidate; // needed in Mint 20 Mate at least
 end;
 
+
+
+procedure TMainForm.TopicsGridDblClick(Sender: TObject);
+var
+  pt: TPoint;
+begin
+  {$push}{$warn 5057 off}
+  if not getCursorPos(pt) then exit;
+  {$pop}
+  pt := TopicsGrid.ScreenToClient(pt);
+  // test if the dbl click is in a col > 0
+  if (pt.x > TopicsGrid.ColWidths[0]) then
+    EditBrokerButtonClick(Sender);
+  // test for dbl clicked in top row only
+  //   if (pt.y < TopicsGrid.DefaultRowHeight) then
+end;
+
 procedure TMainForm.TopicsGridSelectCell(Sender: TObject; aCol, aRow: Integer;
   var CanSelect: Boolean);
 begin
@@ -607,16 +631,22 @@ begin
   if (aCol=0) and (aRow > 0) and (aRow <= Broker.SubTopicsCount) then begin
     doUse := aState = cbChecked;
     with Broker.SubTopics[aRow-1] do begin
-      Use := doUse;
       if ClientState = mqttConnected then begin
-        if doUse then
-          MqttClient.Subscribe(topic, qos)
-        else
+        if doUse then begin
+          if (MqttClient.Subscribe(topic, qos) = 0) then
+            Use := true
+          else
+            LogMemo.Lines.add('Cannot subscribe to %s (is there a "?")', [topic]);
+        end
+        else begin
           MqttClient.Unsubscribe(topic);
-      end;
-    end;
+          Use := false;
+        end;
+      end; // if connected
+    end; // with
   end;
 end;
+
 
 procedure TMainForm.UpdateConnectionState;
 var

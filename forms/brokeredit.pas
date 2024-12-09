@@ -106,7 +106,7 @@ type
     procedure UpdateView;
   public
     TopicsGrid: TSubTopicsGrid;
-    class function EditBroker(aBroker: TBroker): boolean;
+    class function EditBroker(aBroker: TBroker; pg: integer = 0): boolean;
   end;
 
 
@@ -121,13 +121,14 @@ uses
 
 { TBrokerEditForm }
 
-class function TBrokerEditForm.EditBroker(aBroker: TBroker): boolean;
+class function TBrokerEditForm.EditBroker(aBroker: TBroker; pg: integer): boolean;
 begin
   with TBrokerEditForm.Create(application) do begin
     FBroker.Assign(aBroker);
     FSource := aBroker;
+    ListBox1.ItemIndex := pg;
+    Notebook.PageIndex := pg;
     UpdateView;
-    ListBox1.ItemIndex := 0;
     result := ShowModal = mrOk;
   end;
 end;
